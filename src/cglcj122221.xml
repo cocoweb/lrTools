@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taxML xsi:type="fpcglcjTyXmldyywbw" bbh="String" xmlbh="String" xmlmc="String" xsi:schemaLocation="http://www.chinatax.gov.cn/dataspec/cgltycj.xsd" xmlns="http://www.chinatax.gov.cn/dataspec/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<fpcglcjTyGrid xmlns="">
+		<fpcglcjTyGridlb>
+			<fpzlDm>000002300600</fpzlDm>
+			<fpDm>144001401134</fpDm>
+			<fphm>02368712</fphm>
+			<fpkjqkDm>10</fpkjqkDm>
+			<kprq>2014-12-10</kprq>
+			<fkfsfsbh/>
+			<fkfmc>李先生</fkfmc>
+			<skfsfsbh>440100050611803</skfsfsbh>
+			<skfmc>广州起力信息科技有限公司</skfmc>
+			<tycgluuid/>
+			<lrrDm/>
+			<hwlwmc>食品</hwlwmc>
+			<jehj>9000.00</jehj>
+			<xgrDm/>
+			<sfskskjkj>2</sfskskjkj>
+			<cglcjfpyjuuid/>
+			<fpcglcjuuid/>
+			<phcd/>
+			<zfbz1/>
+		</fpcglcjTyGridlb>
+	</fpcglcjTyGrid>
+</taxML>

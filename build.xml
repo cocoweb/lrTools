@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="TestForEjb">
+	<property file="build.properties"/> 
+	<property environment="env" />
+	<!--property name="lr_src.link" value="../lr java/src" /-->
+	<property name="ECLIPSE_HOME" value="E:/java/eclipse-standard-luna-R-win32-x86_64/eclipse/" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+	<path id="TestForEjb.classpath">
+		<pathelement location="bin" />
+		<pathelement location="lib/weblogic-t3client-10.3.3.0.jar" />
+	</path>
+	<target name="init">
+		<mkdir dir="bin" />
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="${lr_src.link}">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+	<target depends="build-project" name="build" />
+	<target name="build-subprojects" />
+	<target depends="init" name="build-project">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+			<src path="src" />
+			<!--src path="${lr_src.link}" /-->
+			<classpath refid="TestForEjb.classpath" />
+		</javac>
+	</target>
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
+	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+		<copy todir="${ant.library.dir}">
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</copy>
+		<unzip dest="${ant.library.dir}">
+			<patternset includes="jdtCompilerAdapter.jar" />
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</unzip>
+	</target>
+	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+		<antcall target="build" />
+	</target>
+	<target name="lrTools">
+		<java classname="lrTestool.lrTools" failonerror="true" fork="yes">
+			<classpath refid="TestForEjb.classpath" />
+		</java>
+	</target>
+	<tstamp/>
+	<property name="jardir" value="${basedir}/out/"/>
+	<target name="jar.all" depends="jar.lrtools,jar.ejbclient">
+	</target>
+	
+	<!--property name="jarfile.lrtools" value="loadtestools-0.9-${DSTAMP}${TSTAMP}.jar"/-->
+	<property name="jarfile.lrtools" value="loadtestools-1.0.jar"/>
+	<property name="jarfile.ejbclient" value="com.foresee.etax.ejbclient.jar"/>
+    <pathconvert property="mf.classpath" pathsep=" ">
+          <mapper>
+              <chainedmapper>
+                  <flattenmapper />
+                  <globmapper from="*" to="lib/*" />
+              </chainedmapper>
+          </mapper>
+          <path refid="TestForEjb.classpath" />
+    </pathconvert>
+
+	<target name="jar.lrtools" depends="">
+		<echo message="*****开始创建Jar包-lrTestool************** " />
+		<jar jarfile="${jardir}${jarfile.lrtools}" basedir="${basedir}\bin">
+			<exclude name="com/foresee/etax/" />
+			<exclude name="lrTestool/olds/" />
+			<exclude name="lrTestool/test/" />
+			<exclude name="lrTestool/testng/" />
+			<exclude name="gt3/" />
+			<exclude name="org/" />
+			<exclude name="**/*.properties" />
+			<exclude name="**/*.xml" />
+			<exclude name="**/*.MF" />
+			<manifest>
+				<attribute name="Main-Class" value="lrTestool.lrTools"/>
+				<attribute name="Class-Path" value="./ ${jarfile.ejbclient}"/>
+			</manifest>
+		</jar>
+		
+	</target>
+	
+	<target name="jar.ejbclient" depends="">
+		<echo message="*****开始创建Jar包-ejbClient************** " />
+		<jar jarfile="${jardir}${jarfile.ejbclient}" basedir="${basedir}\bin">
+			<exclude name="com/foresee/test/" />
+			<exclude name="**/*.properties" />
+			<exclude name="**/*.xml" />
+			<exclude name="**/*.MF" />
+			<exclude name="lrTestool/" />
+			<manifest>
+				<attribute name="Class-Path" value="."/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<property name="deploydir" value="F:/Products File/金三/workspace/lr java1/libs"/>
+	<tstamp/>
+	<property name="zipfile" value="${jardir}loadtestools-1.0-${DSTAMP}${TSTAMP}.zip"/>
+	<target name="deploy.clean">
+		<echo message="***** 清理发布目录************** " />
+		<delete dir="${deploydir}" />
+	</target>
+	<target name="deploy" depends="jar.all,deploy.clean">
+		<mkdir dir="${deploydir}" />
+		<copy todir="${deploydir}">
+			<fileset dir="${jardir}" includes="${jarfile.lrtools}" />
+			<fileset dir="${jardir}" includes="${jarfile.ejbclient}" />
+			<fileset dir="${basedir}\bin" includes="**/*.xml" />
+			<fileset dir="${basedir}\bin" includes="**/*.properties" />
+			<fileset dir="${basedir}\lib" includes="**/*.jar" />
+		</copy>
+		<zip destfile="${zipfile}">
+			<fileset dir="${deploydir}"  includes="**/*"/>
+		</zip>
+		
+	</target>
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+	<target depends="clean" name="cleanall" />
+    <target name="test">
+    	<echo message="${zipfile}" />  
+    </target>
+
+</project>
