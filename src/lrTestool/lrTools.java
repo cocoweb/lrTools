@@ -165,7 +165,7 @@ public class lrTools {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String sXML = lrTools.loadXmlByKey("HXZGSB00002Request");
+		String sXML = lrTools.loadXmlByKey("zzssyyybnsr_zb");
 		
 		//System.out.println(XmlDefinition.getValueByName("SWZJ.HXZG.SB.ZZSXGMSBSQJKJHQQCSJ"));
 

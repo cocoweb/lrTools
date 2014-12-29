@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="com/foresee/test/api/|org/dtools/ini/|lrTestool/olds/|lrTestool/test/" kind="src" path="src"/>
+	<classpathentry including="*.java" kind="src" path="wblibs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fbrp_libs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/xlibs"/>

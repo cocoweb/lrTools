@@ -2522,6 +2522,27 @@ public final class StringUtil {
 		return buf.toString();
 	}
 
+    public static String ConvertCharset(String inStr,String srcCharset){
+        return ConvertCharset(inStr,srcCharset,"UTF-8");
+    }
+    
+    public static String ConvertCharset(String inStr){
+        return ConvertCharset(inStr,"GBK");
+    }
+    public static String ConvertCharset(String inStr,String srcCharset,String targetCharset){
+        String xstr =null;
+        try {
+            
+            xstr = new String(inStr.getBytes(srcCharset),targetCharset);
+        } catch (UnsupportedEncodingException e) {
+            
+            e.printStackTrace();
+        }
+        return xstr;
+    }
+
+	
+	
 //String String.prototype.replaceAll2 = function(String s1,String s2) { 
 //    return this.replace(new RegExp(s1,"gm"),s2); 
 //}
