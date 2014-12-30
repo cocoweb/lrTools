@@ -1,4 +1,4 @@
-package lrTestool.olds;
+package lrTestool;
 
 public class CacheManager {
 	volatile static CacheManager mapCacheObject;// 缓存实例对象

@@ -1,16 +1,11 @@
 package com.foresee.test.loadrunner;
 
-import java.io.UnsupportedEncodingException;
-import java.util.UUID;
-
 import lrTestool.lrTools;
 import lrapi.lr;
 import lrapi.web;
 
-import com.foresee.test.util.CommonUtil;
 import com.foresee.test.util.FileUtil;
 import com.foresee.test.util.StringUtil;
-import com.foresee.test.util.URIUtil;
 
 public class ActionsCommon extends LrActionClass
 {
