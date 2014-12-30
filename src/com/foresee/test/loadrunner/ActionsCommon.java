@@ -9,6 +9,7 @@ import lrapi.web;
 
 import com.foresee.test.util.CommonUtil;
 import com.foresee.test.util.FileUtil;
+import com.foresee.test.util.StringUtil;
 import com.foresee.test.util.URIUtil;
 
 public class ActionsCommon extends LrActionClass
@@ -35,9 +36,6 @@ public class ActionsCommon extends LrActionClass
 
     }
 
-    public static String getUUID(){
-       return UUID.randomUUID().toString().trim();
-    }
 
     /**
      * 调用模板,直接Copy,然后填空
@@ -155,7 +153,7 @@ public class ActionsCommon extends LrActionClass
     		"Url=/skin/gdgs/Style/yellow/images/common/dot02.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
     		LAST});
     
-    	reportOut((lr.eval_int("{cxCount}") > 0), "申报征收1_首页",ConvertCharset(lr.eval_string("{retStr}")),timer);
+    	LoadrunnerUtil.reportOut((lr.eval_int("{cxCount}") > 0), "申报征收1_首页",StringUtil.ConvertCharset(lr.eval_string("{retStr}")),timer);
 
 
     }
@@ -235,9 +233,9 @@ public class ActionsCommon extends LrActionClass
 		    		"Name=sid", "Value=ETax.SB.sbInit.GdgsZzsYbnsr", ENDITEM, 
 		    		LAST});
 		    	
-		    	//reportOut(true, "申报征收2上传页面",ConvertCharset(lr.eval_string("{retStr}")),timer);
+		    	//LoadrunnerUtil.reportOut(true, "申报征收2上传页面",StringUtil.StringUtil.ConvertCharset(lr.eval_string("{retStr}")),timer);
 		        
-		    	this.OutString= ConvertCharset(lr.eval_string("{retStr}"));
+		    	this.OutString= StringUtil.ConvertCharset(lr.eval_string("{retStr}"));
 		        
 		        return true;
 		    }});
@@ -341,9 +339,9 @@ public class ActionsCommon extends LrActionClass
                 "Name=sid", "Value=ETax.SB.infoFileUpload.GdgsZzsYbnsr", ENDITEM, 
                 LAST});
   
-        reportOut((lr.eval_int("{ret_sbCount}") > 0), "申报文件上传",
+        LoadrunnerUtil.reportOut((lr.eval_int("{ret_sbCount}") > 0), "申报文件上传",
         		lr.eval_string("pzxh:[{ret_pzxh}]  ")+
-        		ConvertCharset(lr.eval_string("{retStr}")),timer);
+        		StringUtil.ConvertCharset(lr.eval_string("{retStr}")),timer);
     }
     
 
@@ -483,7 +481,7 @@ public class ActionsCommon extends LrActionClass
             "Name=sid", "Value=ETax.ZS.SfxyCx.GdgsQjsk", ENDITEM, 
             LAST});
         
-        reportOut((lr.eval_int("{ret_sfxyhCount}") > 0), "缴款1_获取欠税信息",lr.eval_string("{ret_sfxyh}"),timer);
+        LoadrunnerUtil.reportOut((lr.eval_int("{ret_sfxyhCount}") > 0), "缴款1_获取欠税信息",lr.eval_string("{ret_sfxyh}"),timer);
 
     }
     
@@ -540,9 +538,9 @@ public class ActionsCommon extends LrActionClass
 		    		"Name=sid", "Value=ETax.ZS.qj.GdgsQjsk", ENDITEM, 
 		    		 LAST});
 	    
-	    	//reportOut((lr.eval_int("{ret_spHMCount}") > 0), "缴款2_网上缴税",ConvertCharset(lr.eval_string("{retStr}"),"ISO-8859-1"),timer);
+	    	//LoadrunnerUtil.reportOut((lr.eval_int("{ret_spHMCount}") > 0), "缴款2_网上缴税",StringUtil.ConvertCharset(lr.eval_string("{retStr}"),"ISO-8859-1"),timer);
 		        
-		        this.OutString = ConvertCharset(lr.eval_string("{retStr}"),"ISO-8859-1");
+		        this.OutString = StringUtil.ConvertCharset(lr.eval_string("{retStr}"),"ISO-8859-1");
 		        return lr.eval_int("{ret_spHMCount}") > 0;
 		    }});
 	}
@@ -709,7 +707,7 @@ public class ActionsCommon extends LrActionClass
 			"Name=action", "Value=result", ENDITEM, 
 			"Name=lsh", "Value={ret_fpyjLSH}", ENDITEM, 
 			LAST});
-        reportOut((lr.eval_int("{ret_fpyjCount}") > 0),"发票验旧3上传文件",
+        LoadrunnerUtil.reportOut((lr.eval_int("{ret_fpyjCount}") > 0),"发票验旧3上传文件",
         		lr.eval_string("受理号:[{ret_fpyjLSH}]  ")+
         		lr.eval_string("{ret_fpyjStr}"),timer);
 
@@ -957,7 +955,7 @@ public class ActionsCommon extends LrActionClass
         
         boolean bSucc = (lr.eval_int("{ret_fprzCount}") > 0);
         
-        reportOut(bSucc, "发票认证4文件上传",ConvertCharset(lr.eval_string("{retStr}")),timer);
+        LoadrunnerUtil.reportOut(bSucc, "发票认证4文件上传",StringUtil.ConvertCharset(lr.eval_string("{retStr}")),timer);
     }
     
     public  void run_MainPage() throws Throwable{
@@ -1040,7 +1038,7 @@ public class ActionsCommon extends LrActionClass
 	        		"Name=captcha", "Value=1111", ENDITEM, 
 	        		LAST});
 	        
-	        	OutString = ConvertCharset(lr.eval_string("{retStr}")) ;
+	        	OutString = StringUtil.ConvertCharset(lr.eval_string("{retStr}")) ;
 	        	
 		        return lr.eval_int("{LoginCount}") > 0;
 		    }}).RunTrans();
@@ -1069,7 +1067,7 @@ public class ActionsCommon extends LrActionClass
 			    distDir(fileName,18)+
 			    fileName;
 
-	    if (!fileExist(rzFile)) {   //如果文件不存在,就创建
+	    if (!FileUtil.FileExist(rzFile)) {   //如果文件不存在,就创建
     		FileUtil.Copy("D:\\dat\\1\\RZ0010044010306111847520141208095327.dat",
     			      rzFile);
     		lr.message("==生成发票认证文件: "+rzFile);
@@ -1100,7 +1098,7 @@ public class ActionsCommon extends LrActionClass
         			distDir(fileName,14)+
         			fileName;
 	    
-	    if (newFile(lr.eval_string(sXML),path)==0){
+	    if (FileUtil.NewFile(lr.eval_string(sXML),path)==0){
 	        lr.message("==生成文件："+path);
 	    }else{
 	        lr.message("==文件已经存在："+path);
@@ -1129,7 +1127,7 @@ public class ActionsCommon extends LrActionClass
         			distDir(fileName,20)+
         			fileName;
 	    
-	    if (newFile(lr.eval_string(sXML),path)==0){
+	    if (FileUtil.NewFile(lr.eval_string(sXML),path)==0){
 	        lr.message("==生成文件："+path);
 	    }else{
 	        lr.message("==文件已经存在："+path);
@@ -1139,6 +1137,12 @@ public class ActionsCommon extends LrActionClass
 
 	}
 	
+    public String distDir(String sourceStr, int index) {
+
+        return sourceStr.substring(index, index + 2) + "\\" + sourceStr.substring(index + 2, index + 4) + "\\";
+
+    }
+
 	
 
 }

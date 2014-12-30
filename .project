@@ -30,10 +30,5 @@
 			<type>2</type>
 			<location>F:/OpenSource/classes_lr</location>
 		</link>
-		<link>
-			<name>wblibs</name>
-			<type>2</type>
-			<location>F:/Products File/wbscript/libs</location>
-		</link>
 	</linkedResources>
 </projectDescription>

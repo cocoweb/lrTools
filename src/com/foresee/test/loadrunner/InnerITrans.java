@@ -7,31 +7,40 @@ import lrapi.lr;
  * @author Administrator
  *
  */
-public abstract class InnerITrans extends LrActionClass {
+public abstract class InnerITrans {
 	
 	public String TransName="";
 	public boolean isOK = true;
 	public String OutString = "";
+	private long timer;
 
 	public InnerITrans(String trans) {
 		TransName = trans;
 	}
 	
-	public boolean RunTrans() throws Throwable{
-		
-    	long timer = lr.start_timer();
-    	//String transName=xDo.TransName;
-    	//String retXML=xDo.OutString;
+	public void Before() {
+    	timer = lr.start_timer();
     	lr.start_transaction(TransName);
+		
+	}
+	
+	public boolean RunTrans() throws Throwable{
+		Before();
 		isOK = doTrans();
 		
-	   	reportOut(isOK,  TransName, OutString,timer);
+		After();
 
 		return isOK;
 		
 	}
+	
+	public void After() {
+		LoadrunnerUtil.reportOut(isOK,  TransName, OutString,timer);
+		
+	}
+	
 
 	
-	public abstract boolean doTrans() throws Throwable;
+	protected abstract boolean doTrans() throws Throwable;
 
 }
