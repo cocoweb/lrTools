@@ -18,6 +18,11 @@ public class DemoActions {
     }
 	
 	
+	public DemoActions() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public void init(){
 		addTrans(new IlrActions("AName1"){public boolean doAction(String sstr) {
 			
