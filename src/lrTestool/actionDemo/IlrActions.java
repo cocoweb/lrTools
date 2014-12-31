@@ -3,6 +3,7 @@
  */
 package lrTestool.actionDemo;
 
+
 /**
  * @author Administrator
  *
@@ -11,7 +12,7 @@ public abstract class IlrActions {
 	public String ActionName;
 	public boolean bSucc;
 	public String OutString;
-	
+
 	
 	public IlrActions(String actionName) {
 		super();

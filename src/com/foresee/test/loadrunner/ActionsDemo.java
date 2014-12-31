@@ -7,19 +7,38 @@ import lrapi.web;
 import com.foresee.test.util.FileUtil;
 import com.foresee.test.util.StringUtil;
 
-public class ActionsCommon extends LrActionClass
+/**
+ * 这个类里面用了多种方法，来构造LoadRunner的事务代码管理
+ * 1、直接copy代码，成为函数，如：run_Sbzs3_upload()
+ *    最为简单，但是很多重复代码
+ * 2、使用匿名对象，并调用 ，如：run_Sbzs1_Page1()
+ *    问题：每次循环执行的时候，都会重复创建该匿名对象
+ * 3、使用 addTrans()添加事务对象到map进行缓存，然后再调用 ，如：run_Start()
+ * 
+ * init()初始化方法，被父类的构造函数调用
+ * @author allan.xie
+ *
+ */
+public class ActionsDemo extends LrActionClass
 {
-    private static ActionsCommon commonObj = new ActionsCommon();
+    private static ActionsDemo commonObj = new ActionsDemo();
     static String sZZSXML=null;
     static String sFPYJXML =null;
     
     /**
      * @return 返回实例对象
      */
-    public static ActionsCommon getInstance(){
+    public static ActionsDemo getInstance(){
     	if (null==commonObj) {
-    	    commonObj = new ActionsCommon();
+    	    commonObj = new ActionsDemo();
     	}
+    	return commonObj;
+
+    }
+
+
+    @Override
+	public void init() {
     	if(sZZSXML == null){  //初始化XML报文(含参数)
         	sZZSXML = lrTools.loadXmlByKey("zzssyyybnsr_zb");
     	}
@@ -27,134 +46,181 @@ public class ActionsCommon extends LrActionClass
     		sFPYJXML = lrTools.loadXmlByKey("fpcglcjTyXmldyywbw");
     	}
     	
-    	return commonObj;
-
-    }
-
-
-    /**
-     * 调用模板,直接Copy,然后填空
-     * @throws Throwable
-     */
-    public  void run_Temp() throws Throwable{
-		(new InnerITrans(""){
-			@Override
+    	this.addTrans(new InnerITrans("打开网厅"){
+    		@Override
 			public boolean doTrans() throws Throwable {
-	     
+         
+		       _webresult = lrapi.web.url("etax_2",
+		                "URL={p_url}/etax/", new String[]{
+		                "Resource=0",
+		                "RecContentType=text/html",
+		                "Referer=",
+		                "Snapshot=t2.inf",
+		                "Mode=HTML",
+		                EXTRARES,
+		                "Url=../skin/gdgs/jsp/style/images-common/head/bg.gif", ENDITEM,
+		                "Url=../skin/gdgs/jsp/style/images-wsbs-01/style-number-01/bgline.gif", ENDITEM,
+		                "Url=../sso/script/message/skin/default/images/title_bg_left.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                "Url=../sso/script/message/skin/default/images/title_bg_right.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                "Url=../sso/script/message/skin/default/images/title_bg_center.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                "Url=../sso/script/message/skin/default/images/win_l.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                "Url=../sso/script/message/skin/default/images/ico.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                "Url=../sso/script/message/skin/default/images/content_bg.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                "Url=../sso/script/message/skin/default/images/win_lb.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                "Url=../sso/script/message/skin/default/images/win_rb.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                "Url=../sso/script/message/skin/default/images/win_b.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                "Url=../sso/script/message/skin/default/images/win_r.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                "Url=../sso/captcha.jpg?n=0.4202206804026295", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
+		                LAST});
 		        
 		        
 		        return true;
-		    }}).RunTrans();
+		    }});
+    	this.addTrans( new InnerITrans("登录提交"){
+    		@Override
+			public boolean doTrans() throws Throwable {
+    			run_Start();
+         
+    	    	web.reg_find("Text=/admin/pagehomegdgs.do", 
+    	        	    new String[]{ 
+    	        		"SaveCount=LoginCount", 
+    	        		LAST 
+    	        	    }); 
+    	        
+	        	web.reg_save_param ("retStr",
+	        	    new String []{ 
+	        		"NOTFOUND=warning", 
+	        		"LB=", 
+	        		"RB=" ,
+	        		"Search=BODY",
+	        		LAST} );
+	        
+	        	_webresult = lrapi.web.submit_form("login", new String[]{ 
+	        		"Snapshot=t2.inf", 
+	        		}, new String[]{ // ITEM DATA 
+	        		"Name=username", "Value={para_nsrsbh}", ENDITEM, 
+	        		"Name=password", "Value={para_password}", ENDITEM, 
+	        		"Name=captcha", "Value=1111", ENDITEM, 
+	        		LAST});
+	        
+	        	OutString = StringUtil.ConvertCharset(lr.eval_string("{retStr}")) ;
+	        	
+		        return lr.eval_int("{LoginCount}") > 0;
+		    }});
+		
 	}
 
+
 	public void run_Sbzs1_Page1()  throws Throwable{
-    	long timer = lr.start_timer();
-    	lr.start_transaction("申报征收1_首页");
-
-    	_webresult = lrapi.web.link("申报征收sbzs", 
-    		"Text=申报征收", new String[]{ 
-    		"Snapshot=t4.inf", 
-    		EXTRARES, 
-    		"Url=/skin/gdgs/Style/yellow/images/wsbs/pic_4400000000.jpg", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/gdgs/Style/yellow/images/background/lmtop_center.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/gdgs/Style/yellow/images/background/lmtop_left.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/gdgs/Style/yellow/images/background/lmtop_right.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/gdgs/Style/yellow/images/background/lmbottom_left.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/gdgs/Style/yellow/images/background/lmbottom_center.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/gdgs/Style/yellow/images/background/lmbottom_right.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/gdgs/Style/yellow/images/background/btnbg_page.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/gdgs/Style/yellow/images/background/bottom_left.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/gdgs/Style/yellow/images/background/bottom_center.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/gdgs/Style/yellow/images/background/bottom_right.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		"Url=/skin/www/style/images-common/waiting/loading.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		LAST});
-    
-    	web.reg_save_param ("ret_sbzsTID", new String []{ 
-    				"NOTFOUND=ERROR", 
-    				"LB=<tid>", 
-    				"RB=</tid>" , 
-    				LAST} ); 
-    
-    	_webresult = lrapi.web.submit_data("dataQuery.do", 
-    		"Action={p_url}/etax/bizfront/dataQuery.do", new String[]{ 
-    		"Method=POST", 
-    		"RecContentType=text/plain", 
-    		"Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", 
-    		"Snapshot=t5.inf", 
-    		"Mode=HTML", 
-    		}, new String[]{ // ITEM DATA 
-    		"Name=sid", "Value=ETax.ZS.sbzsMenu.SbzsMenu", ENDITEM, 
-    		"Name=requestXml", "Value=<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"+
-    		    "<taxML><djxh>{para_djxh}</djxh><nsrsbh>{para_nsrsbh}</nsrsbh></taxML>", ENDITEM, 
-    		LAST});
-    
-    	web.reg_save_param ("ret_sbcxTID", new String []{ 
-    				"NOTFOUND=ERROR", 
-    				"LB=<tid>", 
-    				"RB=</tid>" , 
-    				LAST} ); 
-    	_webresult = lrapi.web.submit_data("dataQuery.do_2", 
-    		"Action={p_url}/etax/bizfront/dataQuery.do", new String[]{ 
-    		"Method=POST", 
-    		"RecContentType=text/plain", 
-    		"Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", 
-    		"Snapshot=t6.inf", 
-    		"Mode=HTML", 
-    		}, new String[]{ // ITEM DATA 
-    		"Name=sid", "Value=ETax.ZS.sbcxMenu.SbzsMenu", ENDITEM, 
-    		"Name=requestXml", "Value=<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"+
-    		    "<taxML><djxh>{para_djxh}</djxh><nsrsbh>{para_nsrsbh}</nsrsbh></taxML>", ENDITEM, 
-    		LAST});
-    
-    
-    	_webresult = lrapi.web.submit_data("rejoinQuery.do", 
-    		"Action={p_url}/etax/bizfront/rejoinQuery.do", new String[]{ 
-    		"Method=POST", 
-    		"RecContentType=text/plain", 
-    		"Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", 
-    		"Snapshot=t7.inf", 
-    		"Mode=HTML", 
-    		}, new String[]{ // ITEM DATA 
-    		"Name=action", "Value=queryXml", ENDITEM, 
-    		"Name=tid", "Value={ret_sbzsTID}", ENDITEM, 
-    		"Name=sid", "Value=ETax.ZS.sbzsMenu.SbzsMenu", ENDITEM, 
-    		LAST});
-    
-    	web.reg_find("Text=<zsxmDm>10101</zsxmDm>", 
-    	    new String[]{ 
-    		"SaveCount=cxCount", 
-    		LAST 
-    	    }); 
-       	web.reg_save_param ("retStr",
-        	    new String []{ 
-        		"NOTFOUND=warning", 
-        		"LB=", 
-        		"RB=" ,
-        		"Search=BODY",
-        		LAST} );
-
-    	_webresult = lrapi.web.submit_data("rejoinQuery.do_2", 
-    		"Action={p_url}/etax/bizfront/rejoinQuery.do", new String[]{ 
-    		"Method=POST", 
-    		"RecContentType=text/plain", 
-    		"Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", 
-    		"Snapshot=t8.inf", 
-    		"Mode=HTML", 
-    		}, new String[]{ // ITEM DATA 
-    		"Name=action", "Value=queryXml", ENDITEM, 
-    		"Name=tid", "Value={ret_sbcxTID}", ENDITEM, 
-    		"Name=sid", "Value=ETax.ZS.sbcxMenu.SbzsMenu", ENDITEM, 
-    		EXTRARES, 
-    		"Url=/skin/gdgs/Style/yellow/images/common/dot02.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
-    		LAST});
-    
-    	LoadrunnerUtil.reportOut((lr.eval_int("{cxCount}") > 0), "申报征收1_首页",StringUtil.ConvertCharset(lr.eval_string("{retStr}")),timer);
+		new InnerITrans("申报征收1_首页"){
+			@Override
+			public boolean doTrans() throws Throwable {
+		    	_webresult = lrapi.web.link("申报征收sbzs", 
+		    		"Text=申报征收", new String[]{ 
+		    		"Snapshot=t4.inf", 
+		    		EXTRARES, 
+		    		"Url=/skin/gdgs/Style/yellow/images/wsbs/pic_4400000000.jpg", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/gdgs/Style/yellow/images/background/lmtop_center.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/gdgs/Style/yellow/images/background/lmtop_left.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/gdgs/Style/yellow/images/background/lmtop_right.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/gdgs/Style/yellow/images/background/lmbottom_left.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/gdgs/Style/yellow/images/background/lmbottom_center.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/gdgs/Style/yellow/images/background/lmbottom_right.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/gdgs/Style/yellow/images/background/btnbg_page.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/gdgs/Style/yellow/images/background/bottom_left.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/gdgs/Style/yellow/images/background/bottom_center.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/gdgs/Style/yellow/images/background/bottom_right.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		"Url=/skin/www/style/images-common/waiting/loading.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		LAST});
+		    
+		    	web.reg_save_param ("ret_sbzsTID", new String []{ 
+		    				"NOTFOUND=ERROR", 
+		    				"LB=<tid>", 
+		    				"RB=</tid>" , 
+		    				LAST} ); 
+		    
+		    	_webresult = lrapi.web.submit_data("dataQuery.do", 
+		    		"Action={p_url}/etax/bizfront/dataQuery.do", new String[]{ 
+		    		"Method=POST", 
+		    		"RecContentType=text/plain", 
+		    		"Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", 
+		    		"Snapshot=t5.inf", 
+		    		"Mode=HTML", 
+		    		}, new String[]{ // ITEM DATA 
+		    		"Name=sid", "Value=ETax.ZS.sbzsMenu.SbzsMenu", ENDITEM, 
+		    		"Name=requestXml", "Value=<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"+
+		    		    "<taxML><djxh>{para_djxh}</djxh><nsrsbh>{para_nsrsbh}</nsrsbh></taxML>", ENDITEM, 
+		    		LAST});
+		    
+		    	web.reg_save_param ("ret_sbcxTID", new String []{ 
+		    				"NOTFOUND=ERROR", 
+		    				"LB=<tid>", 
+		    				"RB=</tid>" , 
+		    				LAST} ); 
+		    	_webresult = lrapi.web.submit_data("dataQuery.do_2", 
+		    		"Action={p_url}/etax/bizfront/dataQuery.do", new String[]{ 
+		    		"Method=POST", 
+		    		"RecContentType=text/plain", 
+		    		"Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", 
+		    		"Snapshot=t6.inf", 
+		    		"Mode=HTML", 
+		    		}, new String[]{ // ITEM DATA 
+		    		"Name=sid", "Value=ETax.ZS.sbcxMenu.SbzsMenu", ENDITEM, 
+		    		"Name=requestXml", "Value=<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"+
+		    		    "<taxML><djxh>{para_djxh}</djxh><nsrsbh>{para_nsrsbh}</nsrsbh></taxML>", ENDITEM, 
+		    		LAST});
+		    
+		    
+		    	_webresult = lrapi.web.submit_data("rejoinQuery.do", 
+		    		"Action={p_url}/etax/bizfront/rejoinQuery.do", new String[]{ 
+		    		"Method=POST", 
+		    		"RecContentType=text/plain", 
+		    		"Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", 
+		    		"Snapshot=t7.inf", 
+		    		"Mode=HTML", 
+		    		}, new String[]{ // ITEM DATA 
+		    		"Name=action", "Value=queryXml", ENDITEM, 
+		    		"Name=tid", "Value={ret_sbzsTID}", ENDITEM, 
+		    		"Name=sid", "Value=ETax.ZS.sbzsMenu.SbzsMenu", ENDITEM, 
+		    		LAST});
+		    
+		    	web.reg_find("Text=<zsxmDm>10101</zsxmDm>", 
+		    	    new String[]{ 
+		    		"SaveCount=cxCount", 
+		    		LAST 
+		    	    }); 
+		       	web.reg_save_param ("retStr",
+		        	    new String []{ 
+		        		"NOTFOUND=warning", 
+		        		"LB=", 
+		        		"RB=" ,
+		        		"Search=BODY",
+		        		LAST} );
+		
+		    	_webresult = lrapi.web.submit_data("rejoinQuery.do_2", 
+		    		"Action={p_url}/etax/bizfront/rejoinQuery.do", new String[]{ 
+		    		"Method=POST", 
+		    		"RecContentType=text/plain", 
+		    		"Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", 
+		    		"Snapshot=t8.inf", 
+		    		"Mode=HTML", 
+		    		}, new String[]{ // ITEM DATA 
+		    		"Name=action", "Value=queryXml", ENDITEM, 
+		    		"Name=tid", "Value={ret_sbcxTID}", ENDITEM, 
+		    		"Name=sid", "Value=ETax.ZS.sbcxMenu.SbzsMenu", ENDITEM, 
+		    		EXTRARES, 
+		    		"Url=/skin/gdgs/Style/yellow/images/common/dot02.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
+		    		LAST});
+		    
+		        this.OutString = StringUtil.ConvertCharset(lr.eval_string("{retStr}"));
+		    	return lr.eval_int("{cxCount}") > 0;
+		}}.RunTrans();
 
 
     }
 	
     public  void run_Sbzs2_UpPage() throws Throwable{
-		runTransaction(new InnerITrans("申报征收2上传页面"){
+		new InnerITrans("申报征收2上传页面"){
 			@Override
 			public boolean doTrans() throws Throwable {
 			    
@@ -233,7 +299,7 @@ public class ActionsCommon extends LrActionClass
 		    	this.OutString= StringUtil.ConvertCharset(lr.eval_string("{retStr}"));
 		        
 		        return true;
-		    }});
+		    }}.RunTrans();
 	}
 
 
@@ -337,6 +403,8 @@ public class ActionsCommon extends LrActionClass
         LoadrunnerUtil.reportOut((lr.eval_int("{ret_sbCount}") > 0), "申报文件上传",
         		lr.eval_string("pzxh:[{ret_pzxh}]  ")+
         		StringUtil.ConvertCharset(lr.eval_string("{retStr}")),timer);
+        
+        
     }
     
 
@@ -481,7 +549,7 @@ public class ActionsCommon extends LrActionClass
     }
     
     public  void run_Jk2_Jk() throws Throwable{
-		runTransaction(new InnerITrans("缴款2_网上缴税"){
+		new InnerITrans("缴款2_网上缴税"){
 			@Override
 			public boolean doTrans() throws Throwable {
 	     
@@ -537,7 +605,7 @@ public class ActionsCommon extends LrActionClass
 		        
 		        this.OutString = StringUtil.ConvertCharset(lr.eval_string("{retStr}"),"ISO-8859-1");
 		        return lr.eval_int("{ret_spHMCount}") > 0;
-		    }});
+		    }}.RunTrans();
 	}
 
     
@@ -555,7 +623,7 @@ public class ActionsCommon extends LrActionClass
 
     public void run_Fpyj1_Page() throws Throwable{
     	
-    	runTransaction(new InnerITrans("发票验旧1发票管理首页"){
+    	new InnerITrans("发票验旧1发票管理首页"){
     		@Override
 			public boolean doTrans() throws Throwable {
     	    	_webresult = lrapi.web.link("发票管理", 
@@ -576,11 +644,11 @@ public class ActionsCommon extends LrActionClass
     	    	return true;
     	    	
 			}
-    	});
+    	}.RunTrans();
     }
      
     public void run_Fpyj2_Import() throws Throwable{
-    	runTransaction(new InnerITrans("发票验旧2导入页"){
+    	new InnerITrans("发票验旧2导入页"){
     		@Override
 			public boolean doTrans() throws Throwable {
 				_webresult = lrapi.web.link("导入", 
@@ -598,7 +666,7 @@ public class ActionsCommon extends LrActionClass
 						LAST});
 				return true;
   	
-       	}});
+       	}}.RunTrans();
     }
     
     public void run_Fpyj3_upload() throws Throwable{
@@ -763,7 +831,7 @@ public class ActionsCommon extends LrActionClass
     }
     
     public  void run_Fprz1_Choose() throws Throwable{
-    	runTransaction(new InnerITrans("发票认证1选择"){
+    	new InnerITrans("发票认证1选择"){
     		@Override
 			public boolean doTrans() throws Throwable {
          
@@ -778,12 +846,12 @@ public class ActionsCommon extends LrActionClass
 		        
 		        
 		        return true;
-		    }});
+		    }}.RunTrans();
 		 
     }
 
     public  void run_Fprz2_Page1() throws Throwable{
-    	runTransaction(new InnerITrans("发票认证2首页"){
+    	new InnerITrans("发票认证2首页"){
     		@Override
 			public boolean doTrans() throws Throwable {
          
@@ -810,11 +878,11 @@ public class ActionsCommon extends LrActionClass
 		        
 		        
 		        return true;
-		    }});
+		    }}.RunTrans();
 		 
     }
     public  void run_Fprz3_UpPage() throws Throwable{
-    	runTransaction(new InnerITrans("发票认证3上传页面"){
+    	new InnerITrans("发票认证3上传页面"){
     		@Override
 			public boolean doTrans() throws Throwable {
          
@@ -834,7 +902,7 @@ public class ActionsCommon extends LrActionClass
 		        
 		        
 		        return true;
-		    }});
+		    }}.RunTrans();
 		 
     }
 
@@ -954,7 +1022,7 @@ public class ActionsCommon extends LrActionClass
     }
     
     public  void run_MainPage() throws Throwable{
-    	runTransaction(new InnerITrans("大厅首页"){
+    	new InnerITrans("大厅首页"){
     		@Override
 			public boolean doTrans() throws Throwable {
          
@@ -968,75 +1036,16 @@ public class ActionsCommon extends LrActionClass
 		                LAST});
 		        
 		        return true;
-		    }});
+		    }}.RunTrans();
     }
 
     public  void run_Start() throws Throwable{
-    	runTransaction(new InnerITrans("打开网厅"){
-    		@Override
-			public boolean doTrans() throws Throwable {
-         
-		       _webresult = lrapi.web.url("etax_2",
-		                "URL={p_url}/etax/", new String[]{
-		                "Resource=0",
-		                "RecContentType=text/html",
-		                "Referer=",
-		                "Snapshot=t2.inf",
-		                "Mode=HTML",
-		                EXTRARES,
-		                "Url=../skin/gdgs/jsp/style/images-common/head/bg.gif", ENDITEM,
-		                "Url=../skin/gdgs/jsp/style/images-wsbs-01/style-number-01/bgline.gif", ENDITEM,
-		                "Url=../sso/script/message/skin/default/images/title_bg_left.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                "Url=../sso/script/message/skin/default/images/title_bg_right.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                "Url=../sso/script/message/skin/default/images/title_bg_center.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                "Url=../sso/script/message/skin/default/images/win_l.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                "Url=../sso/script/message/skin/default/images/ico.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                "Url=../sso/script/message/skin/default/images/content_bg.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                "Url=../sso/script/message/skin/default/images/win_lb.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                "Url=../sso/script/message/skin/default/images/win_rb.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                "Url=../sso/script/message/skin/default/images/win_b.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                "Url=../sso/script/message/skin/default/images/win_r.gif", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                "Url=../sso/captcha.jpg?n=0.4202206804026295", "Referer={p_url}/sso/login?service=http%3A%2F%2Fapp.gd-n-tax.gov.cn%3A9001%2Fetax%2Fadmin%2FloginFrameGdgs.do", ENDITEM,
-		                LAST});
-		        
-		        
-		        return true;
-		    }});
-		 
+    	this.runTrans("打开网厅");
     }
    
     public  boolean run_Login() throws Throwable{
-    	return (new InnerITrans("登录提交"){
-    		@Override
-			public boolean doTrans() throws Throwable {
-    			run_Start();
-         
-    	    	web.reg_find("Text=/admin/pagehomegdgs.do", 
-    	        	    new String[]{ 
-    	        		"SaveCount=LoginCount", 
-    	        		LAST 
-    	        	    }); 
-    	        
-	        	web.reg_save_param ("retStr",
-	        	    new String []{ 
-	        		"NOTFOUND=warning", 
-	        		"LB=", 
-	        		"RB=" ,
-	        		"Search=BODY",
-	        		LAST} );
-	        
-	        	_webresult = lrapi.web.submit_form("login", new String[]{ 
-	        		"Snapshot=t2.inf", 
-	        		}, new String[]{ // ITEM DATA 
-	        		"Name=username", "Value={para_nsrsbh}", ENDITEM, 
-	        		"Name=password", "Value={para_password}", ENDITEM, 
-	        		"Name=captcha", "Value=1111", ENDITEM, 
-	        		LAST});
-	        
-	        	OutString = StringUtil.ConvertCharset(lr.eval_string("{retStr}")) ;
-	        	
-		        return lr.eval_int("{LoginCount}") > 0;
-		    }}).RunTrans();
+    	return this.runTrans("登录提交");
+ 
 		 
     }
 

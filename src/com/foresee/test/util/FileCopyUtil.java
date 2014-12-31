@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class FileCopyUtil {
 
-	private static Log log = LogFactory.getLog(FileCopyUtil.class);
+	//private static Log log = LogFactory.getLog(FileCopyUtil.class);
 
 	/**
 	 * 拷贝文件
@@ -98,6 +99,69 @@ public class FileCopyUtil {
 		copyFileToPath(srcRoot + "/" + src, destRoot + "/" + dest);
 	}
 
+	public static void copyToDirectory(File toFile, File fromFile) {  
+	    if (fromFile.isDirectory()) {  
+	        System.out.println("toFile路径: "+toFile.getAbsolutePath());  
+	        if (!toFile.exists()) {  
+	            toFile.mkdir();  
+	        }  
+	        for (String child : fromFile.list()) {  
+	            copyToDirectory(new File(toFile, child), new File(fromFile, child));//如果<strong>文件</strong>夹有多层会递归调用  
+	        }  
+	    }  
+	
+	    int BYTE_SIZE = 1;  
+	    int SAVE_SIZE = 1024;  
+	    byte[] buff = new byte[BYTE_SIZE]; // 每次读的缓存  
+	    byte[] save = new byte[SAVE_SIZE]; // 保存前缓存  
+	    BufferedInputStream bf = null;  
+	    BufferedOutputStream bos = null;  
+	    try {  
+	        if(toFile.isDirectory()){  
+	            return;  
+	        }  
+	        System.out.println("toFile名称: "+toFile.getName());  
+	        bf = new BufferedInputStream(new FileInputStream(fromFile));  
+	        System.out.println("fromFile: "+fromFile.getName());  
+	        System.out.println("已经获取资源......");  
+	        bos = new BufferedOutputStream(new FileOutputStream(toFile));  
+	        System.out.println("准备保存到：" + toFile.getPath());  
+	        System.out.println("开始读入......");  
+	        int i = 0;  
+	        while (bf.read(buff) != -1) { // 一个字节一个字节读  
+	            save[i] = buff[0];  
+	            if (i == SAVE_SIZE - 1) { // 达到保存长度时开始保存  
+	                bos.write(save, 0, SAVE_SIZE);  
+	                save = new byte[SAVE_SIZE];  
+	                i = 0;  
+	            } else {  
+	                i++;  
+	            }  
+	        }  
+	        // 最后这段如果没达到保存长度，需要把前面的保存下来  
+	        if (i > 0) {  
+	            bos.write(save, 0, i - 1);  
+	        }  
+	        System.out.println("读取成功！！！");  
+	        count ++;  
+	
+	    } catch (IOException e) {  
+	        e.printStackTrace();  
+	    } finally {  
+	        try {  
+	            if(bf!=null){  
+	                bf.close();  
+	            }  
+	            if(bos!=null){  
+	                bos.close();  
+	            }  
+	        } catch (Exception e) {  
+	            e.printStackTrace();  
+	        }  
+	    }  
+	    System.out.println("读取<strong>文件</strong>总数: "+ count);  
+	}
+
 	/**
 	 * 复制单个文件
 	 * 
@@ -142,6 +206,35 @@ public class FileCopyUtil {
 		strNewFilePath = null;
 		strOldFilePath = null;
 		return blnResult;
+	}
+
+	/**
+	 * 复制单个文件
+	 * 
+	 * @param strOldFilePath
+	 *            准备复制的文件源
+	 * @param strNewFilePath
+	 *            拷贝到新绝对路径带文件名
+	 * @return boolean
+	 */
+	public static boolean copyFile2(String f, String d) {
+		File file = new File(f);
+		File dir = new File(d);
+		boolean flag = true;
+		if(!dir.exists())
+			flag = dir.mkdirs();
+		if(flag){
+			File newfile = new File(d+file.getName());
+			if(!newfile.exists())
+				file.renameTo(newfile);
+			else{
+				if(newfile.delete())
+					file.renameTo(newfile);
+				else
+					flag = false;
+			}
+		}
+		return flag;
 	}
 
 	/**
@@ -209,6 +302,101 @@ public class FileCopyUtil {
 		strNewFolderPath = null;
 		strOldFolderPath = null;
 	}
+
+	public static boolean Move(File srcFile, String destPath) {
+		// Destination directory
+		File dir = new File(destPath);
+	
+		// Move file to new directory
+		boolean success = srcFile.renameTo(new File(dir, srcFile.getName()));
+	
+		return success;
+	}
+
+	public static boolean Move(String srcFile, String destPath) {
+		// File (or directory) to be moved
+		File file = new File(srcFile);
+	
+		// Destination directory
+		File dir = new File(destPath);
+	
+		// Move file to new directory
+		boolean success = file.renameTo(new File(dir, file.getName()));
+	
+		return success;
+	}
+	public static void Copy(String oldPath, String newPath) {
+		FileOutputStream fs = null;
+		InputStream inStream = null;
+		try {
+			int bytesum = 0;
+			int byteread = 0;
+			File oldfile = new File(oldPath);
+			if (oldfile.exists()) {
+				inStream = new FileInputStream(oldPath);
+				fs = new FileOutputStream(newPath);
+				byte[] buffer = new byte[1024];
+
+				while ((byteread = inStream.read(buffer)) != -1) {
+					bytesum += byteread;
+					//System.out.println(bytesum);
+					fs.write(buffer, 0, byteread);
+				}
+				//inStream.close();
+			}
+		} catch (Exception e) {
+			System.out.println("error  ");
+			e.printStackTrace();
+		 } finally {  
+	        try {  
+	            if(fs!=null){  
+	                fs.close();  
+	            }  
+	            if(inStream!=null){  
+	            	inStream.close();  
+	            }  
+	        } catch (Exception e) {  
+	            e.printStackTrace();  
+	        }  
+		 }  
+
+	}
+	public static void Copy(File oldfile, String newPath) {
+		FileOutputStream fs = null;
+		InputStream inStream = null;
+		try {
+			int bytesum = 0;
+			int byteread = 0;
+			// File oldfile = new File(oldPath);
+			if (oldfile.exists()) {
+				 inStream = new FileInputStream(oldfile);
+				 fs = new FileOutputStream(newPath);
+				byte[] buffer = new byte[1024];
+				while ((byteread = inStream.read(buffer)) != -1) {
+					bytesum += byteread;
+					System.out.println(bytesum);
+					fs.write(buffer, 0, byteread);
+				}
+				inStream.close();
+			}
+		} catch (Exception e) {
+			System.out.println("error  ");
+			e.printStackTrace();
+		 } finally {  
+		        try {  
+		            if(fs!=null){  
+		                fs.close();  
+		            }  
+		            if(inStream!=null){  
+		            	inStream.close();  
+		            }  
+		        } catch (Exception e) {  
+		            e.printStackTrace();  
+		        }  
+			 }  
+	}
+	
+    private static int count;
 
 
 }

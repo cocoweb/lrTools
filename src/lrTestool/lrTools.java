@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
+import com.foresee.test.util.MapCacheManager;
 import com.foresee.test.util.StringUtil;
 
 //import javax.xml.parsers.*;
