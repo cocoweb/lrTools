@@ -1,7 +1,5 @@
 package com.foresee.test.util;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,14 +17,14 @@ import java.util.List;
 
 /***
  * 
- * @author Jacky
- * 
+ * @author allan
+ *    
  */
 public class FileUtil {
 
 	public static void write(String path, String content, boolean append) {
-		FileWriter writer = null;
-		try {
+		FileWriter writer = null;  
+		try { 
 			// 打开一个写文件器，构造函数中的第二个参数true表示以追加形式写文件
 			writer = new FileWriter(path, append);
 			writer.write(content);
@@ -121,6 +119,7 @@ public class FileUtil {
 	 */
 	public static void hebingFiles(File toFile, File[] files) {
 		try {
+			@SuppressWarnings("resource")
 			FileOutputStream fout = new FileOutputStream(toFile);
 			FileInputStream fis = null;
 			for (File file : files) {
@@ -212,33 +211,10 @@ public class FileUtil {
 		return result;
 	}
 
-	public static boolean createFolder(String folder) {
-		File dir = new File(folder);
-		return dir.mkdirs();
-	}
-
-	public static boolean Move(File srcFile, String destPath) {
-		// Destination directory
-		File dir = new File(destPath);
-
-		// Move file to new directory
-		boolean success = srcFile.renameTo(new File(dir, srcFile.getName()));
-
-		return success;
-	}
-
-	public static boolean Move(String srcFile, String destPath) {
-		// File (or directory) to be moved
-		File file = new File(srcFile);
-
-		// Destination directory
-		File dir = new File(destPath);
-
-		// Move file to new directory
-		boolean success = file.renameTo(new File(dir, file.getName()));
-
-		return success;
-	}
+//	public static boolean createFolder(String folder) {
+//		File dir = new File(folder);
+//		return dir.mkdirs();
+//	}
 
 	public static void Copy(String oldPath, String newPath) {
 		FileOutputStream fs = null;
@@ -277,28 +253,46 @@ public class FileUtil {
 
 	}
 
-	public static void Copy(File oldfile, String newPath) {
-		try {
-			int bytesum = 0;
-			int byteread = 0;
-			// File oldfile = new File(oldPath);
-			if (oldfile.exists()) {
-				InputStream inStream = new FileInputStream(oldfile);
-				FileOutputStream fs = new FileOutputStream(newPath);
-				byte[] buffer = new byte[1024];
-				while ((byteread = inStream.read(buffer)) != -1) {
-					bytesum += byteread;
-					System.out.println(bytesum);
-					fs.write(buffer, 0, byteread);
-				}
-				inStream.close();
-			}
-		} catch (Exception e) {
-			System.out.println("error  ");
-			e.printStackTrace();
-		}
-	}
+	public static boolean FileExist(String filePath) {
+        // 判断文件or目录是否存在，如果不存在，则把目录都创建起来
+        File file = new File(filePath);
+        if (!file.exists()) {
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+        } else {
+            return true;
+        }
+        return false;
 
+    }
+
+    public static  int NewFile(String strxml, String path) {
+        File file = new File(path);
+        if (FileExist(path)) {
+            return -1;
+        }
+        try {
+            file.createNewFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(strxml);
+            bw.flush();
+            bw.close();
+            fw.close();
+            // file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+
+        return 0;
+    }
 	/**
 	 * @param args
 	 */
@@ -495,70 +489,141 @@ public class FileUtil {
            System.out.println("成功删除<strong>文件</strong>夹: "+file.getName());  
        }  
    }  
-    private static int count = 0 ;
-    		
-    public static void copyToDirectory(File toFile, File fromFile) {  
-        if (fromFile.isDirectory()) {  
-            System.out.println("toFile路径: "+toFile.getAbsolutePath());  
-            if (!toFile.exists()) {  
-                toFile.mkdir();  
-            }  
-            for (String child : fromFile.list()) {  
-                copyToDirectory(new File(toFile, child), new File(fromFile, child));//如果<strong>文件</strong>夹有多层会递归调用  
-            }  
-        }  
-   
-        int BYTE_SIZE = 1;  
-        int SAVE_SIZE = 1024;  
-        byte[] buff = new byte[BYTE_SIZE]; // 每次读的缓存  
-        byte[] save = new byte[SAVE_SIZE]; // 保存前缓存  
-        BufferedInputStream bf = null;  
-        BufferedOutputStream bos = null;  
-        try {  
-            if(toFile.isDirectory()){  
-                return;  
-            }  
-            System.out.println("toFile名称: "+toFile.getName());  
-            bf = new BufferedInputStream(new FileInputStream(fromFile));  
-            System.out.println("fromFile: "+fromFile.getName());  
-            System.out.println("已经获取资源......");  
-            bos = new BufferedOutputStream(new FileOutputStream(toFile));  
-            System.out.println("准备保存到：" + toFile.getPath());  
-            System.out.println("开始读入......");  
-            int i = 0;  
-            while (bf.read(buff) != -1) { // 一个字节一个字节读  
-                save[i] = buff[0];  
-                if (i == SAVE_SIZE - 1) { // 达到保存长度时开始保存  
-                    bos.write(save, 0, SAVE_SIZE);  
-                    save = new byte[SAVE_SIZE];  
-                    i = 0;  
-                } else {  
-                    i++;  
-                }  
-            }  
-            // 最后这段如果没达到保存长度，需要把前面的保存下来  
-            if (i > 0) {  
-                bos.write(save, 0, i - 1);  
-            }  
-            System.out.println("读取成功！！！");  
-            count ++;  
-   
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        } finally {  
-            try {  
-                if(bf!=null){  
-                    bf.close();  
-                }  
-                if(bos!=null){  
-                    bos.close();  
-                }  
-            } catch (Exception e) {  
-                e.printStackTrace();  
-            }  
-        }  
-        System.out.println("读取<strong>文件</strong>总数: "+count);  
-    }  
+    /**
+	 * 新建目录
+	 * 
+	 * @param strFolderPath
+	 *            目录路径（含要创建的目录名称）
+	 * 
+	 * @return boolean
+	 */
+	public static boolean createFolder(String strFolderPath) {
+		boolean blnResult = true;
+		File file = null;
+		if (strFolderPath != null && strFolderPath.trim().length() > 0) {
+			try {
+				file = new File(strFolderPath);
+				if (!file.exists()) {
+					blnResult = file.mkdirs();
+				}
+			} catch (Exception e) {
+				blnResult = false;
+			} finally {
+				file = null;
+			}
+		}
+		// 释放对象
+		strFolderPath = null;
+		return blnResult;
+	}
+
+	/**
+	 * 删除文件
+	 * 
+	 * @param strFilePath
+	 *            文件全路径（含文件名）
+	 * 
+	 * @return boolean
+	 */
+	public static boolean delFile(String strFilePath) {
+		boolean blnResult = false;
+		File file = null;
+		if (strFilePath != null && strFilePath.trim().length() > 0) {
+			try {
+				file = new File(strFilePath);
+				if (file.exists()) {
+					file.delete();
+					blnResult = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				file = null;
+			}
+		}
+		// 释放对象
+		strFilePath = null;
+		return blnResult;
+	}
+
+	/**
+	 * 删除文件夹
+	 * 
+	 * 
+	 * @param strFolderPath
+	 *            文件夹完整绝对路径
+	 * 
+	 * @return void
+	 */
+	public static void delFolder(String strFolderPath) {
+		File file = null;
+		if (strFolderPath != null && strFolderPath.trim().length() > 0) {
+			try {
+				delAllFile(strFolderPath); // 删除完里面所有内容
+
+				file = new File(strFolderPath);
+				file.delete(); // 删除空文件夹
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				file = null;
+			}
+		}
+		// 释放对象
+		strFolderPath = null;
+	}
+
+	/**
+	 * 删除指定文件夹下所有文件及目录
+	 * 
+	 * @param strFolderPath
+	 *            文件夹完整绝对路径
+	 * 
+	 * @return boolean
+	 */
+	public static boolean delAllFile(String strFolderPath) {
+		boolean blnResult = false;
+		int intFileCount = 0;
+		String[] strArrayFile = null;
+		File file = new File(strFolderPath);
+		if (file.exists() && file.isDirectory()) {
+			strArrayFile = file.list();
+			if (strArrayFile == null || strArrayFile.length <= 0) {
+				blnResult = true;
+			} else {
+				intFileCount = strArrayFile.length;
+				if (intFileCount > 0) {
+					for (int i = 0; i < intFileCount; i++) {
+						if (strFolderPath.endsWith(File.separator)) {
+							file = new File(strFolderPath + strArrayFile[i]);
+						} else {
+							file = new File(strFolderPath + File.separator
+									+ strArrayFile[i]);
+						}
+						if (file.isFile()) {
+							file.delete();
+						}
+						if (file.isDirectory()) {
+							delAllFile(strFolderPath + File.separator
+									+ strArrayFile[i]);// 先删除文件夹里面的文件
+
+							delFolder(strFolderPath + File.separator
+									+ strArrayFile[i]);// 再删除空文件夹
+
+						}
+						blnResult = true;
+					}
+				} else {
+					blnResult = true;
+				}
+			}
+		}
+		// 释放对象
+		strFolderPath = null;
+		strArrayFile = null;
+		file = null;
+		return blnResult;
+	}
 	/**
 	 * @param args
 	 */
