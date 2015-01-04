@@ -11,6 +11,7 @@ import gt3.esb.ejb.adapter.client.IEsbXmlMessageReceiver;
 import com.foresee.etax.ejbclient.*;
 
 import lrTestool.lrTools;
+import utils.LRUtils;
 
 
 public class Tt_lr
@@ -30,11 +31,18 @@ public class Tt_lr
 
 	    sXML = lrTools.loadXmlByKey(tran_key);
 
-             return 0;
+             return 0; 
 	}//end of init
 
 
 	public int action() throws Throwable {     //+ (String.valueOf(System.currentTimeMillis())+"0000000000").substring(0,9),
+		System.out.println(sXML);
+		
+		System.out.println(LRUtils.locateSupportClassesDir().getPath());
+		// LRUtils.loadLRLibrary("lrapi");
+		
+		lr.message("aaaaaaaaaaaaaa");
+		
 	    lr.save_string("C000BNFZC15001201411159{tran_lsh}",
 			   "p_tran_seq");
 
@@ -87,12 +95,21 @@ public class Tt_lr
 		return 0;
 	}//end of end
 	
+	public int runAction() throws Throwable {
+		init();
+		action();
+		end();
+
+		return 0;
+	}//end of end
+	
 	
 	public static void main(String[] args) 
 	{
 		Tt_lr tt= new Tt_lr();
 		try {
-			tt.action();
+			
+			tt.runAction();
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

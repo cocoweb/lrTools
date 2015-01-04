@@ -1021,22 +1021,24 @@ public class ActionsDemo extends LrActionClass
         LoadrunnerUtil.reportOut(bSucc, "发票认证4文件上传",StringUtil.ConvertCharset(lr.eval_string("{retStr}")),timer);
     }
     
+    InnerITrans Mainpage = new InnerITrans("大厅首页"){
+		@Override
+		public boolean doTrans() throws Throwable {
+     
+	        _webresult = lrapi.web.url("pagehomegdgs.do", 
+	                "URL={p_url}/etax/admin/pagehomegdgs.do", new String[]{ 
+	                "Resource=0", 
+	                "RecContentType=text/html", 
+	                "Referer=", 
+	                "Snapshot=t3.inf",  
+	                "Mode=HTML", 
+	                LAST});
+	        
+	        return true;
+	    }};
+    
     public  void run_MainPage() throws Throwable{
-    	new InnerITrans("大厅首页"){
-    		@Override
-			public boolean doTrans() throws Throwable {
-         
-		        _webresult = lrapi.web.url("pagehomegdgs.do", 
-		                "URL={p_url}/etax/admin/pagehomegdgs.do", new String[]{ 
-		                "Resource=0", 
-		                "RecContentType=text/html", 
-		                "Referer=", 
-		                "Snapshot=t3.inf",  
-		                "Mode=HTML", 
-		                LAST});
-		        
-		        return true;
-		    }}.RunTrans();
+    	Mainpage.RunTrans();
     }
 
     public  void run_Start() throws Throwable{

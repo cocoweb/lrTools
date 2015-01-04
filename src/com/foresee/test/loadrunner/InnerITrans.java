@@ -19,7 +19,7 @@ public abstract class InnerITrans {
 	}
 
 	public void Before() {
-		timer = lr.start_timer();
+		timer = System.currentTimeMillis();
 		lr.start_transaction(TransName);
 
 	}

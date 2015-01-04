@@ -12,7 +12,7 @@ public class LoadrunnerUtil {
 	 * @param beginTimer       原来的起始时间
 	 */
 	public static void reportOut(boolean bSuccess, String transName, String retXML, long beginTimer) {
-	    long ltime = lr.end_timer(beginTimer);
+	    long ltime =System.currentTimeMillis() - beginTimer;
 	    String stime = ltime<10000 ? Long.toString(ltime):"==too long=="+Long.toString(ltime)+" ";
 	    if(bSuccess){
 			lr.message(stime+" "+lr.eval_string(transName+" 成功!:NSRSBH:[{para_nsrsbh}]:返回:")+ retXML  );

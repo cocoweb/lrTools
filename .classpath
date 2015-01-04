@@ -9,6 +9,6 @@
 	<classpathentry kind="lib" path="F:/OpenSource/libs/json-1.0.0.jar"/>
 	<classpathentry kind="var" path="TESTNG_HOME"/>
 	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
-	<classpathentry kind="lib" path="F:/OpenSource/classes_lr"/>
+	<classpathentry kind="lib" path="F:/OpenSource/loadrunner/classes" sourcepath="F:/OpenSource/loadrunner/classes/classes.src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -24,11 +24,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>classes_lr</name>
-			<type>2</type>
-			<location>F:/OpenSource/classes_lr</location>
-		</link>
-	</linkedResources>
 </projectDescription>
