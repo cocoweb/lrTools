@@ -1,12 +1,15 @@
-﻿package com.foresee.test.loadrunner;
+package com.foresee.test.demo;
+//package com.foresee.test.loadrunner;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Loadrunner Action 继承父类
+ * Loadrunner Action �̳и���
  * 
- * init() 需要override，用来进行初始化
+ * init() ��Ҫoverride���������г�ʼ��
+ * 
+ *
  * 
  * @author Administrator
  *  
@@ -14,30 +17,30 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class LrActionClass {
  
-	public static final String ENDFORM = "ENDFORM";
-	public static final String LAST = "LAST";
-	public static final String ENDITEM = "ENDITEM";
-	public static final String ITEMDATA = "ITEMDATA";
-	public static final String STARTHIDDENS = "STARTHIDDENS";
-	public static final String ENDHIDDENS = "ENDHIDDENS";
-	public static final String CONNECT = "CONNECT";
-	public static final String RECEIVE = "RECEIVE";
-	public static final String RESOLVE = "RESOLVE";
-	public static final String REQUEST = "REQUEST";
-	public static final String RESPONSE = "RESPONSE";
-	public static final String EXTRARES = "EXTRARES";
-	public static int _webresult;
+	static final String ENDFORM = "ENDFORM";
+	static final String LAST = "LAST";
+	static final String ENDITEM = "ENDITEM";
+	static final String ITEMDATA = "ITEMDATA";
+	static final String STARTHIDDENS = "STARTHIDDENS";
+	static final String ENDHIDDENS = "ENDHIDDENS";
+	static final String CONNECT = "CONNECT";
+	static final String RECEIVE = "RECEIVE";
+	static final String RESOLVE = "RESOLVE";
+	static final String REQUEST = "REQUEST";
+	static final String RESPONSE = "RESPONSE";
+	static final String EXTRARES = "EXTRARES";
+	static int _webresult;
 	
 	static Map<String, InnerITrans> cacheMap = new ConcurrentHashMap<String, InnerITrans>();
 
     /**
-     * 添加事务对象，
-     * 可以使用InnerITrans 的匿名继承对象
+     * ����������
+     * ����ʹ��InnerITrans �������̳ж���
      * @param xITrans
      * @return
      */
     public InnerITrans addTrans(InnerITrans xITrans){
-    	if (!cacheMap.containsKey(xITrans.TransName)){  //避免并发时，保存多个
+    	if (!cacheMap.containsKey(xITrans.TransName)){  //���Ⲣ��ʱ��������
     	    return cacheMap.put(xITrans.TransName, xITrans);
     	}
     	return cacheMap.get(xITrans.TransName);
@@ -45,8 +48,8 @@ public abstract class LrActionClass {
     }
     
     /**
-     * 使用事务的名字查找、并执行
-     * 避免每次执行的时候创建匿名对象
+     * ʹ����������ֲ��ҡ���ִ��
+     * ����ÿ��ִ�е�ʱ�򴴽���������
      * @param transName
      * @return
      * @throws Throwable
@@ -55,7 +58,7 @@ public abstract class LrActionClass {
     	if(cacheMap.containsKey(transName)){
 	    	return cacheMap.get(transName).RunTrans();
     	}else{
-    		throw new Exception("没有找到这个Transaction："+transName);
+    		throw new Exception("û���ҵ����Transaction��"+transName);
     	}
     	//return false;
     }
@@ -65,19 +68,19 @@ public abstract class LrActionClass {
 
     public LrActionClass() {
         super();
-        //init();无法在这里生效 ，故屏蔽
+        //Init();
         
     }
    
     /**
-     * 初始化，并且加入LoadRunner的脚本类
+     * ��ʼ�������Ҽ���LoadRunner�Ľű���
      */
     public abstract void Init();
 
 	/**
-	 * 执行一个匿名定义的transaction
-	 * @param xDo  InnerITrans的实例对象,匿名方式实现为主
-	 * @return  返回事务是否成功
+	 * ִ��һ�����������transaction
+	 * @param xDo  InnerITrans��ʵ������,������ʽʵ��Ϊ��
+	 * @return  ���������Ƿ�ɹ�
 	protected boolean runTransaction(InnerITrans xDo) throws Throwable {
 		    	//before transaction code
 		    	
@@ -91,8 +94,8 @@ public abstract class LrActionClass {
 		    }	 */
 
 	/**
-     * 调用模板,直接Copy,然后填空
-     * 此方法可能在多次循环时，创建多个匿名对象
+     * ����ģ��,ֱ��Copy,Ȼ�����
+     * �˷��������ڶ��ѭ��ʱ�����������������
      * @throws Throwable
      */
     public  void run_Temp() throws Throwable{
@@ -104,11 +107,11 @@ public abstract class LrActionClass {
 		        
 		        return true;
 		}}.RunTrans();
-		//这里必须调用RunTrans()，因为封装了一些三明治的代码
+		//����������RunTrans()����Ϊ��װ��һЩ�����εĴ���
 	}
     
     public void run_Demo() throws Throwable{
-    	//init 中添加匿名类
+    	//init �����������
     	addTrans(new InnerITrans("aaa"){
 			@Override
 			public boolean onTrans() throws Throwable {
@@ -118,7 +121,7 @@ public abstract class LrActionClass {
 		        return true;
 		}});
     	
-    	//然后执行
+    	//Ȼ��ִ��
     	runTrans("aaa");
     	
     }

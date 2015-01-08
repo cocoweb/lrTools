@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
-import com.foresee.test.util.MapCacheManager;
 import com.foresee.test.util.StringUtil;
+import com.foresee.test.util.cache.StringCacheManager;
 
 //import javax.xml.parsers.*;
 //import lrapi.lr;
 
 public class lrTools {
-	private static MapCacheManager xCache = MapCacheManager.getInstance();
+	private static StringCacheManager xCache = StringCacheManager.getInstance();
 	
  
 	/**
@@ -166,7 +166,7 @@ public class lrTools {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String sXML = lrTools.loadXmlByKey("zzssyyybnsr_zb");
+		String sXML = lrTools.loadXmlByKey("SWZJ.HXZG.SB.ZZSYBRSBSQJKJHQQCSJ");
 		
 		//System.out.println(XmlDefinition.getValueByName("SWZJ.HXZG.SB.ZZSXGMSBSQJKJHQQCSJ"));
 

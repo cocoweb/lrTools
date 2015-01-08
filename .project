@@ -24,4 +24,16 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>hz demo</name>
+			<type>2</type>
+			<location>F:/Products File/hzscripts/hz demo</location>
+		</link>
+		<link>
+			<name>libshz</name>
+			<type>2</type>
+			<location>F:/Products File/hzscripts/libs</location>
+		</link>
+	</linkedResources>
 </projectDescription>

@@ -133,6 +133,14 @@
 		</zip>
 		
 	</target>
+	
+	<property name="deploydir.hzscript" value="F:/Products File/hzscripts/libs"/>
+	<target name="deploy.hzscript" depends="jar.lrtools">
+		<!--mkdir dir="${deploydir}" /-->
+		<copy todir="${deploydir.hzscript}">
+			<fileset dir="${jardir}" includes="${jarfile.lrtools}" />
+		</copy>
+	</target>
 	<target name="clean">
 		<delete dir="bin" />
 	</target>

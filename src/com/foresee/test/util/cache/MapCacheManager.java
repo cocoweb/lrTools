@@ -1,4 +1,4 @@
-package com.foresee.test.util;
+package com.foresee.test.util.cache;
 
 import java.util.Collection;
 import java.util.Map;

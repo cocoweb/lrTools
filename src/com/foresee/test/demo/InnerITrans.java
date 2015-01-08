@@ -1,10 +1,11 @@
-package com.foresee.test.loadrunner;
+package com.foresee.test.demo;
+//package com.foresee.test.loadrunner;
 
 import com.foresee.test.loadrunner.lrapi.lr;
 import com.foresee.test.loadrunner.lrapi.web;
 
 /**
- * loadrunner 内部匿名类的父类
+ * loadrunner �ڲ�������ĸ���
  * @author allan.xie
  *
  */
@@ -14,8 +15,6 @@ public abstract class InnerITrans {
 	public boolean isOK = true;
 	public String OutString = "";
 	private long timer;
-	
-	public int _webresult;
 
 	public InnerITrans(String trans) {
 		TransName = trans;
@@ -42,11 +41,6 @@ public abstract class InnerITrans {
 
 	}
 
-	/**
-	 * 回调方法
-	 * @return
-	 * @throws Throwable
-	 */
 	protected abstract boolean onTrans() throws Throwable;
 
 }

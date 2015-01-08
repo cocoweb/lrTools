@@ -1,8 +1,8 @@
 package com.foresee.test.loadrunner;
 
 import lrTestool.lrTools;
-import lrapi.lr;
-import lrapi.web;
+import com.foresee.test.loadrunner.lrapi.lr;
+import com.foresee.test.loadrunner.lrapi.web;
 
 import com.foresee.test.util.FileUtil;
 import com.foresee.test.util.StringUtil;
@@ -15,7 +15,7 @@ import com.foresee.test.util.StringUtil;
  *    问题：每次循环执行的时候，都会重复创建该匿名对象
  * 3、使用 addTrans()添加事务对象到map进行缓存，然后再调用 ，如：run_Start()
  * 
- * init()初始化方法，被父类的构造函数调用
+ * init()初始化方法应该被第一时间使用
  * @author allan.xie
  *
  */
@@ -38,7 +38,7 @@ public class ActionsDemo extends LrActionClass
 
 
     @Override
-	public void init() {
+	public void Init() {
     	if(sZZSXML == null){  //初始化XML报文(含参数)
         	sZZSXML = lrTools.loadXmlByKey("zzssyyybnsr_zb");
     	}
@@ -48,7 +48,7 @@ public class ActionsDemo extends LrActionClass
     	
     	this.addTrans(new InnerITrans("打开网厅"){
     		@Override
-			public boolean doTrans() throws Throwable {
+			public boolean onTrans() throws Throwable {
          
 		       _webresult = lrapi.web.url("etax_2",
 		                "URL={p_url}/etax/", new String[]{
@@ -78,7 +78,7 @@ public class ActionsDemo extends LrActionClass
 		    }});
     	this.addTrans( new InnerITrans("登录提交"){
     		@Override
-			public boolean doTrans() throws Throwable {
+			public boolean onTrans() throws Throwable {
     			run_Start();
          
     	    	web.reg_find("Text=/admin/pagehomegdgs.do", 
@@ -114,7 +114,7 @@ public class ActionsDemo extends LrActionClass
 	public void run_Sbzs1_Page1()  throws Throwable{
 		new InnerITrans("申报征收1_首页"){
 			@Override
-			public boolean doTrans() throws Throwable {
+			public boolean onTrans() throws Throwable {
 		    	_webresult = lrapi.web.link("申报征收sbzs", 
 		    		"Text=申报征收", new String[]{ 
 		    		"Snapshot=t4.inf", 
@@ -222,7 +222,7 @@ public class ActionsDemo extends LrActionClass
     public  void run_Sbzs2_UpPage() throws Throwable{
 		new InnerITrans("申报征收2上传页面"){
 			@Override
-			public boolean doTrans() throws Throwable {
+			public boolean onTrans() throws Throwable {
 			    
 		    	_webresult = lrapi.web.url("sbRequest.do", 
 		    		"URL={p_url}/etax/gdgs/sb/zzsYbnsr/sbRequest.do", new String[]{ 
@@ -551,7 +551,7 @@ public class ActionsDemo extends LrActionClass
     public  void run_Jk2_Jk() throws Throwable{
 		new InnerITrans("缴款2_网上缴税"){
 			@Override
-			public boolean doTrans() throws Throwable {
+			public boolean onTrans() throws Throwable {
 	     
 		    	web.reg_save_param("ret_qjskTID", new String []{ 
 	    				"NOTFOUND=ERROR", 
@@ -625,7 +625,7 @@ public class ActionsDemo extends LrActionClass
     	
     	new InnerITrans("发票验旧1发票管理首页"){
     		@Override
-			public boolean doTrans() throws Throwable {
+			public boolean onTrans() throws Throwable {
     	    	_webresult = lrapi.web.link("发票管理", 
     	    			"Text=发票管理", new String[]{ 
     	    			"Snapshot=t4.inf", 
@@ -650,7 +650,7 @@ public class ActionsDemo extends LrActionClass
     public void run_Fpyj2_Import() throws Throwable{
     	new InnerITrans("发票验旧2导入页"){
     		@Override
-			public boolean doTrans() throws Throwable {
+			public boolean onTrans() throws Throwable {
 				_webresult = lrapi.web.link("导入", 
 						"Text=导入", new String[]{ 
 						"Snapshot=t5.inf", 
@@ -833,7 +833,7 @@ public class ActionsDemo extends LrActionClass
     public  void run_Fprz1_Choose() throws Throwable{
     	new InnerITrans("发票认证1选择"){
     		@Override
-			public boolean doTrans() throws Throwable {
+			public boolean onTrans() throws Throwable {
          
     	    	_webresult = lrapi.web.url("fprz_index.do", 
     	        	    "URL={p_url}/etax/admin/fprz/fprz_index.do?siteName=gd&styleName=yellow&ythFlag=Y", new String[]{ 
@@ -853,7 +853,7 @@ public class ActionsDemo extends LrActionClass
     public  void run_Fprz2_Page1() throws Throwable{
     	new InnerITrans("发票认证2首页"){
     		@Override
-			public boolean doTrans() throws Throwable {
+			public boolean onTrans() throws Throwable {
          
     	    	_webresult = lrapi.web.url("fprz.do", 
     	        		"URL={p_url}/etax/gdgs/menu/fprz.do?siteName=gd&styleName=yellow&ythFlag=Y", new String[]{ 
@@ -884,7 +884,7 @@ public class ActionsDemo extends LrActionClass
     public  void run_Fprz3_UpPage() throws Throwable{
     	new InnerITrans("发票认证3上传页面"){
     		@Override
-			public boolean doTrans() throws Throwable {
+			public boolean onTrans() throws Throwable {
          
     		   	_webresult = lrapi.web.link("网上认证", 
     		    		"Text=网上认证", new String[]{ 
@@ -1023,7 +1023,7 @@ public class ActionsDemo extends LrActionClass
     
     InnerITrans Mainpage = new InnerITrans("大厅首页"){
 		@Override
-		public boolean doTrans() throws Throwable {
+		public boolean onTrans() throws Throwable {
      
 	        _webresult = lrapi.web.url("pagehomegdgs.do", 
 	                "URL={p_url}/etax/admin/pagehomegdgs.do", new String[]{ 
@@ -1082,7 +1082,7 @@ public class ActionsDemo extends LrActionClass
 
 	    }
 
-	    return rzFile;
+	    return rzFile; 
 
 	}//.replaceAll("\\","\\")
     
