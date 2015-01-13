@@ -19,6 +19,8 @@ public class I_web {
 	public static final int HTTP_INFO_DOWNLOAD_SIZE = 2;
 	public static final int HTTP_INFO_DOWNLOAD_TIME = 3;
 
+	public static final String EXTRARES = "EXTRARES";
+
 	public static int link(String stepName, String textName, String[] options)
 			throws HttpException, lrapi.exceptions.HttpException {
 		// TODO 直接转发LoadRunner的方法

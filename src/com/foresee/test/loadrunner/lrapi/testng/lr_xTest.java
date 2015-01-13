@@ -62,7 +62,7 @@ public class lr_xTest {
   }
 
   @Test
-  public void save_int(int i, String string) {
+  public void save_int() {
     throw new RuntimeException("Test not implemented");
   }
 
