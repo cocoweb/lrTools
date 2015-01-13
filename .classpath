@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="com/foresee/test/api/|org/dtools/ini/|lrTestool/olds/|lrTestool/test/" kind="src" path="src"/>
+	<classpathentry excluding="com/foresee/test/api/|org/dtools/ini/|lrTestool/olds/|lrTestool/test/|com/foresee/test/demo/testng/excel/" kind="src" path="src"/>
 	<classpathentry including="*.java" kind="src" output="hz demo" path="hz demo"/>
 	<classpathentry including="*.java" kind="src" output="libshz" path="libshz"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
@@ -12,5 +12,7 @@
 	<classpathentry kind="var" path="TESTNG_HOME"/>
 	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="lib" path="F:/OpenSource/loadrunner/classes" sourcepath="F:/OpenSource/loadrunner/classes/classes.src.zip"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/poi"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/seleniumLIBs"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

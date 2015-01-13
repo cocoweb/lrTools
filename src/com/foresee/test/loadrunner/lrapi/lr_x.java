@@ -1,10 +1,14 @@
 package com.foresee.test.loadrunner.lrapi;
 
-import com.foresee.test.util.ParamUtils;
+import com.foresee.test.util.exfile.ParamUtils;
 
 /**
  * 实现包装LoadRunner的方法
- * 
+ * 	  //暂时不支持部分嵌套参数
+	  //"sdf,{bb{ccc}}dfasdf,{aaa}" 不支持
+	  //"sdf,{{ccc}bb}dfasdf,{aaa}"支持
+	  //"sdf,{ccc}dfasdf,{aaa}"
+
  * @author Administrator
  *
  */

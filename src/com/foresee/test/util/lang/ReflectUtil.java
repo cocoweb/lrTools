@@ -1,4 +1,4 @@
-package com.foresee.test.util;
+package com.foresee.test.util.lang;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

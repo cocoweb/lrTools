@@ -1,4 +1,4 @@
-package com.foresee.test.util;
+package com.foresee.test.util.exfile;
 
 import java.io.File;
 import java.util.HashMap;
@@ -11,6 +11,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
+import com.foresee.test.util.io.File2Util;
 
 /**
  * 使用Dom4j处理XML

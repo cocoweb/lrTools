@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.foresee.test.util.ExtProperties;
+import com.foresee.test.util.exfile.ExtProperties;
 
 public class XmlDefinitionTest {
   @BeforeClass

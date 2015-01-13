@@ -10,7 +10,7 @@ import com.foresee.test.loadrunner.lrapi.ParameterCache;
 
 public class ParameterCacheTest {
 	ParameterCache xcache = ParameterCache.getInstance();
-  @SuppressWarnings("unchecked")
+
 @BeforeTest
   public void beforeTest() {
       xcache.put("aaa", "AAA");

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.foresee.test.util;
+package com.foresee.test.util.exfile;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -14,6 +14,8 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
+
+import com.foresee.test.util.lang.StringUtil;
 
 /**
  * 将一个字符串按照Gzip、Zip方式压缩和解压缩

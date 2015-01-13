@@ -1,11 +1,11 @@
 package com.foresee.test.loadrunner;
 
 import lrTestool.lrTools;
+
 import com.foresee.test.loadrunner.lrapi.lr;
 import com.foresee.test.loadrunner.lrapi.web;
-
-import com.foresee.test.util.FileUtil;
-import com.foresee.test.util.StringUtil;
+import com.foresee.test.util.io.FileUtil;
+import com.foresee.test.util.lang.StringUtil;
 
 /**
  * 这个类里面用了多种方法，来构造LoadRunner的事务代码管理

@@ -1,4 +1,4 @@
-package com.foresee.test.util;
+package com.foresee.test.util.io;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

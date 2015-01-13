@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 import com.foresee.test.util.cache.StringCacheManager;
-import com.foresee.test.util.StringUtil;
+import com.foresee.test.util.lang.StringUtil;
 
 //import javax.xml.parsers.*;
 //import lrapi.lr;

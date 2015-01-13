@@ -5,7 +5,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.foresee.test.loadrunner.lrapi.ParameterCache;
 import com.foresee.test.loadrunner.lrapi.lr_x;
 
 public class lr_xTest {

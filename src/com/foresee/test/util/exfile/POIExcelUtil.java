@@ -1,4 +1,4 @@
-package com.foresee.test.util;
+package com.foresee.test.util.exfile;
 
 import java.io.File;
 import java.io.FileInputStream;

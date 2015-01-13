@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.foresee.test.util.ExtProperties;
+import com.foresee.test.util.exfile.ExtProperties;
 
 /**
  * 在 /file.properties 中读取文件名字、参数定义
