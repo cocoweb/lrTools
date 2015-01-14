@@ -5,13 +5,13 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class StringCacheManager {   //extends CacheMgr {
+public class StringCacheMgr {   //extends CacheMgr {
 	
 	protected volatile static CacheMgr<String> xcachemgr = new CacheMgr<String>() ;
 
-	protected volatile static StringCacheManager stringCacheObject;// 缓存实例对象
+	protected volatile static StringCacheMgr stringCacheObject;// 缓存实例对象
 
-	protected StringCacheManager() {
+	protected StringCacheMgr() {
 		super();
 
 	}
@@ -22,11 +22,11 @@ public class StringCacheManager {   //extends CacheMgr {
 	 * 
 	 * @return
 	 *  */
-	public static StringCacheManager getInstance() {
+	public static StringCacheMgr getInstance() {
 		if (null == stringCacheObject) {
-			synchronized (StringCacheManager.class) {
+			synchronized (StringCacheMgr.class) {
 				if (null == stringCacheObject) {
-					stringCacheObject = new StringCacheManager();
+					stringCacheObject = new StringCacheMgr();
 				}
 			}
 		}

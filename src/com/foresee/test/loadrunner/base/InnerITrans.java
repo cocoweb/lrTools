@@ -1,5 +1,6 @@
-package com.foresee.test.loadrunner;
+package com.foresee.test.loadrunner.base;
 
+import com.foresee.test.loadrunner.LoadrunnerUtil;
 import com.foresee.test.loadrunner.lrapi.lr;
 import com.foresee.test.loadrunner.lrapi.web;
 
@@ -47,6 +48,6 @@ public abstract class InnerITrans {
 	 * @return
 	 * @throws Throwable
 	 */
-	protected abstract boolean onTrans() throws Throwable;
+	public abstract boolean onTrans() throws Throwable;
 
 }

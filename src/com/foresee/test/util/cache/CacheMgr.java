@@ -117,6 +117,9 @@ public class CacheMgr<V extends Object> {
 		return cacheMap.size();
 	}
 
+	/**
+	 * @return
+	 */
 	public Map<String, String> cloneStringMapCache() {
 		Map<String,String> nMap=new HashMap<String,String>();
 		//nMap.putAll(super.getMapCache());
@@ -125,5 +128,13 @@ public class CacheMgr<V extends Object> {
 		
 		return nMap;
 	}
+	
+	       //清除所有缓存 
+        public  void clearAll() { 
+            for (Map.Entry<? extends String, ? extends Object> e : this.getMapCache().entrySet())
+                cacheMap.remove(e.getKey());
+
+        } 
+
 
 }

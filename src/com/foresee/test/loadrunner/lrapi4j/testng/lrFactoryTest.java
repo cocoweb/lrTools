@@ -1,8 +1,8 @@
-package com.foresee.test.loadrunner.lrapi.testng;
+package com.foresee.test.loadrunner.lrapi4j.testng;
 
 import org.testng.annotations.Test;
 
-import com.foresee.test.loadrunner.lrapi.lrFactory;
+import com.foresee.test.loadrunner.lrapi4j.lrFactory;
 
 public class lrFactoryTest {
 

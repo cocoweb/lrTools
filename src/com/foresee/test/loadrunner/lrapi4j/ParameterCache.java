@@ -1,8 +1,8 @@
-package com.foresee.test.loadrunner.lrapi;
+package com.foresee.test.loadrunner.lrapi4j;
 
-import com.foresee.test.util.cache.StringCacheManager;
+import com.foresee.test.util.cache.StringCacheMgr;
 
-public class ParameterCache extends StringCacheManager{
+public class ParameterCache extends StringCacheMgr{
 
 	volatile static ParameterCache mapCacheObject;// 缓存实例对象
 

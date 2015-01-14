@@ -1,4 +1,4 @@
-﻿package com.foresee.test.loadrunner;
+﻿package com.foresee.test.loadrunner.base;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

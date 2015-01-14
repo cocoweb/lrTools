@@ -1,4 +1,4 @@
-package com.foresee.test.loadrunner.lrapi.testng;
+package com.foresee.test.loadrunner.lrapi4j.testng;
 
 
 import org.testng.AssertJUnit;
@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
 
-import com.foresee.test.loadrunner.lrapi.ParameterCache;
+import com.foresee.test.loadrunner.lrapi4j.ParameterCache;
 
 public class ParameterCacheTest {
 	ParameterCache xcache = ParameterCache.getInstance();

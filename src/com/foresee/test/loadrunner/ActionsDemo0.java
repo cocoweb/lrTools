@@ -2,6 +2,8 @@ package com.foresee.test.loadrunner;
 
 import lrTestool.lrTools;
 
+import com.foresee.test.loadrunner.base.InnerITrans;
+import com.foresee.test.loadrunner.base.LrActionClass;
 import com.foresee.test.loadrunner.lrapi.lr;
 import com.foresee.test.loadrunner.lrapi.web;
 import com.foresee.test.util.io.FileUtil;
@@ -19,18 +21,18 @@ import com.foresee.test.util.lang.StringUtil;
  * @author allan.xie
  *
  */
-public class ActionsDemo extends LrActionClass
+public class ActionsDemo0 extends LrActionClass
 {
-    private static ActionsDemo commonObj = new ActionsDemo();
+    private static ActionsDemo0 commonObj = new ActionsDemo0();
     static String sZZSXML=null;
     static String sFPYJXML =null;
     
     /**
      * @return 返回实例对象
      */
-    public static ActionsDemo getInstance(){
+    public static ActionsDemo0 getInstance(){
     	if (null==commonObj) {
-    	    commonObj = new ActionsDemo();
+    	    commonObj = new ActionsDemo0();
     	}
     	return commonObj;
 

@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //import org.apache.commons.logging.Log;
 //import org.apache.commons.logging.LogFactory;
 
-public class MapCacheManager{
+public class MapCacheMgr{
 
 	//extends CacheManager {
 
@@ -18,7 +18,7 @@ public class MapCacheManager{
 	//private volatile long updateTime = 0L;// 更新缓存时记录的时间
 
 	static Map<String, String> cacheMap = new ConcurrentHashMap<String, String>();// 缓存容器
-	volatile static MapCacheManager mapCacheObject;// 缓存实例对象
+	volatile static MapCacheMgr mapCacheObject;// 缓存实例对象
 
 	private volatile boolean updateFlag = true;// 正在更新时的阀门，为false时表示当前没有更新缓存，为true时表示当前正在更新缓存
 
@@ -34,7 +34,7 @@ public class MapCacheManager{
 		return cacheMap.values();
 	}
 
-	private MapCacheManager() {
+	private MapCacheMgr() {
 		//this.LoadCache();// 加载缓存
 		//updateTime = System.currentTimeMillis();// 缓存更新时间
 
@@ -45,11 +45,11 @@ public class MapCacheManager{
 	 * 
 	 * @return
 	 *  */
-	public static MapCacheManager getInstance() {
+	public static MapCacheMgr getInstance() {
 		if (null == mapCacheObject) {
-			synchronized (MapCacheManager.class) {
+			synchronized (MapCacheMgr.class) {
 				if (null == mapCacheObject) {
-					mapCacheObject = new MapCacheManager();
+					mapCacheObject = new MapCacheMgr();
 				}
 			}
 		}

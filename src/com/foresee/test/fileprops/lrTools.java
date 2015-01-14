@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
-import com.foresee.test.util.cache.StringCacheManager;
+import com.foresee.test.util.cache.StringCacheMgr;
 import com.foresee.test.util.lang.StringUtil;
 
 //import javax.xml.parsers.*;
 //import lrapi.lr;
 
 public class lrTools {
-	private static StringCacheManager xCache = StringCacheManager.getInstance();
+	private static StringCacheMgr xCache = StringCacheMgr.getInstance();
 	
  
 	/**

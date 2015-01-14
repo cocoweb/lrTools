@@ -1,7 +1,6 @@
 package com.foresee.test.loadrunner;
 
 import com.foresee.test.loadrunner.lrapi.lr;
-import com.foresee.test.loadrunner.lrapi.web;
 
 public class LoadrunnerUtil {
 	/**

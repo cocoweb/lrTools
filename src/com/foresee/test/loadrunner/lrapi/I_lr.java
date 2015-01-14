@@ -52,9 +52,9 @@ public abstract class I_lr {
 		return lrapi.lr.error_message(paramString);
 	}
 
-	public static void think_time(long seconds) {
+	public static void think_time(double d) {
 		try {
-			Thread.sleep(seconds * 1000);
+			Thread.sleep((long) (d * 1000));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
