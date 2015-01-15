@@ -1,4 +1,4 @@
-package com.foresee.test.http.testng;
+package com.foresee.test.util.http.testng;
 
 import java.io.IOException;
 import java.io.InputStream;

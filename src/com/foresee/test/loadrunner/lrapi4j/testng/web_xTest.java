@@ -15,10 +15,12 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.foresee.test.http.HttpException;
+
 //import ActionsDemo;
 import com.foresee.test.loadrunner.lrapi4j.lr;
 import com.foresee.test.loadrunner.lrapi4j.web;
+import com.foresee.test.loadrunner.lrapi4j.helper.webhelper;
+import com.foresee.test.util.http.HttpException;
 
 public class web_xTest {
   @BeforeTest
@@ -148,7 +150,7 @@ public class web_xTest {
   public void setParameters() {
       HttpPost httpost = new HttpPost("http://www.baidu.com"); 
       
-      web.setParameters(httpost, new String[]{
+      webhelper.setParameters(httpost, new String[]{
                                 "Name=bizXml", "Value=<tycxParam><sqlID>querySwdjxxcx</sqlID><pageFlag>Y</pageFlag><perNum>10</perNum><params><entry><key>nsrsbh</key><value>{para_nsrsbh}</value></entry><entry><key>beignRow</key><value>1</value></entry><entry><key>endRow</key><value>10</value></entry></params></tycxParam>", ENDITEM, 
                                 "Name=sid", "Value=ETax.TY.qureydataZG", ENDITEM, 
                                 "Name=action", "Value=queryData", ENDITEM, 
@@ -171,7 +173,7 @@ public class web_xTest {
   public void setHeaders() {
 	HttpGet httpget = new HttpGet("http://www.baidu.com");    
 	  
-    web.setHeaders(httpget, new String[]{ 
+    webhelper.setHeaders(httpget, new String[]{ 
 				"Resource=0", 
 				"RecContentType=text/html", 
 				"Referer=", 

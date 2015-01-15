@@ -3,7 +3,11 @@ package com.foresee.test.loadrunner.lrapi4j;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.foresee.test.loadrunner.lrapi.I_lr;
+import com.foresee.test.loadrunner.lrapi4j.helper.ParameterCache;
+import com.foresee.test.loadrunner.lrapi4j.helper.Transaction;
 import com.foresee.test.util.exfile.ParamUtils;
 import com.foresee.test.util.lang.StringUtil;
 
@@ -15,13 +19,22 @@ import com.foresee.test.util.lang.StringUtil;
  *
  */
 public class lr extends I_lr {
+    
+    static Logger logger = Logger.getLogger ( lr.class.getName () );
+
+    
     public static String eval_string(String paramString) {
         return ParamUtils.replaceVariables(paramString, ParameterCache.getInstance().getMapCache());
     }
 
     public static int eval_int(String paramString) {
-        return Integer.parseInt(ParamUtils.replaceVariables(paramString, ParameterCache.getInstance().getMapCache()));
-    }
+        try{
+            return Integer.parseInt(ParamUtils.replaceVariables(paramString, ParameterCache.getInstance().getMapCache()));
+            
+        }catch(Exception e){
+            return -1;
+        }
+     }
 
     public static int save_string(String sValue, String ParaName) {
         ParameterCache.getInstance().put(ParaName, sValue);
@@ -79,8 +92,6 @@ public class lr extends I_lr {
                 xtran.isOK = true;
                 break;
             default:
-                
-        
         }
         
         message(xtran.endMessage());
@@ -90,13 +101,22 @@ public class lr extends I_lr {
     }
 
     public static int message(String paramString) {
-        System.out.println(paramString);
+        logger.info(paramString);
         return 0;
     }
 
     public static int error_message(String paramString) {
-        System.out.println("ERROR: " + paramString);
+        logger.error("ERROR: " + paramString);
+        
+        //System.out.println("ERROR: " + paramString);
         return 0;
+    }
+
+    public static String get_attrib_string(String string) {
+        if (string == "lr_usr_dir")
+            return usr_dir;
+        
+        return null;
     }
 
 }

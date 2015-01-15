@@ -1,12 +1,12 @@
-package com.foresee.test.loadrunner.lrapi4j;
+package com.foresee.test.loadrunner.lrapi4j.helper;
 
 public class Transaction {
-    String transName;
-    long beginTime;
-    long endTime = 0;
-    long time = 0;
+    public String transName;
+    public long beginTime;
+    public long endTime = 0;
+    public long time = 0;
 
-    boolean isOK = false;
+    public boolean isOK = false;
 
     public Transaction(String paramString) {
         transName = paramString;

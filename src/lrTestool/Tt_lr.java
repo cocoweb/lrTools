@@ -5,10 +5,11 @@ package lrTestool;
  * Script Description: 
  *                     
  */
-import lrapi.lr;
+
 import gt3.esb.ejb.adapter.client.IEsbXmlMessageReceiver;
 
 import com.foresee.etax.ejbclient.*;
+import com.foresee.test.loadrunner.lrapi4j.lr;
 
 import lrTestool.lrTools;
 import utils.LRUtils;
@@ -30,6 +31,12 @@ public class Tt_lr
 	    tran_name =lrTools.getTranNameByKey(tran_key);
 
 	    sXML = lrTools.loadXmlByKey(tran_key);
+	    
+	    lr.save_string("123456","p_qshm");
+	    lr.save_string("123499","p_zzhm");
+            
+	    lr.save_string("123456","iters");
+            
 
              return 0; 
 	}//end of init
@@ -51,7 +58,7 @@ public class Tt_lr
 	    lr.save_string("222222222","p_skssqz");
 
 
-	    int offset = (Integer.parseInt(lr.eval_string("{iters}"))-1)/4;
+	    int offset = 0;//(Integer.parseInt(lr.eval_string("{iters}"))-1)/4;
 
 	    long timer = lr.start_timer(); 
 

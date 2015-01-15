@@ -1,4 +1,4 @@
-package com.foresee.test.http;
+package com.foresee.test.util.http;
 
 public class HttpException extends Exception {
 

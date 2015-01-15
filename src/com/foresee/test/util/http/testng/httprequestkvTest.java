@@ -1,10 +1,10 @@
-package com.foresee.test.http.testng;
+package com.foresee.test.util.http.testng;
 
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
 
-import com.foresee.test.http.HttpRequestKV;
+import com.foresee.test.util.http.HttpRequestKV;
 
 public class httprequestkvTest {
   @BeforeTest

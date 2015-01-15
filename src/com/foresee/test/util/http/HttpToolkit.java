@@ -1,4 +1,4 @@
-package com.foresee.test.http;
+package com.foresee.test.util.http;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;

@@ -1,4 +1,4 @@
-package com.foresee.test.http;
+package com.foresee.test.util.http;
 
 /*
  * Copyright (c) 2014 Kevin Sawicki <kevinsawicki@gmail.com>

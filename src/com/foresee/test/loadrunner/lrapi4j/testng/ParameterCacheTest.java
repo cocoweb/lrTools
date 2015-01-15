@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
 
-import com.foresee.test.loadrunner.lrapi4j.ParameterCache;
+import com.foresee.test.loadrunner.lrapi4j.helper.ParameterCache;
 
 public class ParameterCacheTest {
 	ParameterCache xcache = ParameterCache.getInstance();

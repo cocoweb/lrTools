@@ -1,13 +1,13 @@
-package com.foresee.test.http.testng;
-import static com.foresee.test.http.HttpRequestKV.CHARSET_UTF8;
-import static com.foresee.test.http.HttpRequestKV.delete;
-import static com.foresee.test.http.HttpRequestKV.encode;
-import static com.foresee.test.http.HttpRequestKV.get;
-import static com.foresee.test.http.HttpRequestKV.head;
-import static com.foresee.test.http.HttpRequestKV.options;
-import static com.foresee.test.http.HttpRequestKV.post;
-import static com.foresee.test.http.HttpRequestKV.put;
-import static com.foresee.test.http.HttpRequestKV.trace;
+package com.foresee.test.util.http.testng;
+import static com.foresee.test.util.http.HttpRequestKV.CHARSET_UTF8;
+import static com.foresee.test.util.http.HttpRequestKV.delete;
+import static com.foresee.test.util.http.HttpRequestKV.encode;
+import static com.foresee.test.util.http.HttpRequestKV.get;
+import static com.foresee.test.util.http.HttpRequestKV.head;
+import static com.foresee.test.util.http.HttpRequestKV.options;
+import static com.foresee.test.util.http.HttpRequestKV.post;
+import static com.foresee.test.util.http.HttpRequestKV.put;
+import static com.foresee.test.util.http.HttpRequestKV.trace;
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
 import static java.net.HttpURLConnection.HTTP_CREATED;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
@@ -61,8 +61,8 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.foresee.test.http.HttpRequestKV;
-import com.foresee.test.http.HttpRequestKV.HttpRequestException;
+import com.foresee.test.util.http.HttpRequestKV;
+import com.foresee.test.util.http.HttpRequestKV.HttpRequestException;
 
 /**
  * Unit tests of {@link HttpRequest}

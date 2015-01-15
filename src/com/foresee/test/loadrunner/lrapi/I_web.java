@@ -1,6 +1,6 @@
 package com.foresee.test.loadrunner.lrapi;
 
-import com.foresee.test.http.HttpException;
+import com.foresee.test.util.http.HttpException;
 
 public class I_web {
 
