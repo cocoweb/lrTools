@@ -10,8 +10,9 @@ import com.foresee.test.util.exfile.ExtProperties;
 /**
  * 在 /file.properties 中读取文件名字、参数定义
  * @author allan.xie
- *
+ * moved to com.foresee.test.fileprops
  */
+@Deprecated 
 public final class XmlDefinition 
 {
 	private static ExtProperties extProp=null;

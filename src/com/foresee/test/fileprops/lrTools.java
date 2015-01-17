@@ -7,8 +7,6 @@ import java.io.UnsupportedEncodingException;
 import com.foresee.test.util.cache.StringCacheMgr;
 import com.foresee.test.util.lang.StringUtil;
 
-//import javax.xml.parsers.*;
-//import lrapi.lr;
 
 public class lrTools {
 	private static StringCacheMgr xCache = StringCacheMgr.getInstance();
@@ -26,8 +24,8 @@ public class lrTools {
 		if( !xCache.containsKey(sKey)){
 			synchronized(lrTools.class){
 				if(!xCache.containsKey(sKey)){
-					String sPara = XmlDefinition.getParaByName(sKey);
-					sXml = loadFile(XmlDefinition.getFileByName(sKey));
+					String sPara = FileDefinition.getParaByName(sKey);
+					sXml = loadFile(FileDefinition.getFileByName(sKey));
 				
 					return xCache.putString(sKey, paserXmlWithPara(sXml, sPara));
 				}
@@ -37,16 +35,16 @@ public class lrTools {
 			
 	}
 	public static String getTranNameByKey(String sKey){
-		return XmlDefinition.getValueByName(sKey);
+		return FileDefinition.getValueByName(sKey);
 	}
 	
 	
 	public static String getDefault(){
-		return XmlDefinition.getDefault()[0];
+		return FileDefinition.getDefault()[0];
 	}
 	
 	public static String[] getDefaults(){
-		return XmlDefinition.getDefault();
+		return FileDefinition.getDefault();
 	}
 
 	
@@ -116,14 +114,14 @@ public class lrTools {
 	}
 
 	public static String getDefaultParaKey(int iNo){
-		return XmlDefinition.getDefaultParaKey(iNo);
+		return FileDefinition.getDefaultParaKey(iNo);
 	}
 	public static String getDefaultParaValue(int iNo){
-		return XmlDefinition.getDefaultParaValue(iNo);
+		return FileDefinition.getDefaultParaValue(iNo);
 	}
 	
 	public static String getDefaultParaValueByKey(String skey){
-		return XmlDefinition.getDefaultParaValueByKey(skey);
+		return FileDefinition.getDefaultParaValueByKey(skey);
 	}
 
 	public static String loadFile(String sFileName) {

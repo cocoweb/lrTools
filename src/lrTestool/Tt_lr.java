@@ -8,17 +8,13 @@ package lrTestool;
 
 import gt3.esb.ejb.adapter.client.IEsbXmlMessageReceiver;
 
-import com.foresee.etax.ejbclient.*;
 import com.foresee.test.loadrunner.lrapi4j.lr;
-
-import lrTestool.lrTools;
-import utils.LRUtils;
 
 
 public class Tt_lr
 {	
     //报文名字
-    private static String tran_key = "SWZJ.HXZG.SB.XFSSBSQJKJHQQCS";
+    private static String tran_key = "SWZJ.HXZG.FP.BCFPYJJXX";
     private static String tran_name ="";
     private static IEsbXmlMessageReceiver esbClient = null;
     String sXML = "";
@@ -27,15 +23,16 @@ public class Tt_lr
 	    //EjbClient ejb = new EjbClient();
             //esbClient = ejb.getCurrentEsb(); 
 
-	    tran_key= lrTools.getDefault();
+	    //tran_key= lrTools.getDefault();
 	    tran_name =lrTools.getTranNameByKey(tran_key);
 
 	    sXML = lrTools.loadXmlByKey(tran_key);
 	    
-	    lr.save_string("123456","p_qshm");
-	    lr.save_string("123499","p_zzhm");
-            
-	    lr.save_string("123456","iters");
+	    lr.save_string("123456","p_fpqshm");
+	    lr.save_string("123499","p_fpzzhm");
+	    lr.save_string("99999","p_fpzlDm");
+	    
+	    lr.save_string("1234","iters");
             
 
              return 0; 
@@ -45,43 +42,44 @@ public class Tt_lr
 	public int action() throws Throwable {     //+ (String.valueOf(System.currentTimeMillis())+"0000000000").substring(0,9),
 		System.out.println(sXML);
 		
-		System.out.println(LRUtils.locateSupportClassesDir().getPath());
+		//System.out.println(LRUtils.locateSupportClassesDir().getPath());
 		// LRUtils.loadLRLibrary("lrapi");
 		
 		lr.message("aaaaaaaaaaaaaa");
 		
-	    lr.save_string("C000BNFZC15001201411159{tran_lsh}",
+	    lr.save_string(lr.eval_string("C000BNFZC15001201411159{iters}"),
 			   "p_tran_seq");
 
 	    lr.save_string("000000000","p_nsrsbh");
-	    lr.save_string("111111111","p_skssqq");
-	    lr.save_string("222222222","p_skssqz");
+	    lr.save_string("111111111","para_skssqq");
+	    lr.save_string("222222222","para_skssqz");
+            lr.save_string("zzzzzzzzz","p_djxh");
 
 
 	    int offset = 0;//(Integer.parseInt(lr.eval_string("{iters}"))-1)/4;
 
 	    long timer = lr.start_timer(); 
 
-	    if (Integer.parseInt(lr.eval_string("{p_qshm}"))+offset >Integer.parseInt(lr.eval_string("{p_zzhm}"))) {
+	    if (Integer.parseInt(lr.eval_string("{p_fpqshm}"))+offset >Integer.parseInt(lr.eval_string("{p_fpzzhm}"))) {
 
 		lr.message(String.format("起始号码大于终止号码了:  %d:%03d:%03d",
 					 offset, 
-					 Integer.parseInt(lr.eval_string("{p_qshm}"))+offset ,
-                                         Integer.parseInt(lr.eval_string("{p_zzhm}"))));
+					 Integer.parseInt(lr.eval_string("{p_fpqshm}"))+offset ,
+                                         Integer.parseInt(lr.eval_string("{p_fpzzhm}"))));
 		return 0;
 	    }
 	    lr.start_transaction(tran_name);
 	    lr.message(String.format("%d:%03d:%03d",offset, 
-				     Integer.parseInt(lr.eval_string("{p_qshm}"))+offset,
-				     Integer.parseInt(lr.eval_string("{p_qshm}"))+offset));
+				     Integer.parseInt(lr.eval_string("{p_fpqshm}"))+offset,
+				     Integer.parseInt(lr.eval_string("{p_fpzzhm}"))+offset));
 
 
 
 	    //lr.think_time(1);
 
-            //lr.output_message(lr.eval_string(sXML));
+            lr.message(lr.eval_string(sXML));
 
-//lr.message(lr.eval_string(xytools.getXML()));
+	    //lr.message(lr.eval_string(xytools.getXML()));
            // String retXml = esbClient.receiveMessageXML(lr.eval_string(sXML));
 
 	    //System.out.println(retXml);

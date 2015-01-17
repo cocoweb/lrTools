@@ -5,4 +5,4 @@
  * @author Administrator
  *
  */
-package lrTestool.testng;
+package com.foresee.test.fileprops.testng;

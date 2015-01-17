@@ -14,6 +14,7 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /***
  * 
@@ -267,6 +268,31 @@ public class FileUtil {
 
     }
 
+    public static File lookupFileInClasspath(String paramString) {
+        String str1 = System.getProperty("usr.dir");
+        if (str1 == null) {
+            str1 = "";
+        }
+        String str2 = System.getProperty("java.class.path");
+        if (str2 == null)
+            str2 = "";
+        String str3 = System.getProperty("sun.boot.class.path");
+        if (str3 == null) {
+            str3 = "";
+        }
+        String str4 = "/" +File.pathSeparatorChar +"."+File.pathSeparatorChar +str3 + File.pathSeparatorChar + str2 + File.pathSeparatorChar + str1;
+
+        StringTokenizer localStringTokenizer = new StringTokenizer(str4, File.pathSeparatorChar + "\"");
+        while (localStringTokenizer.hasMoreTokens()) {
+            String str5 = localStringTokenizer.nextToken();
+            File localFile = new File(str5, paramString);
+            if (localFile.exists()) {
+                return localFile;
+            }
+        }
+        return null;
+    }
+	
     public static  int NewFile(String strxml, String path) {
         File file = new File(path);
         if (FileExist(path)) {

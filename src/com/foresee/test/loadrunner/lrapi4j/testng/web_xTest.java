@@ -97,7 +97,7 @@ public class web_xTest {
           Thread.sleep(lr.eval_int("{ret_waitTime}"));
           ii++;
 
-          lr.message(lr.eval_string("{ret_waitTime} ")+String.format("----第%s次请求服务器\n",ii));
+          lr.message(lr.eval_string("{ret_waitTime} ----第%s次请求服务器\n"),ii);
               
           web.reg_find("Text=结果尚未返回", 
                   new String[]{ 

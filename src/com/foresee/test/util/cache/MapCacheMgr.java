@@ -154,7 +154,7 @@ public class MapCacheMgr{
 			}
 		//}
 
-		return this.cacheMap;
+		return cacheMap;
 	}
 
 //	private boolean IsTimeOut(long currentTime) {

@@ -26,14 +26,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>hz demo</name>
+			<name>exampleshttp</name>
 			<type>2</type>
-			<location>F:/Products File/hzscripts/hz demo</location>
-		</link>
-		<link>
-			<name>libshz</name>
-			<type>2</type>
-			<location>F:/Products File/hzscripts/libs</location>
+			<location>F:/OpenSource/http/httpcomponents-client-4.4-beta1/examples</location>
 		</link>
 	</linkedResources>
 </projectDescription>

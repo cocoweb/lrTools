@@ -1,10 +1,12 @@
-package lrTestool.testng;
+package com.foresee.test.fileprops.testng;
 
-import lrTestool.lrTools;
+
 
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import com.foresee.test.fileprops.lrTools;
 
 public class lrToolsTest {
 	@BeforeTest

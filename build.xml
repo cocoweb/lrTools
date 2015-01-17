@@ -90,6 +90,8 @@
 			<exclude name="**/*.properties" />
 			<exclude name="**/*.xml" />
 			<exclude name="**/*.MF" />
+			<exclude name="**/*.dat" />
+			<exclude name="**/*.xls" />
 			<manifest>
 				<attribute name="Main-Class" value="lrTestool.lrTools"/>
 				<attribute name="Class-Path" value="./ ${jarfile.ejbclient}"/>

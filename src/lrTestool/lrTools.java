@@ -10,6 +10,12 @@ import com.foresee.test.util.lang.StringUtil;
 //import javax.xml.parsers.*;
 //import lrapi.lr;
 
+/**
+ * moved to com.foresee.test.fileprops
+ * @author Administrator
+ *
+ */
+@Deprecated 
 public class lrTools {
 	private static StringCacheMgr xCache = StringCacheMgr.getInstance();
 	

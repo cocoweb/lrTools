@@ -16,6 +16,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.foresee.test.util.lang.StringUtil;
+
 /** *//**
  * <ul>
  * <li>Title:[POI基础上的Excel数据读取工具]</li>
@@ -60,7 +62,7 @@ public class POIExcelUtil
      * @return
      * @throws Exception
      */
-    public List<ArrayList<String>> read(String fileName)
+    public List<ArrayList<String>> read(String fileName,String sheetName)
     {
         List<ArrayList<String>> dataLst = new ArrayList<ArrayList<String>>();
         
@@ -70,33 +72,40 @@ public class POIExcelUtil
             return dataLst;
         }
         
-        boolean isExcel2003 = true;
-        /** *//** 对文件的合法性进行验证 */
-        if (fileName.matches("^.+\\.(?i)(xlsx)$"))
-        {
-            isExcel2003 = false;
-        }
-        
         /** *//** 检查文件是否存在 */
         File file = new File(fileName);
         if (file == null || !file.exists())
         {
+            
+            System.err.println(fileName);
             return dataLst;
         }
         
+        /** *//** 返回最后读取的结果 */
+        return read(file,sheetName);
+    }
+    public List<ArrayList<String>> read(File xfile,String sheetName){
+        List<ArrayList<String>> dataLst = new ArrayList<ArrayList<String>>();
+        
         try
         {
+            boolean isExcel2003 = !(xfile.getName().matches("^.+\\.(?i)(xlsx)$"));
             /** *//** 调用本类提供的根据流读取的方法 */
-            dataLst = read(new FileInputStream(file), isExcel2003);
+            dataLst = read(new FileInputStream(xfile), isExcel2003,sheetName);
         }
         catch (Exception ex)
         {
             ex.printStackTrace();
         }
         
-        /** *//** 返回最后读取的结果 */
         return dataLst;
+        
     }
+    
+    private List<ArrayList<String>> read(String Path) {
+         return read(Path,"");
+    }
+
     
     /** *//**
      * <ul>
@@ -107,10 +116,11 @@ public class POIExcelUtil
      * 
      * @param inputStream
      * @param isExcel2003
+     * @param sheetName 
      * @return
      */
     public List<ArrayList<String>> read(InputStream inputStream,
-            boolean isExcel2003)
+            boolean isExcel2003, String sheetName)
     {
         List<ArrayList<String>> dataLst = null;
         try
@@ -118,7 +128,7 @@ public class POIExcelUtil
             /** *//** 根据版本选择创建Workbook的方式 */
             Workbook wb = isExcel2003 ? new HSSFWorkbook(inputStream)
                     : new XSSFWorkbook(inputStream);
-            dataLst = read(wb);
+            dataLst = read(wb,sheetName);
         }
         catch (IOException e)
         {
@@ -154,7 +164,26 @@ public class POIExcelUtil
     {
         return totalCells;
     }
-    
+
+    private List<ArrayList<String>> read(Workbook wb,String sheetName)
+    {
+        Sheet sheet;
+        if(StringUtil.isEmpty(sheetName)){
+            sheet = wb.getSheetAt(0);
+        }else{
+            sheet = wb.getSheet(sheetName);
+            
+        }
+        return read(sheet);
+    }
+
+    private List<ArrayList<String>> read(Workbook wb)
+    {
+        Sheet sheet = wb.getSheetAt(0);   /** *//** 得到第一个shell */
+        return read(sheet);
+        
+    }
+   
     /** *//**
      * <ul>
      * <li>Description:[读取数据]</li>
@@ -165,12 +194,12 @@ public class POIExcelUtil
      * @param wb
      * @return
      */
-    private List<ArrayList<String>> read(Workbook wb)
+    private List<ArrayList<String>> read(Sheet sheet)
     {
         List<ArrayList<String>> dataLst = new ArrayList<ArrayList<String>>();
         
-        /** *//** 得到第一个shell */
-        Sheet sheet = wb.getSheetAt(0);
+        
+        
         this.totalRows = sheet.getPhysicalNumberOfRows();
         if (this.totalRows >= 1 && sheet.getRow(0) != null)
         {
@@ -255,6 +284,62 @@ public class POIExcelUtil
         return resultStr;
     }
     
+    public static List<ArrayList<String>> loadExcelFile(String Path ) throws Exception {
+
+        try {
+            
+            return new POIExcelUtil().read(Path );
+
+            // Open the Excel file
+            //FileInputStream ExcelFile = new FileInputStream(Path);
+
+            // Access the required test data sheet
+            //ExcelWBook = new XSSFWorkbook(ExcelFile);
+            //ExcelWSheet = ExcelWBook.getSheet(SheetName);
+
+        } catch (Exception e) {
+            throw (e);
+        }
+
+    }
+     
+    public static List<ArrayList<String>> loadExcelFile(String Path, String SheetName) throws Exception {
+
+        try {
+            
+            return new POIExcelUtil().read(Path,SheetName);
+
+            // Open the Excel file
+            //FileInputStream ExcelFile = new FileInputStream(Path);
+
+            // Access the required test data sheet
+            //ExcelWBook = new XSSFWorkbook(ExcelFile);
+            //ExcelWSheet = ExcelWBook.getSheet(SheetName);
+
+        } catch (Exception e) {
+            throw (e);
+        }
+
+    }
+    public static List<ArrayList<String>> loadExcelFile(File xfile, String SheetName) throws Exception {
+
+        try {
+            
+            return new POIExcelUtil().read(xfile,SheetName);
+
+            // Open the Excel file
+            //FileInputStream ExcelFile = new FileInputStream(Path);
+
+            // Access the required test data sheet
+            //ExcelWBook = new XSSFWorkbook(ExcelFile);
+            //ExcelWSheet = ExcelWBook.getSheet(SheetName);
+
+        } catch (Exception e) {
+            throw (e);
+        }
+
+    }
+    
     /** *//**
      * <ul>
      * <li>Description:[测试main方法]</li>
@@ -267,8 +352,7 @@ public class POIExcelUtil
      */
     public static void main(String[] args) throws Exception
     {
-        List<ArrayList<String>> dataLst = new POIExcelUtil()
-                .read("e:/Book1_shao.xls");
+        List<ArrayList<String>> dataLst = loadExcelFile("p:/接口测试用例.xls");
         for (ArrayList<String> innerLst : dataLst)
         {
             StringBuffer rowData = new StringBuffer();
@@ -282,4 +366,5 @@ public class POIExcelUtil
             }
         }
     }
+
 }

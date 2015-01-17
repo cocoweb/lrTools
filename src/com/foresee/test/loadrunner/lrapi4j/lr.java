@@ -102,7 +102,17 @@ public class lr extends I_lr {
 
     public static int message(String paramString) {
         logger.info(paramString);
+        
         return 0;
+    }
+    
+    public static void message(String sformat, Object... args){
+        logger.info(String.format(sformat, args));
+    }
+    
+    public static void error_message(String sformat, Object... args){
+        logger.info("ERROR: " + String.format(sformat, args));
+        
     }
 
     public static int error_message(String paramString) {

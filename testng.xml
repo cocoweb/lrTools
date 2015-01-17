@@ -3,7 +3,7 @@
 <suite name="Suite" parallel="false">
   <test name="Test">
     <parameter name="config.file" value="/file.properties"/>
-    <parameter name="sPassword" value="Test@123"/>
+    <parameter name="sPassword" value="Test@123"></parameter>
  
     <classes>
       <!-- class name="lrTestool.test.XmlDefinitionTest"/>

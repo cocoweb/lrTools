@@ -104,7 +104,7 @@ public class httpDemotest {
             // When HttpClient instance is no longer needed,
             // shut down the connection manager to ensure
             // immediate deallocation of all system resources
-            httpClient.getConnectionManager().shutdown();
+            //httpClient.getConnectionManager().shutdown();
         }
     }
 
