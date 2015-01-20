@@ -19,7 +19,7 @@ public class ArgFileHttpTest {
         Arguments.loadExcelArgumentsByKey(key);
         Arguments.loadExcelArgumentsByKey(key1);
         try {
-            Arguments.loadKEYVALUE();
+            Arguments.loadExcelArgumentsByKey("keyvalue.excel");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -28,7 +28,7 @@ public class ArgFileHttpTest {
 
     @DataProvider(name = "iterator")
     public Iterator<Object[]> getData() {
-        return Arguments.getArgsIterator(key1);
+        return Arguments.getInstance().getArgsIterator(key1);
     }
 
     @Test(dataProvider = "iterator")

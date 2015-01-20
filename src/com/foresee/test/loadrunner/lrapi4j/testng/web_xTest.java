@@ -16,10 +16,12 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 
+
 //import ActionsDemo;
 import com.foresee.test.loadrunner.lrapi4j.lr;
 import com.foresee.test.loadrunner.lrapi4j.web;
-import com.foresee.test.loadrunner.lrapi4j.helper.webhelper;
+import com.foresee.test.loadrunner.lrapi4j.helper.HttpHelper;
+//import com.foresee.test.loadrunner.lrapi4j.helper.webhelper;
 import com.foresee.test.util.http.HttpException;
 
 public class web_xTest {
@@ -28,6 +30,8 @@ public class web_xTest {
 	  save_string("http://61.146.43.162:9999","p_tycxURL");
 	  //save_string("http://61.146.43.162:9595","p_tycxURL");
 	  save_string("441302730441107","para_nsrsbh");
+	  
+	  HttpHelper.setProxy("localhost", 8888);
   }
 
   @AfterTest
@@ -150,7 +154,7 @@ public class web_xTest {
   public void setParameters() {
       HttpPost httpost = new HttpPost("http://www.baidu.com"); 
       
-      webhelper.setParameters(httpost, new String[]{
+      HttpHelper.setParameters(httpost, new String[]{
                                 "Name=bizXml", "Value=<tycxParam><sqlID>querySwdjxxcx</sqlID><pageFlag>Y</pageFlag><perNum>10</perNum><params><entry><key>nsrsbh</key><value>{para_nsrsbh}</value></entry><entry><key>beignRow</key><value>1</value></entry><entry><key>endRow</key><value>10</value></entry></params></tycxParam>", ENDITEM, 
                                 "Name=sid", "Value=ETax.TY.qureydataZG", ENDITEM, 
                                 "Name=action", "Value=queryData", ENDITEM, 
@@ -173,7 +177,7 @@ public class web_xTest {
   public void setHeaders() {
 	HttpGet httpget = new HttpGet("http://www.baidu.com");    
 	  
-    webhelper.setHeaders(httpget, new String[]{ 
+    HttpHelper.setHeaders(httpget, new String[]{ 
 				"Resource=0", 
 				"RecContentType=text/html", 
 				"Referer=", 

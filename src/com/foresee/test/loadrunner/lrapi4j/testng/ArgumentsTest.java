@@ -17,13 +17,15 @@ import com.foresee.test.loadrunner.lrapi4j.helper.Arguments;
 public class ArgumentsTest {
     String key = "apitestcase0.excel";
     String key1 = "apitestcase.excel";
+    Arguments xargs;
 
     @BeforeTest
     public void beforeTest() {
+        xargs=Arguments.getInstance();
         Arguments.loadExcelArgumentsByKey(key);
         Arguments.loadExcelArgumentsByKey(key1);
         try {
-            Arguments.loadKEYVALUE();
+            Arguments.loadExcelArgumentsByKey("keyvalue.excel");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -31,11 +33,11 @@ public class ArgumentsTest {
     }
     @DataProvider(name = "iterator")
     public Iterator<Object[]> getData() {
-        return Arguments.getArgsIterator(key1);
+        return Arguments.getInstance().getArgsIterator(key1);
     }
 
     @Test(dataProvider = "iterator")
-    public void testIteraorData(Object oo1, Object oo2, Object oo3, Object oo4, Object oo5) {
+    public void testIteraorData(Object oo1) {
         System.out.println(lr.eval_string(lr.eval_string("{casename},{method},{api},{params},{catchparams}")));
 
     }
@@ -50,8 +52,8 @@ public class ArgumentsTest {
         System.out.println(("{功能},{用例},{预期结果},{请求方式},{API},{请求参数},{抓取参数},{抓取另命名},{登录态账号}"));
         System.out.println("{casename},{method},{api},{params},{catchparams}");
 
-        Iterator<?> iters = Arguments.getArgsIterator(key);
-        Iterator<?> iters1 = Arguments.getArgsIterator(key1);
+        Iterator<?> iters = xargs.getArgsIterator(key);
+        Iterator<?> iters1 = xargs.getArgsIterator(key1);
         while (iters.hasNext()) {
             iters.next();
             iters1.next();
@@ -69,18 +71,18 @@ public class ArgumentsTest {
 
     @Test
     public void loadExcelArgumentsByName() throws Exception {
-        Iterator<ArrayList<String>> xiters = Arguments.getArgsIteratorByKey(key);
+        Iterator<ArrayList<String>> xiters = xargs.getArgsIteratorByKey(key);
         // while(xiters.hasNext()){
         // // System.out.println(xiters.next().toString());
         // }
 
-        ArrayList<ArgItem> argsnames = Arguments.getArgsNameByKey(key);
+        ArrayList<ArgItem> argsnames = xargs.getArgsNameByKey(key);
         System.out.println(argsnames.toString());
     }
 
     @Test
     public void loadKEYVALUE() throws Exception {
-        Arguments.loadKEYVALUE();
+        Arguments.loadExcelArgumentsByKey("keyvalue.excel");
         System.out.println(lr.eval_string("{admin_phone}{admin_wb}{wb_name}"));
     }
 
