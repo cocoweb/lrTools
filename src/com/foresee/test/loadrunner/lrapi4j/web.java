@@ -1,14 +1,14 @@
 package com.foresee.test.loadrunner.lrapi4j;
 
 import static com.foresee.test.loadrunner.lrapi4j.lr.eval_string;
+import lrTestool.lrapi.I_web;
 
 import org.apache.log4j.Logger;
 
-import com.foresee.test.loadrunner.lrapi.I_web;
-import com.foresee.test.loadrunner.lrapi4j.helper.HttpHelper;
-import com.foresee.test.loadrunner.lrapi4j.helper.RegItem;
-import com.foresee.test.loadrunner.lrapi4j.helper.RegItem.ItemType;
-import com.foresee.test.loadrunner.lrapi4j.helper.RegItemCache;
+import com.foresee.test.loadrunner.helper.HttpHelper;
+import com.foresee.test.loadrunner.helper.RegItem;
+import com.foresee.test.loadrunner.helper.RegItemCache;
+import com.foresee.test.loadrunner.helper.RegItem.ItemType;
 import com.foresee.test.util.http.HttpException;
 import com.foresee.test.util.lang.StringUtil;
 

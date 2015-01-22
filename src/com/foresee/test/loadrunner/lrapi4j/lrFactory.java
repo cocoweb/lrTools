@@ -1,6 +1,6 @@
 package com.foresee.test.loadrunner.lrapi4j;
 
-import com.foresee.test.loadrunner.lrapi.web;
+import lrTestool.lrapi.web;
 
 public final class lrFactory {
 	

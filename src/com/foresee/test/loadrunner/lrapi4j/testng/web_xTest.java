@@ -4,24 +4,19 @@ import static com.foresee.test.loadrunner.lrapi4j.lr.save_string;
 
 import java.io.IOException;
 
-import lrTestool.actionDemo.ActionsDemo3;
-
 import org.apache.http.HeaderIterator;
 import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.util.EntityUtils;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-
-
-//import ActionsDemo;
+import com.foresee.test.loadrunner.helper.HttpHelper;
 import com.foresee.test.loadrunner.lrapi4j.lr;
 import com.foresee.test.loadrunner.lrapi4j.web;
-import com.foresee.test.loadrunner.lrapi4j.helper.HttpHelper;
-//import com.foresee.test.loadrunner.lrapi4j.helper.webhelper;
 import com.foresee.test.util.http.HttpException;
 
 public class web_xTest {
@@ -36,6 +31,12 @@ public class web_xTest {
 
   @AfterTest
   public void afterTest() {
+  }
+  
+  @BeforeMethod
+  public void beforeMethod(){
+	  HttpHelper.resetHttpClient();
+      
   }
 
   @Test
@@ -254,6 +255,7 @@ public class web_xTest {
 			e.printStackTrace();
 		}
   }
+ 
   
 
 }

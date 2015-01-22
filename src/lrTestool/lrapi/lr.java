@@ -1,4 +1,4 @@
-package com.foresee.test.loadrunner.lrapi;
+package lrTestool.lrapi;
 
 
 /**
@@ -7,6 +7,8 @@ package com.foresee.test.loadrunner.lrapi;
  * @author Administrator
  *
  */
-public class web extends I_web {
+
+public class lr extends I_lr  {
+
 
 }

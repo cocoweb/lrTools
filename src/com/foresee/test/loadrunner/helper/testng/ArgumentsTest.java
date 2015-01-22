@@ -1,49 +1,50 @@
-package com.foresee.test.loadrunner.lrapi4j.testng;
+package com.foresee.test.loadrunner.helper.testng;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.AfterTest;
 
+import com.foresee.test.loadrunner.helper.Arguments;
 import com.foresee.test.loadrunner.lrapi4j.lr;
-import com.foresee.test.loadrunner.lrapi4j.helper.ArgsSet.ArgItem;
-import com.foresee.test.loadrunner.lrapi4j.helper.Arguments;
 
 public class ArgumentsTest {
+    String key0 = "keyvalue.excel";
     String key = "apitestcase0.excel";
     String key1 = "apitestcase.excel";
+    String key2 = "textlist.csvtext";
+    String keyxml = "SWZJ.HXZG.SB.BCZZSXGMSB";
     Arguments xargs;
 
     @BeforeTest
     public void beforeTest() {
         xargs=Arguments.getInstance();
-        Arguments.loadExcelArgumentsByKey(key);
-        Arguments.loadExcelArgumentsByKey(key1);
-        try {
-            Arguments.loadExcelArgumentsByKey("keyvalue.excel");
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+        xargs.load(key);
+        xargs.load(key1);
+        xargs.load(key2);
+        xargs.load(key0);
+        xargs.load(keyxml);
+        
+     }
     @DataProvider(name = "iterator")
     public Iterator<Object[]> getData() {
-        return Arguments.getInstance().getArgsIterator(key1);
+        return Arguments.getInstance().getArgsIterator(key2);
     }
 
     @Test(dataProvider = "iterator")
     public void testIteraorData(Object oo1) {
-        System.out.println(lr.eval_string(lr.eval_string("{casename},{method},{api},{params},{catchparams}")));
-
+        //System.out.println(lr.eval_string(lr.eval_string("{casename},{method},{api},{params},{catchparams}")));
+        System.out.println(lr.eval_string(lr.eval_string("{DJXH},{FPZL_DM},{FP_DM},{FS,FPQSHM},{FPZT_DM}")));
     }
 
     @AfterTest
     public void afterTest() {
+    }
+    @Test
+    public void showxml() throws Exception {
+        System.out.println(xargs.getString(keyxml));
     }
 
     @Test
@@ -69,20 +70,20 @@ public class ArgumentsTest {
         }
     }
 
-    @Test
-    public void loadExcelArgumentsByName() throws Exception {
-        Iterator<ArrayList<String>> xiters = xargs.getArgsIteratorByKey(key);
-        // while(xiters.hasNext()){
-        // // System.out.println(xiters.next().toString());
-        // }
-
-        ArrayList<ArgItem> argsnames = xargs.getArgsNameByKey(key);
-        System.out.println(argsnames.toString());
-    }
+//    @Test
+//    public void loadExcelArgumentsByName() throws Exception {
+//        Iterator<ArrayList<String>> xiters = xargs.getArgsIteratorByKey(key);
+//        // while(xiters.hasNext()){
+//        // // System.out.println(xiters.next().toString());
+//        // }
+//
+//        ArrayList<ArgItem> argsnames = xargs.getArgsNameByKey(key);
+//        System.out.println(argsnames.toString());
+//    }
 
     @Test
     public void loadKEYVALUE() throws Exception {
-        Arguments.loadExcelArgumentsByKey("keyvalue.excel");
+        //Arguments.load("keyvalue.excel");
         System.out.println(lr.eval_string("{admin_phone}{admin_wb}{wb_name}"));
     }
 

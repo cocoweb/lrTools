@@ -199,7 +199,8 @@ public class CacheManager {
 	} 
 
 	//获取缓存对象中指定类型 的键值名称 
-	public static ArrayList<String> getCacheListkey(String type) { 
+	@SuppressWarnings("finally")
+    public static ArrayList<String> getCacheListkey(String type) { 
 		ArrayList<String> a = new ArrayList<String>(); 
 		String key; 
 		try { 

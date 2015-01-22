@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="com/foresee/test/api/|org/dtools/ini/|lrTestool/olds/|lrTestool/test/|com/foresee/test/demo/testng/excel/|com/foresee/test/http/testng/HttpRequestTest.java|com/foresee/test/util/http/testng/HttpRequestTest.java" kind="src" path="src"/>
-	<classpathentry kind="src" path="exampleshttp"/>
+	<classpathentry excluding="com/foresee/test/api/|org/dtools/ini/|lrTestool/olds/|lrTestool/test/|com/foresee/test/demo/testng/excel/|com/foresee/test/http/testng/HttpRequestTest.java|com/foresee/test/util/http/testng/HttpRequestTest.java|com/foresee/test/demo/InnerITrans.java|com/foresee/test/demo/LrActionClass.java|com/foresee/test/demo/LoadrunnerUtil.java" kind="src" path="src"/>
+	<classpathentry kind="src" path="examples"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fbrp_libs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/xlibs"/>

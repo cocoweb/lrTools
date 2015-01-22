@@ -8,9 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 
 
 /**
@@ -329,7 +326,8 @@ public class FileCopyUtil {
 		FileOutputStream fs = null;
 		InputStream inStream = null;
 		try {
-			int bytesum = 0;
+			@SuppressWarnings("unused")
+            int bytesum = 0;
 			int byteread = 0;
 			File oldfile = new File(oldPath);
 			if (oldfile.exists()) {

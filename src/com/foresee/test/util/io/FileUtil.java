@@ -147,7 +147,8 @@ public class FileUtil {
 	 * @param comminuteSize
 	 *            分割块大小
 	 */
-	public static void fileComminute(File file, File dir, int comminuteSize) {
+	@SuppressWarnings("resource")
+    public static void fileComminute(File file, File dir, int comminuteSize) {
 		long fileSize = file.length();
 		System.out.println("fileSize==>" + fileSize);
 		long bit = (fileSize - 1) / comminuteSize + 1;
@@ -217,7 +218,8 @@ public class FileUtil {
 //		return dir.mkdirs();
 //	}
 
-	public static void Copy(String oldPath, String newPath) {
+	@SuppressWarnings("unused")
+    public static void Copy(String oldPath, String newPath) {
 		FileOutputStream fs = null;
 		InputStream inStream = null;
 		try {
@@ -269,6 +271,10 @@ public class FileUtil {
     }
 
     public static File lookupFileInClasspath(String paramString) {
+        File localFile =new File(paramString);
+        if (localFile.exists()){
+            return localFile;
+        }
         String str1 = System.getProperty("usr.dir");
         if (str1 == null) {
             str1 = "";
@@ -285,7 +291,7 @@ public class FileUtil {
         StringTokenizer localStringTokenizer = new StringTokenizer(str4, File.pathSeparatorChar + "\"");
         while (localStringTokenizer.hasMoreTokens()) {
             String str5 = localStringTokenizer.nextToken();
-            File localFile = new File(str5, paramString);
+            localFile = new File(str5, paramString);
             if (localFile.exists()) {
                 return localFile;
             }
@@ -465,7 +471,8 @@ public class FileUtil {
 
 	public static void del(String filePath, String fileName) {
 
-		int lineDel = 1;
+		@SuppressWarnings("unused")
+        int lineDel = 1;
 		RandomAccessFile readFile = null;
 		try {
 			readFile = new RandomAccessFile(filePath + "\\" + fileName, "r");
@@ -653,7 +660,8 @@ public class FileUtil {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) throws Exception {
+	@SuppressWarnings("static-access")
+    public static void main(String[] args) throws Exception {
 		FileUtil fileUtil = new FileUtil();
 		ArrayList<File> files = fileUtil
 				.searchFolder("C:/ProjectCheckOut/GPFS/gpfs-web-deleted");

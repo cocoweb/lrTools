@@ -6,7 +6,7 @@ import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.foresee.test.fileprops.lrTools;
+import com.foresee.test.loadrunner.lrTools;
 
 public class lrToolsTest {
 	@BeforeTest

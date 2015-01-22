@@ -3,11 +3,12 @@ package com.foresee.test.loadrunner.lrapi4j;
 import java.util.HashMap;
 import java.util.Map;
 
+import lrTestool.lrapi.I_lr;
+
 import org.apache.log4j.Logger;
 
-import com.foresee.test.loadrunner.lrapi.I_lr;
-import com.foresee.test.loadrunner.lrapi4j.helper.ParameterCache;
-import com.foresee.test.loadrunner.lrapi4j.helper.Transaction;
+import com.foresee.test.loadrunner.helper.ParameterCache;
+import com.foresee.test.loadrunner.helper.Transaction;
 import com.foresee.test.util.exfile.ParamUtils;
 import com.foresee.test.util.lang.StringUtil;
 

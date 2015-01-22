@@ -10,11 +10,13 @@ import com.foresee.test.loadrunner.lrapi4j.lr;
 
 public class console extends PrintStream {
     Hashtable<Thread, String> bufs = new Hashtable<Thread, String>();
+    @SuppressWarnings("unused")
     private static final String SPACES = "                                                                                                                                                      ";
     public static final String NOTIFY = "                                                                                                                                                      Notify:";
     public static final String ERROR = "                                                                                                                                                      Error";
     public static final String SYS_OUT = "System.out: ";
     public static final String SYS_ERR = "System.err: ";
+    @SuppressWarnings("unused")
     private static final int DEBUG_FLAG = 25;
     private String prefix = "";
     private String suffix = "";

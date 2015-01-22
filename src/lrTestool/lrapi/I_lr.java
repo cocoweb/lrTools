@@ -1,4 +1,4 @@
-package com.foresee.test.loadrunner.lrapi;
+package lrTestool.lrapi;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -103,6 +103,8 @@ public abstract class I_lr {
 	 
 	       while ((line = reader.readLine()) != null)
 	         buf.append(line);
+	       
+	       reader.close();
 	     }
 	     catch (Exception e) {
 	       error_message("cannot read file " + filename);
@@ -144,7 +146,8 @@ public abstract class I_lr {
 	   return redirect(file_name, str, true);
 	 }
 
-	 public static int redirect(String file_name, String str, boolean append)
+	
+    public static int redirect(String file_name, String str, boolean append)
 	 {
 	   PrintStream out = null;
 	   try

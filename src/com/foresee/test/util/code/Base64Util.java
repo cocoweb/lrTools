@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -135,7 +136,8 @@ public class Base64Util {
 		return new String(baos.toByteArray());
 	}
 
-	public static void main(String[] args) throws IOException {
+	@SuppressWarnings("unused")
+    public static void main(String[] args) throws IOException {
 		String xmlData = "c://Message.xml";
 		InputStream in = null;
 		String inputXml = "";

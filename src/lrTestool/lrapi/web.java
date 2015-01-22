@@ -1,4 +1,6 @@
-package com.foresee.test.loadrunner.lrapi;
+package lrTestool.lrapi;
+
+
 
 /**
  * 实现包装LoadRunner的方法
@@ -6,8 +8,6 @@ package com.foresee.test.loadrunner.lrapi;
  * @author Administrator
  *
  */
-
-public class lr extends I_lr  {
-
+public class web extends I_web {
 
 }

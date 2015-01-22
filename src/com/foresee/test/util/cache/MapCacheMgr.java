@@ -117,7 +117,8 @@ public class MapCacheMgr{
 	/**
 	 * 装载缓存
 	 */
-	private void LoadCache() {
+	@SuppressWarnings("unused")
+    private void LoadCache() {
 
 		this.updateFlag = true;// 正在更新
 
@@ -178,13 +179,6 @@ public class MapCacheMgr{
 //		return this.updateTime;
 //	}
 
-	/**
-	 * 获取更新标志
-	 * @return
-	 */
-	private boolean getUpdateFlag() {
-		return this.updateFlag;
-	}
 
 	/**
 	 * 重新装载

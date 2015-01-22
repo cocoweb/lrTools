@@ -1,4 +1,4 @@
-package com.foresee.test.loadrunner.lrapi;
+package lrTestool.lrapi;
 
 import com.foresee.test.util.http.HttpException;
 

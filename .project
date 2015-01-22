@@ -26,7 +26,7 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>exampleshttp</name>
+			<name>examples</name>
 			<type>2</type>
 			<location>F:/OpenSource/http/httpcomponents-client-4.4-beta1/examples</location>
 		</link>

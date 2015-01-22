@@ -1,6 +1,6 @@
-package com.foresee.test.loadrunner;
+package lrTestool.base;
 
-import com.foresee.test.loadrunner.lrapi.lr;
+import lrTestool.lrapi.lr;
 
 public class LoadrunnerUtil {
 	/**

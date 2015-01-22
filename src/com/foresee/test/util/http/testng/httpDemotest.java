@@ -7,11 +7,14 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 import org.apache.http.HeaderIterator;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.auth.AuthScope;
@@ -24,6 +27,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.protocol.HttpContext;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.BasicCredentialsProvider;
@@ -32,6 +36,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.testng.annotations.Test;
+
+import com.foresee.test.util.http.HttpException;
 
 public class httpDemotest {
     void showHeader(HttpResponse response) {
@@ -104,7 +110,7 @@ public class httpDemotest {
             // When HttpClient instance is no longer needed,
             // shut down the connection manager to ensure
             // immediate deallocation of all system resources
-            //httpClient.getConnectionManager().shutdown();
+            // httpClient.getConnectionManager().shutdown();
         }
     }
 
@@ -179,15 +185,14 @@ public class httpDemotest {
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
         credsProvider.setCredentials(AuthScope.ANY, new NTCredentials("user", "pwd", "myworkstation", "microsoft.com"));
         HttpHost target = new HttpHost("www.microsoft.com", 80, "http");
-        
+
         // Make sure the same context is used to execute logically related
         // requests
-        //HttpClientContext context = HttpClientContext.create();
+        // HttpClientContext context = HttpClientContext.create();
         localContext.setCredentialsProvider(credsProvider);
-        
-        
-        
-        // 1--Execute a cheap method first. This will trigger NTLM authentication
+
+        // 1--Execute a cheap method first. This will trigger NTLM
+        // authentication
         HttpGet httpget = new HttpGet("/ntlm-protected/info");
         CloseableHttpResponse response1 = httpClient.execute(target, httpget, localContext);
         try {
@@ -208,4 +213,27 @@ public class httpDemotest {
         }
     }
 
+    @Test
+    public void xx() throws ClientProtocolException, IOException {
+        CloseableHttpClient httpclient = HttpClients.custom().addInterceptorLast(new HttpRequestInterceptor() {
+            public void process(final HttpRequest request, final org.apache.http.protocol.HttpContext context)
+                    throws IOException {
+                AtomicInteger count = (AtomicInteger) context.getAttribute("count");
+                request.addHeader("Count", Integer.toString(count.getAndIncrement()));
+            }
+        }).build();
+
+        AtomicInteger count = new AtomicInteger(1);
+        HttpClientContext localContext = HttpClientContext.create();
+        localContext.setAttribute("count", count);
+        HttpGet httpget = new HttpGet("http://www.baidu.com/");
+        for (int i = 0; i < 10; i++) {
+            CloseableHttpResponse response = httpclient.execute(httpget, localContext);
+            try {
+                HttpEntity entity = response.getEntity();
+            } finally {
+                response.close();
+            }
+        }
+    }
 }

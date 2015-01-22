@@ -1,4 +1,4 @@
-package com.foresee.test.loadrunner.lrapi4j.helper;
+package com.foresee.test.loadrunner.helper;
 
 import static com.foresee.test.loadrunner.lrapi4j.lr.eval_string;
 import static com.foresee.test.loadrunner.lrapi4j.lr.save_int;
@@ -7,6 +7,7 @@ import static com.foresee.test.loadrunner.lrapi4j.lr.save_string;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +31,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.cookie.Cookie;
@@ -58,6 +60,8 @@ public class HttpHelper {
     static HttpClientContext localContext = HttpClientContext.create();
 
     public static Map<String, String> headerMap = new HashMap<String, String>();
+    
+    static Map<String, Cookie> CookieMap = new HashMap<String, Cookie>();
 
     // Create a custom response handler
     static ResponseHandler<CloseableHttpResponse> responseHandler = new ResponseHandler<CloseableHttpResponse>() {
@@ -138,6 +142,14 @@ public class HttpHelper {
           isProxy = true;
         
     }
+    static HttpHost targetHost=null;
+    public static void setHost(String hostname,int port){
+        targetHost = new HttpHost(hostname, port, "http");
+
+        // Make sure the same context is used to execute logically related
+        // requests
+        
+    }
 
     public static CloseableHttpClient getHttpClient() {
         if (null == httpClient) {
@@ -150,20 +162,67 @@ public class HttpHelper {
             } else {
                 httpClient = HttpClients.createDefault();
             }
-            // Bind custom cookie store to the local context
-            localContext.setCookieStore(cookieStore);
 
         }
         return httpClient;
     }
+    
+    public static void resetHttpClient(){
+        try {
+            if (null!=httpClient){
+                httpClient.close();
+                httpClient = null;
+            }
+            localContext = HttpClientContext.create();
+            cookieStore = new BasicCookieStore();
+            headerMap.clear();
+            CookieMap.clear();
+            
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+    }
+    
+    private static void initCookie(){
+        Iterator<Cookie> iter = CookieMap.values().iterator();
+        while(iter.hasNext()){
+            cookieStore.addCookie(iter.next());
+        }
+    }
+    
+    private static CloseableHttpResponse execute(final HttpUriRequest request) throws ClientProtocolException, IOException{
+        
+        initCookie();
+        
+        if (!(cookieStore.getCookies().isEmpty())){
+            // Bind custom cookie store to the local context
+            localContext.setCookieStore(cookieStore);
+        }
+        
+        if (null==targetHost){
+            return getHttpClient().execute(request, responseHandler, localContext);
+            
+        }else{
+            return getHttpClient().execute(targetHost,request, responseHandler, localContext);
+        }
+         
+        
+    }
 
     public static void httpGet(String urlAddress, String[] options) {
+        logger.info(urlAddress);
+        logger.info(Arrays.toString(options));
         try {
             HttpGet httpget = new HttpGet(urlAddress);
             setHeaders(httpget, options);
 
             // 挂上context、handler
-            CloseableHttpResponse response = getHttpClient().execute(httpget, responseHandler, localContext);
+            @SuppressWarnings("unused")
+            CloseableHttpResponse response = execute(httpget);
+            
+            //response.
 
             httpget.abort();
         } catch (Exception e) {
@@ -178,13 +237,17 @@ public class HttpHelper {
     }
 
     public static void httpPost(String urlAddress, String[] options, String[] data) {
+        logger.info(urlAddress);
+        logger.info(Arrays.toString(options));
+        logger.info(Arrays.toString(data));
         try {
             HttpPost httpost = new HttpPost(urlAddress);
 
             setHeaders(httpost, options);
             setParameters(httpost, data);
 
-            CloseableHttpResponse response = getHttpClient().execute(httpost, responseHandler, localContext);
+            @SuppressWarnings("unused")
+            CloseableHttpResponse response = execute(httpost);
 
             // Do not feel like reading the response body
             // Call abort on the request object
@@ -202,8 +265,8 @@ public class HttpHelper {
 
     public static void addCookie(String[] cookies) {
         for (int i = 0; i < cookies.length; i++) {
-            cookieStore.addCookie(new BasicClientCookie(eval_string(StringUtil.parsarKVStrKey(cookies[0])),
-                    eval_string(StringUtil.parsarKVStrValue(cookies[1]))));
+            cookieStore.addCookie(new BasicClientCookie(eval_string(StringUtil.parsarKVStrKey(cookies[i])),
+                    eval_string(StringUtil.parsarKVStrValue(cookies[i]))));
 
         }
 
@@ -260,8 +323,10 @@ public class HttpHelper {
             }
 
         }
-        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, Consts.UTF_8);
-        ((HttpEntityEnclosingRequest) httpost).setEntity(entity);
+        if (!(formparams.isEmpty())){
+            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, Consts.UTF_8);
+            ((HttpEntityEnclosingRequest) httpost).setEntity(entity);
+        }
     }
 
     /**
@@ -280,7 +345,7 @@ public class HttpHelper {
         HeaderIterator iter = response.headerIterator();
 
         while (iter.hasNext()) {
-            logger.debug(iter.next().toString());
+            logger.info(iter.next().toString());
         }
 
     }
@@ -289,14 +354,15 @@ public class HttpHelper {
         HttpEntity entity = response.getEntity();
         if (entity != null) {
             long len = entity.getContentLength();
-            logger.debug("Response content length: " + entity.getContentLength());
+            logger.info("Response content length: " + entity.getContentLength());
             if (len != -1 && len < 2048) {
-                logger.debug(EntityUtils.toString(entity));
+                logger.info(EntityUtils.toString(entity));
             } else {
                 InputStream inSm = entity.getContent();
+                @SuppressWarnings("resource")
                 Scanner inScn = new Scanner(inSm);
                 while (inScn.hasNextLine()) {
-                    logger.debug(inScn.nextLine());
+                    logger.info(inScn.nextLine());
                 }
             }
         }
@@ -306,21 +372,22 @@ public class HttpHelper {
     public static void showContext(HttpClientContext localContext) {
         CookieOrigin cookieOrigin = localContext.getCookieOrigin();
         // .getAttribute(ClientContext.COOKIE_ORIGIN);
-        logger.debug("Cookie origin: " + cookieOrigin);
+        logger.info("Cookie origin: " + cookieOrigin);
         // CookieSpec cookieSpec = (CookieSpec) localContext.getAttribute(
         // ClientContext.COOKIE_SPEC);
-        // logger.debug("Cookie spec used: " + cookieSpec);
+        // logger.info("Cookie spec used: " + cookieSpec);
 
         CookieStore cookieStore = localContext.getCookieStore();
         // .getAttribute(ClientContext.COOKIE_STORE);
-        logger.debug("Cookie Store used: " + cookieStore);
+        logger.info("Cookie Store used: " + cookieStore);
 
     }
 
     public static void showCookies(CookieStore cookieStore) {
         List<Cookie> cookies = cookieStore.getCookies();
         for (int i = 0; i < cookies.size(); i++) {
-            logger.debug("Local cookie: " + cookies.get(i));
+            logger.info("Local cookie: " + cookies.get(i));
+            CookieMap.put(cookies.get(i).toString(), cookies.get(i));
         }
     }
 
@@ -331,15 +398,15 @@ public class HttpHelper {
             return;
 
         HttpEntity entity = response.getEntity();
-        logger.debug("----------------------------------------");
-        logger.debug(response.getStatusLine());
+        logger.info("----------------------------------------");
+        logger.info(response.getStatusLine());
         if (entity != null) {
-            logger.debug("Response content length: " + entity.getContentLength());
+            logger.info("Response content length: " + entity.getContentLength());
         }
-        logger.debug("----------------------------------------");
+        logger.info("----------------------------------------");
         showHeader(response);
-        // showContent(httpResult);
-        logger.debug(httpResult);
+        //// showContent(httpResult);
+        logger.info(httpResult);
 
         showContext(xlocalContext);
         showCookies(xcookieStore);

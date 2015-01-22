@@ -1,7 +1,6 @@
 package com.foresee.test.util.lang;
 
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.Vector;
 

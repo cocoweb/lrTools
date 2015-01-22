@@ -1,4 +1,4 @@
-package com.foresee.test.loadrunner.lrapi4j.helper;
+package com.foresee.test.loadrunner.helper;
 
 import java.util.Map;
 

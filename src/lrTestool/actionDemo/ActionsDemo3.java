@@ -1,10 +1,12 @@
 package lrTestool.actionDemo;
 //package com.foresee.test.loadrunner;
 
-import com.foresee.test.loadrunner.base.InnerITrans;
-import com.foresee.test.loadrunner.base.LrActionClass;
-import com.foresee.test.loadrunner.lrapi4j.lr;
-import com.foresee.test.loadrunner.lrapi4j.web;
+
+import lrTestool.base.InnerITrans;
+import lrTestool.base.LrActionClass;
+import lrTestool.lrapi.lr;
+import lrTestool.lrapi.web;
+
 import com.foresee.test.util.lang.StringUtil;
 
 /**

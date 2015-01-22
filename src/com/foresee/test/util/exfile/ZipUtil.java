@@ -214,7 +214,8 @@ public class ZipUtil {
 			out = new ByteArrayOutputStream();
 			in = new ByteArrayInputStream(compressed);
 			zin = new ZipInputStream(in);
-			ZipEntry entry = zin.getNextEntry();
+			@SuppressWarnings("unused")
+            ZipEntry entry = zin.getNextEntry();
 			byte[] buffer = new byte[1024];
 			int offset = -1;
 			while ((offset = zin.read(buffer)) != -1) {
