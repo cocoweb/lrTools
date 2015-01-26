@@ -1,5 +1,7 @@
 package lrTestool.lrapi;
 
+import com.foresee.test.loadrunner.base.I_web;
+
 
 
 /**

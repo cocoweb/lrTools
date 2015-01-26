@@ -1,10 +1,10 @@
 package com.foresee.test.loadrunner.lrapi4j;
 
 import static com.foresee.test.loadrunner.lrapi4j.lr.eval_string;
-import lrTestool.lrapi.I_web;
 
 import org.apache.log4j.Logger;
 
+import com.foresee.test.loadrunner.base.I_web;
 import com.foresee.test.loadrunner.helper.HttpHelper;
 import com.foresee.test.loadrunner.helper.RegItem;
 import com.foresee.test.loadrunner.helper.RegItemCache;

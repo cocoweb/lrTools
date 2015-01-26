@@ -1,8 +1,6 @@
 package com.foresee.test.loadrunner.helper;
 
-import static com.foresee.test.loadrunner.lrapi4j.lr.eval_string;
-import static com.foresee.test.loadrunner.lrapi4j.lr.save_int;
-import static com.foresee.test.loadrunner.lrapi4j.lr.save_string;
+import static com.foresee.test.loadrunner.lrapi4j.lr.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +44,7 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
 import com.foresee.test.loadrunner.lrapi4j.web;
-import com.foresee.test.util.lang.StringUtil;
+import static com.foresee.test.util.lang.StringUtil.*;
 
 public class HttpHelper {
     static Logger logger = Logger.getLogger(HttpHelper.class.getName());
@@ -82,7 +80,7 @@ public class HttpHelper {
                     RegItem xitem = (RegItem) RegItemCache.getInstance().get(skey);
                     switch (xitem.type) {
                     case FIND: // reg_find
-                        save_int(StringUtil.findStringCount(httpResult, xitem.Value), xitem.ParaName);
+                        save_int(findStringCount(httpResult, xitem.Value), xitem.ParaName);
 
                         break;
                     case SAVE: // reg_save_param
@@ -265,8 +263,8 @@ public class HttpHelper {
 
     public static void addCookie(String[] cookies) {
         for (int i = 0; i < cookies.length; i++) {
-            cookieStore.addCookie(new BasicClientCookie(eval_string(StringUtil.parsarKVStrKey(cookies[i])),
-                    eval_string(StringUtil.parsarKVStrValue(cookies[i]))));
+            cookieStore.addCookie(new BasicClientCookie(eval_string(parsarKVStrKey(cookies[i])),
+                    eval_string(parsarKVStrValue(cookies[i]))));
 
         }
 
@@ -290,10 +288,10 @@ public class HttpHelper {
                 break;
             } else if (options[i].indexOf("Body") == 0) { // parameters
                 setParameters((HttpEntityEnclosingRequest) httprequest,
-                        StringUtil.parsarKVStrValue(eval_string(options[i])));
+                        parsarKVStrValue(eval_string(options[i])));
 
             } else { // header
-                String[] strs = StringUtil.parsarKVStr(options[i]);
+                String[] strs = parsarKVStr(options[i]);
                 if (strs.length > 1) {
                     ((HttpRequest) httprequest).setHeader(eval_string(strs[0]), eval_string(strs[1]));
                 } else {
@@ -316,8 +314,8 @@ public class HttpHelper {
         List<NameValuePair> formparams = new ArrayList<NameValuePair>();
         for (int i = 0; i < datas.length; i++) {
             if (datas[i].indexOf("Name") == 0) {
-                String sName = StringUtil.parsarKVStrValue(datas[i]);
-                String sValue = StringUtil.parsarKVStrValue(datas[i + 1]);
+                String sName = parsarKVStrValue(datas[i]);
+                String sValue = parsarKVStrValue(datas[i + 1]);
 
                 formparams.add(new BasicNameValuePair(eval_string(sName), eval_string(sValue)));
             }

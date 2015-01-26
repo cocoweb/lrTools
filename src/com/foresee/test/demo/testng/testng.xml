@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="demoSuite" parallel="false">
+  <test name="Test">
+  	<parameter name="config.file" value="/file.properties"/>
+    <parameter name="sPassword" value="Test@123"/>
+  
+    <classes>
+      <class name="com.foresee.test.demo.testng.TestDataProvider"/>
+    </classes>
+  </test> <!-- Test -->
+ 	 <listeners>
+	<listener class-name="com.netease.qa.testng.TestResultListener" />
+	<listener class-name="com.netease.qa.testng.RetryListener" />
+	<listener class-name="com.netease.qa.testng.PowerEmailableReporter" />
+	</listeners>
+</suite> <!-- demoSuite -->

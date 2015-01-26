@@ -2,13 +2,8 @@ package com.foresee.test.util.http.testng;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Iterator;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
 import org.apache.http.HeaderIterator;
 import org.apache.http.HttpEntity;
@@ -27,17 +22,14 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.protocol.HttpContext;
+import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.testng.annotations.Test;
-
-import com.foresee.test.util.http.HttpException;
 
 public class httpDemotest {
     void showHeader(HttpResponse response) {
@@ -78,7 +70,7 @@ public class httpDemotest {
 
     @Test
     public void setheader() {
-        HttpClient httpClient = new DefaultHttpClient();
+        HttpClient httpClient =  HttpClients.createDefault();
         try {
             HttpGet httpget = new HttpGet("http://www.iteye.com");
 
@@ -117,7 +109,7 @@ public class httpDemotest {
     @Test
     public void eapache() {
         // 创建默认的 HttpClient 实例
-        HttpClient httpClient = new DefaultHttpClient();
+        HttpClient httpClient = HttpClients.createDefault();
         try {
             // 创建 httpUriRequest 实例
             HttpGet httpGet = new HttpGet("http://www.apache.org/");
@@ -146,13 +138,14 @@ public class httpDemotest {
             e.printStackTrace();
         } finally {
             // 关闭连接，释放资源
-            httpClient.getConnectionManager().shutdown();
+            HttpClientUtils.closeQuietly(httpClient);
+           // httpClient.getConnectionManager().shutdown();
         }
     }
 
     @Test
     public void f() {
-        HttpClient httpclient = new DefaultHttpClient();
+        HttpClient httpclient = HttpClients.createDefault();
         HttpGet httpget = new HttpGet("http://www.baidu.com/");
 
         HttpResponse response;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <testmethod1>
+        <input>1</input>
+        <button>2</button>
+        <check>22</check>
+    </testmethod1>
+    <testmethod1>
+        <input>3</input>
+        <button>4</button>
+        <check>22</check>
+    </testmethod1>
+    <testmethod2>
+        <input>3</input>
+        <button>4</button>
+        <check>22</check>
+    </testmethod2>
+    <testmethod3>
+        <input>3</input>
+        <button>4</button>
+        <check>22</check>
+    </testmethod3>
+    <testmethod4>
+        <input>3</input>
+        <button>4</button>
+        <check>22</check>
+    </testmethod4>
+</data>

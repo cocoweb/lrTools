@@ -1,8 +1,6 @@
 package lrTestool.base;
 
-import lrTestool.lrapi.lr;
-
-
+import lrapi.lr;
 
 
 

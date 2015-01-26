@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -126,26 +127,7 @@ public class ReflectUtil
             Object[] parameter) {
         return invokeMethodWithObjHasSpecialParame(className, obj, methodName, parameter, getParameterClass(parameter));
     }
-
-    /**
-     * 获取参数列表的class对象
-     * 
-     * @param parameter
-     *            参数值数组
-     * @return Class[]
-     */
-    @SuppressWarnings("rawtypes")
-    private static Class[] getParameterClass(Object[] parameter) {
-        Class[] methodParameters = null;
-        if (parameter != null && parameter.length > 0) {
-            methodParameters = new Class[parameter.length];
-            for (int i = 0; i < parameter.length; i++) {
-                methodParameters[i] = parameter[i].getClass();
-            }
-        }
-        return methodParameters;
-    }
-
+    
     /**
      * 用对象反射调用它的某个方法(指定参数类型的方法)
      * 
@@ -171,9 +153,56 @@ public class ReflectUtil
         }
         catch (Exception e) {
         	logger.error("类：com.foresee.biz.common.ReflectUtil 方法：invokeMethodWithObjHasSpecialParame 原因："
-					+ e.getMessage());
+    				+ e.getMessage());
         }
         return object;
+    }
+
+    /**
+     * 执行某个类的静态方法 java反射机制
+     *
+     * @param className
+     * @param methodName
+     * @param args
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static Object invokeStaticMethod(String className, String methodName,
+            Object[] args) throws Exception {
+     
+        Class ownerClass = Class.forName(className);
+        Class[] argsClass = new Class[args.length];
+     
+        for (int i = 0, j = args.length; i < j; i++) {
+            argsClass[i] = args[i].getClass();
+        }
+     
+        Method method = ownerClass.getMethod(methodName, argsClass);
+        return method.invoke(null, args);
+    }
+    
+    public static Object invokeStaticMethod(String className, String methodName) throws Exception{
+        return invokeStaticMethod(className,methodName,new Object[]{});
+    }
+
+    /**
+     * 获取参数列表的class对象
+     * 
+     * @param parameter
+     *            参数值数组
+     * @return Class[]
+     */
+    @SuppressWarnings("rawtypes")
+    private static Class[] getParameterClass(Object[] parameter) {
+        Class[] methodParameters = null;
+        if (parameter != null && parameter.length > 0) {
+            methodParameters = new Class[parameter.length];
+            for (int i = 0; i < parameter.length; i++) {
+                methodParameters[i] = parameter[i].getClass();
+            }
+        }
+        return methodParameters;
     }
 
     /**

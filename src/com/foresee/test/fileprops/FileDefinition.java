@@ -14,7 +14,7 @@ import com.foresee.test.util.exfile.ExtProperties;
  * @author allan.xie
  *
  */
-public final class FileDefinition {
+public  class FileDefinition {
     private static ExtProperties extProp = null;
     /**
      * 默认报文协议 字符串数组

@@ -29,6 +29,9 @@ public abstract class LrActionClass {
 	public static int _webresult;
 	
 	static Map<String, InnerITrans> cacheMap = new ConcurrentHashMap<String, InnerITrans>();
+	
+	public static com.foresee.test.loadrunner.lrapi4j.web web =new com.foresee.test.loadrunner.lrapi4j.web();
+    public static com.foresee.test.loadrunner.lrapi4j.lr lr =new com.foresee.test.loadrunner.lrapi4j.lr();
 
     /**
      * 添加事务对象，
