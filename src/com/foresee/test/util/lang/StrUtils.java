@@ -161,6 +161,7 @@ public class StrUtils {
         StringBuffer sb = new StringBuffer(origin.length());
 
         int srcLength = src.length();
+        @SuppressWarnings("unused")
         int destLength = dest.length();
 
         int preOffset = 0;

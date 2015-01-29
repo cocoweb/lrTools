@@ -7,6 +7,7 @@ import lrTestool.base.LrActionClass;
 import lrapi.lr;
 import lrapi.web;
 
+import com.foresee.test.util.code.EncodeUtils;
 import com.foresee.test.util.lang.StringUtil;
 
 /**
@@ -309,7 +310,7 @@ public class ActionsDemo3 extends LrActionClass
 
 
 //			    this.OutString = lr_x.eval_string("{retStr}");
-			 this.OutString = StringUtil.ConvertCharset(lr.eval_string("{retStr}"),"GBK","UTF-8");
+			 this.OutString = EncodeUtils.ConvertCharset(lr.eval_string("{retStr}"),"GBK","UTF-8");
 		    //System.out.println(this.OutString);
 
 
@@ -406,9 +407,9 @@ public class ActionsDemo3 extends LrActionClass
 				//this.OutString = lr_x.eval_string("TID[{ret_jcxxTID}]:{retStr}");
 				
 				if(lr.eval_int("{ret_jcxxCount}") > 0){
-					this.OutString = lr.eval_string("TID[{ret_jcxxTID}]:{retStr}")+StringUtil.ConvertCharset(lr.eval_string("{reterrStr}"),"GBK","UTF-8");
+					this.OutString = lr.eval_string("TID[{ret_jcxxTID}]:{retStr}")+EncodeUtils.ConvertCharset(lr.eval_string("{reterrStr}"),"GBK","UTF-8");
 				}else{
-					this.OutString = lr.eval_string("TID[{ret_jcxxTID}]")+StringUtil.ConvertCharset(lr.eval_string("{reterrStr}"),"UTF-8","GBK");
+					this.OutString = lr.eval_string("TID[{ret_jcxxTID}]")+EncodeUtils.ConvertCharset(lr.eval_string("{reterrStr}"),"UTF-8","GBK");
 				}
 
 				return lr.eval_int("{ret_jcxxCount}") > 0;
@@ -528,7 +529,7 @@ public class ActionsDemo3 extends LrActionClass
 				";&lt;signType&gt;0&lt;/signType&gt;&lt;signSource&gt;000&lt;/signSource&gt;&lt;signValue&gt;000&lt;/signValue&gt;&lt;/signData&gt;&lt;businessContent&gt;&lt;subPackage&gt;&lt;id&gt;1&lt;/id&gt;&lt;content&gt;&lt;![CDATA[&lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;&lt;taxML xsi:type=\"NfnsrdlyzRequest\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.chinatax.gov.cn/dataspec/\" xmlbh=\"\" xmlmc=\"\" bbh=\"\"&gt;&lt;nsrzh&gt;441302730457424&lt;/nsrzh&gt;&lt;"+
 				"authenticateType&gt;2&lt;/authenticateType&gt;&lt;password&gt;Abcd1234&lt;/password&gt;&lt;cert&gt;&lt;/cert&gt;&lt;random&gt;&lt;/random&gt;&lt;signValue&gt;&lt;/signValue&gt;&lt;/taxML&gt;\r\n]]&gt;&lt;/content&gt;&lt;/subPackage&gt;&lt;/businessContent&gt;&lt;/tiripPackage&gt;\r\n</bizXml>\r</ns1:doService>\r</soap:Body>\r</soap:Envelope>";
 		
-		System.out.println(StringUtil.unescapeHtml(xstr));
+		System.out.println(EncodeUtils.unescapeHtml(xstr));
 	}
 	
 

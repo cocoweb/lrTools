@@ -1,6 +1,12 @@
 package com.foresee.test.loadrunner.helper;
 
-import static com.foresee.test.loadrunner.lrapi4j.lr.*;
+import static com.foresee.test.loadrunner.lrapi4j.lr.eval_string;
+import static com.foresee.test.loadrunner.lrapi4j.lr.save_int;
+import static com.foresee.test.loadrunner.lrapi4j.lr.save_string;
+import static com.foresee.test.util.lang.StringUtil.findStringCount;
+import static com.foresee.test.util.lang.StringUtil.parsarKVStr;
+import static com.foresee.test.util.lang.StringUtil.parsarKVStrKey;
+import static com.foresee.test.util.lang.StringUtil.parsarKVStrValue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,15 +45,14 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.impl.cookie.BasicClientCookie;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
 import com.foresee.test.loadrunner.lrapi4j.web;
-import static com.foresee.test.util.lang.StringUtil.*;
+import com.foresee.test.util.LabelValue;
 
-public class HttpHelper {
-    static Logger logger = Logger.getLogger(HttpHelper.class.getName());
+public class HttpClientHelper {
+    static Logger logger = Logger.getLogger(HttpClientHelper.class.getName());
     
     static HttpHost proxyhost = new HttpHost("localhost", 8888);
 
@@ -314,10 +319,7 @@ public class HttpHelper {
         List<NameValuePair> formparams = new ArrayList<NameValuePair>();
         for (int i = 0; i < datas.length; i++) {
             if (datas[i].indexOf("Name") == 0) {
-                String sName = parsarKVStrValue(datas[i]);
-                String sValue = parsarKVStrValue(datas[i + 1]);
-
-                formparams.add(new BasicNameValuePair(eval_string(sName), eval_string(sValue)));
+                formparams.add(LabelValue.BuildFromString(eval_string(datas[i]),eval_string(datas[i+1])));
             }
 
         }

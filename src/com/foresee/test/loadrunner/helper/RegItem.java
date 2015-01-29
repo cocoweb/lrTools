@@ -15,6 +15,16 @@ public class RegItem {
     public String locateString(String sSrc){
         return StringUtil.locateString(sSrc,LeftStr,RightStr);
     }
+
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "RegItem [ParaName=" + ParaName + ", LeftStr=" + LeftStr + ", RightStr=" + RightStr + ", type=" + type
+                + "]";
+    }
     
 
 }

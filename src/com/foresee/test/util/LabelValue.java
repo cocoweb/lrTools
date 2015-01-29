@@ -1,5 +1,7 @@
 package com.foresee.test.util;
 
+import static com.foresee.test.util.lang.StringUtil.parsarKVStrValue;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -21,7 +23,7 @@ import com.foresee.test.util.lang.StringUtil;
  * 
  * @see org.apache.struts.util.LabelValueBean
  */
-public class LabelValue implements NameValuePair,Comparable<Object>, Serializable {
+public class LabelValue  implements NameValuePair,Comparable<Object>, Serializable {
 
     private static final long serialVersionUID = 3689355407466181430L;
 
@@ -41,12 +43,6 @@ public class LabelValue implements NameValuePair,Comparable<Object>, Serializabl
 
     // ----------------------------------------------------------- Constructors
 
-    /**
-     * Default constructor.
-     */
-    public LabelValue() {
-        super();
-    }
 
     /**
      * Construct an instance with the supplied property values.
@@ -57,6 +53,7 @@ public class LabelValue implements NameValuePair,Comparable<Object>, Serializabl
      *            The value to be returned to the server.
      */
     public LabelValue(final String label, final String value) {
+        //super(label,value);
         this.label = label;
         this.value = value;
     }
@@ -68,6 +65,11 @@ public class LabelValue implements NameValuePair,Comparable<Object>, Serializabl
      */
     private String label;
 
+    /**
+     * The property which supplies the value returned to the server.
+     */
+    private String value;
+
     public String getLabel() {
         return this.label;
     }
@@ -76,10 +78,11 @@ public class LabelValue implements NameValuePair,Comparable<Object>, Serializabl
         this.label = label;
     }
 
-    /**
-     * The property which supplies the value returned to the server.
-     */
-    private String value;
+    @Override
+    public String getName() {
+         
+        return getLabel();
+    }
 
     public String getValue() {
         return this.value;
@@ -123,6 +126,12 @@ public class LabelValue implements NameValuePair,Comparable<Object>, Serializabl
         sb.append("]");
         return (sb.toString());
     }
+    
+    public com.gargoylesoftware.htmlunit.util.NameValuePair toNameValuePair(){
+        return new com.gargoylesoftware.htmlunit.util.NameValuePair(this.label,this.value);
+    }
+    
+  
 
     /**
      * LabelValueBeans are equal if their values are both null or equal.
@@ -167,12 +176,12 @@ public class LabelValue implements NameValuePair,Comparable<Object>, Serializabl
         return (this.getValue() == null) ? 17 : this.getValue().hashCode();
     }
 
-    @Override
-    public String getName() {
-         
-        return getLabel();
-    }
-    
+    /**
+     * Build LabelValue from  String
+     * like: xxxx=yyyyy  or   aaa:bbbb
+     * @param pairString   name=value 
+     * @return
+     */
     public static LabelValue BuildFromString(String pairString){
         String[] arrstr = StringUtil.parsarKVStr(pairString);
         if (arrstr.length==2){
@@ -182,8 +191,20 @@ public class LabelValue implements NameValuePair,Comparable<Object>, Serializabl
         }
     }
     
-    public static List<LabelValue> BuildListFromString(String pairString){
-        List<LabelValue> xlist = new ArrayList<LabelValue>();
+    /**
+     * Build LabelValue from two String
+     * like: name=xxxx   value=yyyyy
+     * @param namePair   name=xxxx 
+     * @param valuePair  value=yyyyy
+     * @return
+     */
+    public static LabelValue BuildFromString(String namePair,String valuePair){
+        return new LabelValue(parsarKVStrValue(namePair),
+                parsarKVStrValue(valuePair));
+    }
+    
+    public static List<Object> BuildListFromString(String pairString){
+        List<Object> xlist = new ArrayList<Object>();
         StringTokenizer tokenizer = new StringTokenizer(pairString, ",|;");
         while(tokenizer.hasMoreTokens()){
             xlist.add(BuildFromString(tokenizer.nextToken()));

@@ -24,4 +24,16 @@ public class Transaction {
                 ">>>耗时:"+Long.toString(time)+"ms";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Transaction [transName=" + transName 
+                + ", beginTime=" + beginTime 
+                + ", time=" + time 
+                + ", isOK=" + isOK
+                + "]";
+    }
+
 }

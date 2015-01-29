@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="false">
-  <test name="Test">
-    <parameter name="config.file" value="/file.properties"/>
-    <parameter name="sPassword" value="Test@123"></parameter>
- 
-    <classes>
-      <!-- class name="lrTestool.test.XmlDefinitionTest"/>
-      <class name="lrTestool.test.lrToolsTest"/> -->
-      <class name="com.foresee.test.util.testng.ExtPropertiesTest"/>
-      <class name="lrTestool.testng.XmlDefinitionTest"/>
-      <class name="lrTestool.testng.lrToolsTest"/>
-      <class name="com.foresee.test.loadrunner.lrapi4j.testng.web_xTest"></class>
-    </classes>
-    
-  </test> <!-- Test -->
-    <listeners>
+	<test name="Test">
+		<parameter name="config.file" value="/file.properties" />
+		<parameter name="sPassword" value="Test@123"></parameter>
+
+		<classes>
+			<class name="com.foresee.test.fileprops.testng.FileDefinitionTest"/>
+			<class name="com.foresee.test.fileprops.testng.lrToolsTest"/>
+			<class name="com.foresee.test.util.testng.ExtPropertiesTest" />
+			<class name="com.foresee.test.loadrunner.lrapi4j.testng.web_xTest"></class>
+			<class name="com.foresee.test.loadrunner.helper.testng.ArgFileHtmlUnitTest"></class>
+		</classes>
+
+	</test> <!-- Test -->
+	<listeners>
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
 		<listener class-name="com.netease.qa.testng.TestResultListener" />
 		<listener class-name="com.netease.qa.testng.RetryListener" />
 		<listener class-name="com.netease.qa.testng.PowerEmailableReporter" />
-		<listener class-name="com.foresee.test.loadrunner.lrapi4j.testng.CustomListener"/>
+		<listener class-name="com.foresee.test.loadrunner.lrapi4j.testng.CustomListener" />
+		
+		
     </listeners>
 </suite> <!-- Suite -->

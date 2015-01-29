@@ -5,9 +5,10 @@ package com.foresee.test.loadrunner;
 import com.foresee.test.loadrunner.base.InnerITrans;
 import com.foresee.test.loadrunner.base.LrActionClass;
 import com.foresee.test.loadrunner.helper.LoadrunnerUtil;
-
+import com.foresee.test.loadrunner.lrapi4j.lr;
+import com.foresee.test.loadrunner.lrapi4j.web;
+import com.foresee.test.util.code.EncodeUtils;
 import com.foresee.test.util.io.FileUtil;
-import com.foresee.test.util.lang.StringUtil;
 
 /**
  * 这个类里面用了多种方法，来构造LoadRunner的事务代码管理
@@ -105,7 +106,7 @@ public class ActionsDemo0 extends LrActionClass
 	        		"Name=captcha", "Value=1111", ENDITEM, 
 	        		LAST});
 	        
-	        	OutString = StringUtil.ConvertCharset(lr.eval_string("{retStr}")) ;
+	        	OutString = EncodeUtils.ConvertCharset(lr.eval_string("{retStr}")) ;
 	        	
 		        return lr.eval_int("{LoginCount}") > 0;
 		    }});
@@ -214,7 +215,7 @@ public class ActionsDemo0 extends LrActionClass
 		    		"Url=/skin/gdgs/Style/yellow/images/common/dot02.gif", "Referer={p_url}/etax/admin/sbzs/index.do?siteName=gd&styleName=yellow&ythFlag=Y", ENDITEM, 
 		    		LAST});
 		    
-		        this.OutString = StringUtil.ConvertCharset(lr.eval_string("{retStr}"));
+		        this.OutString = EncodeUtils.ConvertCharset(lr.eval_string("{retStr}"));
 		    	return lr.eval_int("{cxCount}") > 0;
 		}}.RunTrans();
 
@@ -298,7 +299,7 @@ public class ActionsDemo0 extends LrActionClass
 		    	
 		    	//LoadrunnerUtil.reportOut(true, "申报征收2上传页面",StringUtil.StringUtil.ConvertCharset(lr.eval_string("{retStr}")),timer);
 		        
-		    	this.OutString= StringUtil.ConvertCharset(lr.eval_string("{retStr}"));
+		    	this.OutString= EncodeUtils.ConvertCharset(lr.eval_string("{retStr}"));
 		        
 		        return true;
 		    }}.RunTrans();
@@ -404,7 +405,7 @@ public class ActionsDemo0 extends LrActionClass
   
         LoadrunnerUtil.reportOut((lr.eval_int("{ret_sbCount}") > 0), "申报文件上传",
         		lr.eval_string("pzxh:[{ret_pzxh}]  ")+
-        		StringUtil.ConvertCharset(lr.eval_string("{retStr}")),timer);
+        		EncodeUtils.ConvertCharset(lr.eval_string("{retStr}")),timer);
         
         
     }
@@ -605,7 +606,7 @@ public class ActionsDemo0 extends LrActionClass
 	    
 	    	//LoadrunnerUtil.reportOut((lr.eval_int("{ret_spHMCount}") > 0), "缴款2_网上缴税",StringUtil.ConvertCharset(lr.eval_string("{retStr}"),"ISO-8859-1"),timer);
 		        
-		        this.OutString = StringUtil.ConvertCharset(lr.eval_string("{retStr}"),"ISO-8859-1");
+		        this.OutString = EncodeUtils.ConvertCharset(lr.eval_string("{retStr}"),"ISO-8859-1");
 		        return lr.eval_int("{ret_spHMCount}") > 0;
 		    }}.RunTrans();
 	}
@@ -1020,7 +1021,7 @@ public class ActionsDemo0 extends LrActionClass
         
         boolean bSucc = (lr.eval_int("{ret_fprzCount}") > 0);
         
-        LoadrunnerUtil.reportOut(bSucc, "发票认证4文件上传",StringUtil.ConvertCharset(lr.eval_string("{retStr}")),timer);
+        LoadrunnerUtil.reportOut(bSucc, "发票认证4文件上传",EncodeUtils.ConvertCharset(lr.eval_string("{retStr}")),timer);
     }
     
     InnerITrans Mainpage = new InnerITrans("大厅首页"){

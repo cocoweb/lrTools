@@ -13,6 +13,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.HashSet;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -178,6 +179,33 @@ public class File2Util {
 	}
 
 	/**
+     * 将文件转换为byte数组
+     * @param file
+     * @return
+     */
+    public static byte[] fileToBytes(String file){
+    	byte[] bytes = null;
+    	try {
+    		BufferedInputStream in = new BufferedInputStream(new FileInputStream(new File(file)));
+    		ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
+    		byte[] temp = new byte[1024];
+    		int size = 0;
+    		while ((size = in.read(temp)) != -1) {
+    			out.write(temp, 0, size);
+    		}
+    		in.close();
+    		bytes = out.toByteArray();
+    	} catch (FileNotFoundException e) {
+    		logger.info("类:FileUtil,方法:fileToBytes," + "信息:"
+    			+ file + " 文件未找到，原因" + e.getMessage());
+    	} catch (IOException e) {
+    		logger.info("类:FileUtil,方法:fileToBytes," + "信息:"
+    			+ file + " 文件读取失败，原因" + e.getMessage());
+    	}
+    	return bytes;
+    }
+
+    /**
 	 * 新建目录
 	 * 
 	 * @param strFolderPath
@@ -454,32 +482,5 @@ public class File2Util {
 					+ filePath + " 文件创建失败，原因" + e.getMessage());
 		}
 		return result;
-	}
-	
-	/**
-	 * 将文件转换为byte数组
-	 * @param file
-	 * @return
-	 */
-	public static byte[] fileToBytes(String file){
-		byte[] bytes = null;
-		try {
-			BufferedInputStream in = new BufferedInputStream(new FileInputStream(new File(file)));
-			ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-			byte[] temp = new byte[1024];
-			int size = 0;
-			while ((size = in.read(temp)) != -1) {
-				out.write(temp, 0, size);
-			}
-			in.close();
-			bytes = out.toByteArray();
-		} catch (FileNotFoundException e) {
-			logger.info("类:FileUtil,方法:fileToBytes," + "信息:"
-				+ file + " 文件未找到，原因" + e.getMessage());
-		} catch (IOException e) {
-			logger.info("类:FileUtil,方法:fileToBytes," + "信息:"
-				+ file + " 文件读取失败，原因" + e.getMessage());
-		}
-		return bytes;
 	}
 }
