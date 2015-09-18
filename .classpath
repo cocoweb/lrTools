@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="com/foresee/test/api/|org/dtools/ini/|lrTestool/olds/|lrTestool/test/|com/foresee/test/demo/testng/excel/|com/foresee/test/http/testng/HttpRequestTest.java|com/foresee/test/util/http/testng/HttpRequestTest.java|com/foresee/test/demo/InnerITrans.java|com/foresee/test/demo/LrActionClass.java|com/foresee/test/demo/LoadrunnerUtil.java" kind="src" path="src"/>
-	<classpathentry kind="src" path="examples"/>
+	<classpathentry excluding="com/foresee/test/api/|org/dtools/ini/|lrTestool/olds/|lrTestool/test/|com/foresee/test/demo/testng/excel/|com/foresee/test/http/testng/HttpRequestTest.java|com/foresee/test/util/http/testng/HttpRequestTest.java|com/foresee/test/demo/InnerITrans.java|com/foresee/test/demo/LrActionClass.java|com/foresee/test/demo/LoadrunnerUtil.java|com/foresee/test/util/none/|com/foresee/test/util/http/HttpToolkit.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fbrp_libs"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/xlibs"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fitnesse"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/seleniumLIBs"/>
 	<classpathentry kind="lib" path="lib/weblogic-t3client-10.3.3.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="F:/OpenSource/libs/json-1.0.0.jar"/>
@@ -12,8 +12,9 @@
 	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="lib" path="F:/OpenSource/loadrunner/classes" sourcepath="F:/OpenSource/loadrunner/classes/classes.src.zip"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/poi"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/seleniumLIBs"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/htmlunit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/apache-http"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/testnglibs"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/xlibs"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

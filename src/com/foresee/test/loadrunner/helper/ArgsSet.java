@@ -10,7 +10,9 @@ import com.foresee.test.loadrunner.lrapi4j.lr;
 import com.foresee.test.util.lang.StringUtil;
 
 /**
- * 参数集模式： 1、KEYVALUE模式 暂时不进入该类 2、参数串模式 3、指定字段及序号模式，即field:index...
+ * 参数集模式： 1、KEYVALUE模式 暂时不进入该类 
+ * 2、参数串模式 
+ * 3、指定字段及序号模式，即field:index...
  * 4、xml文件模式
  * @author Administrator
  *

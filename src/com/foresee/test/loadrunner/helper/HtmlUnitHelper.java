@@ -71,8 +71,8 @@ public class HtmlUnitHelper {
             weboptions.setProxyConfig(proxyhost);
 
         weboptions.setThrowExceptionOnScriptError(false);
-        weboptions.setJavaScriptEnabled(true);
-        weboptions.setCssEnabled(true);
+        weboptions.setJavaScriptEnabled(false);
+        weboptions.setCssEnabled(false);
 
         return webclient;
 

@@ -4,7 +4,6 @@ import java.security.MessageDigest;
 import java.util.Random;
 import java.util.Vector;
 
-import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -267,12 +266,7 @@ public class StrUtils {
      */
     public static String decodeString(String str) {
         Base64 dec = new Base64();
-        try {
-            return String.valueOf(dec.decode(str));
-        } catch (DecoderException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return str;
+        return String.valueOf(dec.decode(str));
+        
     }
 }

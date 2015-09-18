@@ -21,7 +21,7 @@ public class lrTools {
                if(!xCache.containsKey(sKey)){
                    Arguments xargs=Arguments.getInstance();
                    xargs.load(sKey);
-                   return xCache.putString(sKey,xargs.getString(sKey) );
+                   return "<!--asdfasdf-->"+xCache.putString(sKey,xargs.getString(sKey) );
 
                }
            }
@@ -57,7 +57,9 @@ public class lrTools {
 
 
 	public static void main(String[] args) {
-		String sXML = lrTools.loadXmlByKey("SWZJ.HXZG.SB.ZZSYBRSBSQJKJHQQCSJ");
+	    lrTools lr = new lrTools();
+	    
+		String sXML = lr.loadXmlByKey("SWZJ.HXZG.SB.ZZSYBRSBSQJKJHQQCSJ");
 		
 		//System.out.println(XmlDefinition.getValueByName("SWZJ.HXZG.SB.ZZSXGMSBSQJKJHQQCSJ"));
 

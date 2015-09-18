@@ -1,5 +1,7 @@
 package com.foresee.test.fileprops;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -7,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.foresee.test.util.exfile.ExtProperties;
+import com.foresee.test.util.io.FileUtil;
 
 /**
  * 在 /file.properties 中读取文件名字、参数定义
@@ -109,13 +112,17 @@ public  class FileDefinition {
                 // 从用来加载类的搜索路径打开具有指定名称的资源，以读取该资源。此方法通过系统类加载器
                 // InputStream in
                 // =Thread.defaultThread().getContextClassLoader().getResourceAsStream(path);
+                
+                File xfile = FileUtil.lookupFileInClasspath(path);
 
-                InputStream in = FileDefinition.class.getResourceAsStream(path);
+                
+                InputStream in =new FileInputStream(xfile.getAbsolutePath());
+                        //FileDefinition.class.getResourceAsStream(path);
                 if (in == null) {
-                    System.out.println("未找到 " + path + "文件！");
+                    System.out.println("未找到 " + xfile.getAbsolutePath() + "文件！");
                 }
                 // 转换下，避免中文乱码
-                System.out.println("==Load " + path + "文件！");
+                System.out.println("==Load " + xfile.getAbsolutePath() + "文件！success");
 
                 extProp = new ExtProperties();
                 extProp.load(new InputStreamReader(in, "UTF-8"));

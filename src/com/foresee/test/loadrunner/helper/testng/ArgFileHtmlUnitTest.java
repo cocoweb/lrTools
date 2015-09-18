@@ -34,7 +34,7 @@ public class ArgFileHtmlUnitTest {
         }
         
         lr.save_string("440100675694178","para_nsrsbh");
-       // lr.save_string("http://61.146.43.162:9999","p_tycxURL");
+        lr.save_string("http://61.146.43.162:9999","p_tycxURL");
         //lr.save_string("http://61.146.43.162:9595","p_tycxURL");
         
         HtmlUnitHelper.getInstance().setProxy("localhost", 8888);
