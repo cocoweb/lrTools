@@ -210,6 +210,12 @@ public class ArgsSet {
 
             return new Object[]{save_paramStringByKey(skey, index)};
         }
+
+        @Override
+        public void remove() {
+            // TODO Auto-generated method stub
+            
+        }
     }
 
     public class ArgItem {

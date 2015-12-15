@@ -48,7 +48,7 @@ public class CacheMgr<V extends Object> {
 	 * @see java.util.Map#replace(java.lang.Object, java.lang.Object, java.lang.Object)
 	 */
 	public V replace(String skey,  V value) {
-		return cacheMap.replace(skey, value);
+		return ((ConcurrentHashMap<String, V>) cacheMap).replace(skey, value);
 	}
 
 	/**
