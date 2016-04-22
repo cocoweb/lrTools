@@ -22,7 +22,12 @@ public class ArgFileHttpTest {
     @BeforeTest
     public void beforeTest() {
         xargs=Arguments.getInstance();
-        xargs.load(key);
+        try {
+            xargs.load(key);
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
          
         try {
             xargs.load("keyvalue.excel");

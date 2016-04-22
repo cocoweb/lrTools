@@ -66,7 +66,7 @@
 	</target>
 	
 	<!--property name="jarfile.lrtools" value="loadtestools-0.9-${DSTAMP}${TSTAMP}.jar"/-->
-	<property name="jarfile.lrtools" value="loadtestools-1.1.jar"/>
+	<property name="jarfile.lrtools" value="loadtestools-1.2.jar"/>
 	<property name="jarfile.ejbclient" value="com.foresee.etax.ejbclient.jar"/>
     <pathconvert property="mf.classpath" pathsep=" ">
           <mapper>
@@ -87,6 +87,7 @@
 			<exclude name="lrTestool/testng/" />
 			<exclude name="gt3/" />
 			<exclude name="org/" />
+			<exclude name="com.junqing/" />
 			<exclude name="**/*.properties" />
 			<exclude name="**/*.xml" />
 			<exclude name="**/*.MF" />

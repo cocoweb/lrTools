@@ -22,15 +22,25 @@ public class ArgsFile {
     }
     
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ArgsFile [keyName=" + keyName + ", getFileName()=" + getFileName() + ", getSheetName()=" + getSheetName()
+                + ", getParameter()=" + getParameter() + "]";
+    }
+
+
     public String getFileName() {
-        return xfile.localMap.get("filename");
+        return xfile.localMap.get(FileDefinition.FILEField_FileName);
     }
     public String getSheetName() {
-        return xfile.localMap.get("sheet");
+        return xfile.localMap.get(FileDefinition.FILEField_Sheet);
     }
     
     public String getParameter(){
-        return xfile.localMap.get("parameter");
+        return xfile.localMap.get(FileDefinition.FILEField_Parameter);
     }
 
     public Object loadFile(){

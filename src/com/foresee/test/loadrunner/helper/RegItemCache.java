@@ -9,6 +9,14 @@ public class RegItemCache  {
     protected volatile static CacheMgr<RegItem> xcachemgr = new CacheMgr<RegItem>() ;
     volatile static RegItemCache mapCacheObject;// 缓存实例对象
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "RegItemCache [getMapCache()=" + getMapCache() + "]";
+    }
+
     /**
      * 采用单例模式获取缓存对象实例
      * 

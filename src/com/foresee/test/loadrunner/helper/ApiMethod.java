@@ -57,8 +57,9 @@ public enum ApiMethod {
     }
 
     public static boolean isEquals(String mstring, ApiMethod method) {
+        ApiMethod am = fromString(mstring);
        
-        return  fromString(mstring).equals(method);
+        return am!=null? fromString(mstring).equals(method) :false;
     }
 
 }

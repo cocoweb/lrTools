@@ -24,4 +24,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>grsds</name>
+			<type>2</type>
+			<location>F:/Products File/四川/scripts/grsds</location>
+		</link>
+	</linkedResources>
 </projectDescription>

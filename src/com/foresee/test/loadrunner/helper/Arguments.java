@@ -9,6 +9,7 @@ import java.util.Map;
 import com.foresee.test.fileprops.ArgsFile;
 import com.foresee.test.fileprops.FileDefinition;
 import com.foresee.test.loadrunner.lrapi4j.lr;
+import com.foresee.test.util.lang.StringUtil;
 
 public class Arguments {
     static Arguments argument=null;
@@ -41,11 +42,16 @@ public class Arguments {
         xlistmap = new HashMap<String, ArgsSet>();
     }
     
-    public void load(String skey){
+    public void load(String skey) throws Exception{
         
         ArgsFile argsfile= new ArgsFile(skey);
         
-        if (FileDefinition.getParaByName(skey).equals(KEYVALUE)) {
+        String spara = FileDefinition.getParaByName(skey);
+        if(StringUtil.isBlank(spara)){
+            throw new Exception("<<<参数字段parameter为空>>>"+skey);
+        }
+        
+        if (spara.equals(KEYVALUE)) {
             @SuppressWarnings("unchecked")
             List<ArrayList<String>> list = (List<ArrayList<String>>)(argsfile.loadFile());
             for (ArrayList<String> array : list) { // 不保存到listmap,
@@ -88,6 +94,14 @@ public class Arguments {
 //        return getArgsNameByKey(skey).indexOf(argName);
 //    }
 
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Arguments ["+xlistmap+"]";
+    }
 
     public  Iterator<Object[]> getArgsIterator(String skey) {
         return  xlistmap.get(skey).getArgsIterator();

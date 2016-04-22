@@ -23,6 +23,15 @@ public class ArgsSet {
     private List<ArrayList<String>> dataList=null;
     private String fileString="";
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ArgsSet [keyName=" + keyName + ", fieldList=" + fieldList + ", dataList=" + dataList + ", fileString="
+                + fileString + "]";
+    }
+
     /**
      * @param keyName
      * @param fields
@@ -143,6 +152,7 @@ public class ArgsSet {
                 }else{
                     //默认参数值  default.xxx = sValue
                     sTmp = StringUtil.createXMLNote(sKey,sValue);
+                    lr.save_string(sValue, "p_" + sKey );
                 }
             }
             

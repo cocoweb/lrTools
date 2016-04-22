@@ -8,15 +8,15 @@ import com.foresee.test.util.exfile.CSVAnalysis;
 
 public class CSVTextFile extends BaseFileLoader {
 
-    public CSVTextFile(String keyName) {
+    public CSVTextFile(String keyName) throws Exception {
         super(keyName);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public List<ArrayList<String>> loadFile() {
         try {
             CSVAnalysis csvfile = new CSVAnalysis(filePath);
+            System.out.println("==Load CSVText文件！"+ filePath);
             return csvfile.readCSVFile();
         } catch (IOException e) {
            e.printStackTrace();

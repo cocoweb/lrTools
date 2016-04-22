@@ -20,8 +20,13 @@ public class lrTools {
            synchronized(lrTools.class){
                if(!xCache.containsKey(sKey)){
                    Arguments xargs=Arguments.getInstance();
-                   xargs.load(sKey);
-                   return "<!--asdfasdf-->"+xCache.putString(sKey,xargs.getString(sKey) );
+                   try {
+                    xargs.load(sKey);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                   return "<!--loadxml:"+sKey+"-->"+xCache.putString(sKey,xargs.getString(sKey) );
 
                }
            }

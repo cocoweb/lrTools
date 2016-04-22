@@ -43,9 +43,9 @@ public class Test {
 		}
 		for (int i=1; i<10; i++){ 
 			long beginTime = System.currentTimeMillis();
-			//String retXml = esb.receiveMessageXML(xml);
-//			System.out.println(retXml);
-			System.out.println(xml);
+			String retXml = esb.receiveMessageXML(xml);
+			System.out.println("=====request:\n "+xml);
+			System.out.println("=====response:\n "+retXml);
 			System.out.println("Time"+i+":" + String.valueOf(System.currentTimeMillis() - beginTime));
 	    }
 	}

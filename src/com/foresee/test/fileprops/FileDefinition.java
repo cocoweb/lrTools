@@ -18,6 +18,10 @@ import com.foresee.test.util.io.FileUtil;
  *
  */
 public  class FileDefinition {
+    public final static String FILEField_FileName="filename";
+    public final static String FILEField_Parameter="parameter";
+    public final static String FILEField_Sheet="sheet";
+    
     private static ExtProperties extProp = null;
     /**
      * 默认报文协议 字符串数组
@@ -37,7 +41,7 @@ public  class FileDefinition {
     public static String getFileByName(String sKey) {
         if (extProp == null)
             extProp = getExtPropertiesInstance();
-        return extProp.getSectionItem(sKey, "filename");
+        return extProp.getSectionItem(sKey, FILEField_FileName);
 
     }
 
@@ -48,7 +52,7 @@ public  class FileDefinition {
     public static String getParaByName(String sKey) {
         if (extProp == null)
             extProp = getExtPropertiesInstance();
-        return extProp.getSectionItem(sKey, "parameter");
+        return extProp.getSectionItem(sKey, FILEField_Parameter);
 
     }
 

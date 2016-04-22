@@ -39,6 +39,14 @@ public class ParameterCache extends StringCacheMgr{
 		return super.putString(skey, svalue);
 	}
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ParameterCache [getMapCache()=" + getMapCache() + "]";
+    }
+
 	
 	
 

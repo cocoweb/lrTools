@@ -8,11 +8,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.foresee.test.fileprops.FileDefinition;
 import com.foresee.test.util.io.FileUtil;
 
 public class XMLFile extends BaseFileLoader {
 
-    public XMLFile(String keyName) {
+ 
+    public XMLFile(String keyName) throws Exception {
         super(keyName);
         // TODO Auto-generated constructor stub
     }
@@ -25,7 +27,7 @@ public class XMLFile extends BaseFileLoader {
     @Override
     public String loadFile2String() {
         String xml = "";
-        File xfile = FileUtil.lookupFileInClasspath(localMap.get("filename"));
+        File xfile = FileUtil.lookupFileInClasspath(localMap.get(FileDefinition.FILEField_FileName));
         //String sFileName =xfile.getAbsolutePath();
         InputStream inputStream=null ;
         try {
