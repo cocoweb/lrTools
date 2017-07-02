@@ -1,0 +1,32 @@
+# debug mode for database
+db.debug=true
+
+# database data
+jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/数据库名?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&autoReconnect=true
+jdbc.username=用户名
+jdbc.password=密码
+
+# database pool
+dbpool.driver=${jdbc.driverClassName}
+dbpool.url=${jdbc.url}
+dbpool.user=${jdbc.username}
+dbpool.password=${jdbc.password}
+dbpool.maxConnections=10
+dbpool.minConnections=5
+dbpool.waitIfBusy=true
+dbpool.validateConnection=true
+dbpool.validationQuery=select 1
+
+# db orm manager
+dboom.tableNames.prefix=sys_
+dboom.tableNames.uppercase=false
+dboom.columnNames.uppercase=false
+dboom.schemaName=jodd
+
+# example how column alias type
+# can be set for all queries
+#dboom.defaultColumnAliasType=COLUMN_CODE
+# example how to turn on ID generation using Jodd
+#appDao.generatedKeys=false
+#jodd.joy.db.AppDao.generatedKeys=${appDao.generatedKeys}

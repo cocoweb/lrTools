@@ -8,7 +8,7 @@
 	<property file="build.properties"/> 
 	<property environment="env" />
 	<!--property name="lr_src.link" value="../lr java/src" /-->
-	<property name="ECLIPSE_HOME" value="E:/java/eclipse-standard-luna-R-win32-x86_64/eclipse/" />
+	<property name="ECLIPSE_HOME" value="d:/java/eclipse-java-mars-1-win32-x86_64/eclipse/" />
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
@@ -66,7 +66,7 @@
 	</target>
 	
 	<!--property name="jarfile.lrtools" value="loadtestools-0.9-${DSTAMP}${TSTAMP}.jar"/-->
-	<property name="jarfile.lrtools" value="loadtestools-1.2.jar"/>
+	<property name="jarfile.lrtools" value="loadtestools-1.4"/>
 	<property name="jarfile.ejbclient" value="com.foresee.etax.ejbclient.jar"/>
     <pathconvert property="mf.classpath" pathsep=" ">
           <mapper>
@@ -77,10 +77,22 @@
           </mapper>
           <path refid="TestForEjb.classpath" />
     </pathconvert>
+	<!-- ================================= 
+          target: lrtoolsrc              
+         ================================= -->
+    <target name="lrtoolsrc"  description="description">
+    	<zip destfile="${jardir}${jarfile.lrtools}_src.zip">
+			<fileset dir="${basedir}/src" >
+				<include name="**/*.java"/>
+				<exclude name="tmp/" />
+			</fileset>	
+    	</zip>
+    </target>
 
-	<target name="jar.lrtools" depends="">
+
+	<target name="jar.lrtools" depends="lrtoolsrc">
 		<echo message="*****开始创建Jar包-lrTestool************** " />
-		<jar jarfile="${jardir}${jarfile.lrtools}" basedir="${basedir}\bin">
+		<jar jarfile="${jardir}${jarfile.lrtools}.jar" basedir="${basedir}\bin">
 			<exclude name="com/foresee/etax/" />
 			<exclude name="lrTestool/olds/" />
 			<exclude name="lrTestool/test/" />

@@ -1,0 +1,154 @@
+一、UltraISO命令行参数：
+-volume string    设置卷标  Volume Label
+-sysid string     系统ID    System ID
+-appid string     应用程序  ID Application ID
+-volset string    卷集编号  Volume Set ID
+-preparer string  申报者    Preparer
+-publisher string 出版商    Publisher
+
+-ilong           允许 ISO9660 格式支持 31个字节的文件名 	  Long filename for ISO 9660 volume, up to 31 chars
+-imax            使用ISO 9660-MAX文件名（长度最多支持207个字符）  Max filename for ISO 9660 volume, up to 207 chars
+-vernum      	 包括文件的版本号  	 Include file version number
+-lowercase   	 允许有小写字母  	 allow-lowercase 
+
+-joliet          Create joliet volume
+-jlong           Long filename for joliet volume, up to 103 chars
+-rockridge       Create RockRidge volume
+-udf             Create UDF volume
+-hfs             Create Apple HFS volume
+
+-udfdvd               创建的UDF DVD映像，这个选项将覆盖所有其他的卷设置 Create UDF DVD image, this option will overwrite all other volume settings
+-bootfile filename    设置启动文件
+-bootinfotable        生成开机启动信息表文件 Generate boot information table in boot file
+-optimize             优化档案编码相同的文件只有一次系统 Optimize file systems by coding same files only once
+
+-file filename        添加指定的文件或文件夹，包括文件夹及其中所有文件（源.ISO有此文件或文件夹） Add one file or folder (include folder name and all files and folders under it)
+-directory dirname    添加指定的文件或文件夹，包括文件夹及其中所有文件（源.ISO无此文件或文件夹） Add all files and folders under given directory (not include directory name itself)
+
+-newdir dirname       创建一个新的文件夹 Create a new directory
+-chdir dirname        在ISO文件中改变当前文件夹  Change current directory in ISO image
+-rmdir filename       从ISO映像删除文件或文件夹（应指定完整路径） Remove a file or folder from ISO image (full path should be specified)
+
+-pn filename          n=1-9, 设置文件或文件夹优先级（应指定完整路径）  n=1-9, set priority of a file or folder(full path should be specified)  
+-hide filename        设置要隐藏的文件或文件夹 （应指定完整路径） Set hidden attribute of a file or folder(full path should be specified)
+-ahide filename       设置要进行高级隐藏的文件或文件夹属性 （应指定完整路径）  Set advanced hidden attribute of a file or folder(full path should be specified)
+
+-input filename       输入(打开)一个ISO镜像文件 Input ISO image
+-output filename      输出ISO镜像     Output ISO image
+
+-bin2iso filename     把输入的CD/DVD映像转换为ISO格式    Convert input CD/DVD image to ISO format
+-dmg2iso filename     把输入的DMG映像转换为ISO格式       Convert input DMG image to ISO format
+-list filename        生成一个ISO镜像中的文件列表   Create a list of files and folders in an ISO image
+-get filename         设置文件解开（提取）的文件夹（应指定完整路径）  Set a file or folder(full path should be specified) to be extracted
+-extract dirname      提取（解开）ISO映像到指定目录    Extract ISO image to specified directory
+
+-copy drive:          将光驱（CD/DVD）中的文件制作成ISO镜像  Make ISO image from a CD/DVD drive (use -output to define the filename)
+
+-checksum             保存文件之前创建一个ISO映像校验  Create file checksums before saving an ISO image
+-md5                  ISO映像保存后生成MD5哈希码   Generate MD5 hash code of ISO image after saved 
+-crc32                ISO映像保存后生成CRC-32校验    Generate CRC-32 checksum of ISO image after saved
+-crc16                ISO映像保存后生成CRC-16/CRC-CCITT校验    Generate CRC-16/CRC-CCITT checksum of ISO image after saved
+
+--checksum  filename  为ISO映像创建文件校验       Create file checksums of an ISO image
+--md5 filename        为ISO映像创建MD5哈希码           Generate MD5 hash code of an ISO image
+--crc32 filename      为ISO映像创建CRC-32校验           Generate CRC-32 checksum of an ISO image
+--crc16 filename      为ISO映像创建CRC-16/CRC-CCITT校验       Generate CRC-16/CRC-CCITT checksum of an ISO image
+
+-veryfy  filename.iso.md5   验证ISO映像的文件校验 Verify file checksums of an ISO image
+-veryfymd5 filename.md5     验证ISO文件的 MD5值   Verify MD5 checksum of an ISO image
+
+-cmd filename               从一个文件中读出全部参数      Read ALL coammnd-line options from a text file
+-silent                    安静模式，不显示任何输出信息   Do not show any popup windows
+
+返回信息：0 为成功 ，-1 为发生错误  Return code:      0 for success,  -1 for error
+
+示例1：
+1)  ultraiso -imax -l -f c:\autoexec.bat -d "c:\program files\ultraiso" -volu TEST_CD -out c:\test.iso
+创建一个光盘镜像，在其中添加一个文件(autoexec.bat)以及c:\program files\ultraiso目录下所有文件。使用ISO 9660-MAX
+文件名长度（最多207个字符），允许小写字母。
+提示: 你可以使用简写参数 比如： 'l' 为 'lowercase' 的简写。 'out' 是 'output'的简写, 只要不与其他参数冲突. 此外，所有的包含空格的字符或文件名应该用“”。
+
+2) ultraiso -in c:\test.iso -f c:\config.sys -f "c:\program files\ultraiso" 
+打开一个ISO文件，然后在其中添加了一个文件和一个文件夹
+
+3) ultraiso -in c:\test.iso -c "/program files/ultraiso" -f "c:\autoexec.bat" -rm /autoexec.bat
+            Open an ISO image exists, change directory and add one file there; then remove one file. 
+            提示 '/'是ISO映像路径分隔符。'/' is used as path separators in an ISO image.
+
+
+示例2：
+-f "xp\i386" 　　    把命令所在目录下的下的i386下的所有文件添加到ISO中已有i386中。
+-f "dddddd\EZBOOT" 　与上相同
+-d "driver\readme" 　把目录所在目录下的driver下的readme目录及其下的所有文件和子目录添加到ISO中（源.ISO无readme目录）
+
+综合：
+ultraiso -in 源.iso -rm /要删的文件1.ext -rm /要删的文件2.ext  -rm /要删的文件3.ext -rm /boot/要删的文件4.ext -rm /I386/要删的文件5.ext -rm /I386/要删的文件6.ext  -f "aaaaa\i386" -f "dddddd\EZBOOT" -d "ddddddd\readme" -jlong -imax -optimize -bootfile yhfjj\boot.bin -volu 卷标xxxxx -out 目标.iso 
+ultraiso -volume abc -file "c:\abc" -output "c:\abc.iso"   把abc制作成ISO
+ultraiso -volume bbb -file "c:\abc" -compress 0 -password ??? -output "c:\bbb.isz"  把bbb制作成ISZ加密格式
+ 
+
+
+三、小应用：
+VBS版：ISO制作
+StrUltraISO="D:\UltraISO93\UltraISO.exe" '把这一行路径改成你电脑上ultraiso的实际路径
+Set objArgs = WScript.Arguments
+If objArgs.count >= 1 then
+Set objShell = CreateObject("Wscript.Shell")
+Dim fso
+args=objArgs(0)
+Set fso = CreateObject("Scripting.FileSystemObject")
+StrCurPath = fso.GetParentFolderName(args)
+StrCurName = fso.GetBaseName(args)
+StrExt = fso.GetExtensionName(args)
+apprun=StrUltraISO&" -volume "&chr(34)&StrCurName&chr(34)&" -file "&chr(34)&args&chr(34)&" -output "&chr(34)&StrCurPath&"\"&StrCurName&".iso"&chr(34)&" -joliet -lowercase"
+'Wscript.Echo apprun
+objShell.Run apprun
+set objShell=nothing
+set fso=nothing
+'Wscript.Echo StrCurPath
+'Wscript.Echo StrCurName
+'Wscript.Echo StrExt
+'Wscript.Echo args
+else
+Wscript.Echo "没有传入文件！请把本程序放在 %homepath%\SendTo 目录下，然后通过 右键－>发送 来制作ISO，按ctrl+c复制本对话框信息。"
+end if
+
+
+
+VBS版：ISZ制作
+StrUltraISO="D:\UltraISO93\UltraISO.exe" '把这一行路径改成你电脑上ultraiso的实际路径
+Set objArgs = WScript.Arguments
+If objArgs.count >= 1 then 
+Set objShell = CreateObject("Wscript.Shell")
+Dim fso
+args=objArgs(0)
+Set fso = CreateObject("Scripting.FileSystemObject")
+StrCurPath = fso.GetParentFolderName(args)
+StrCurName = fso.GetBaseName(args)
+StrExt = fso.GetExtensionName(args)
+StrPassWord = InputBox("请输入密码：")
+apprun=StrUltraISO&" -volume "&chr(34)&StrCurName&chr(34)&" -file "&chr(34)&args&chr(34)&" -compress 0 -password "&chr(34)&StrPassWord&chr(34)&" -output "&chr(34)&StrCurPath&"\"&StrCurName&".isz"&chr(34)&" -joliet -lowercase"
+'Wscript.Echo apprun
+objShell.Run apprun
+set objShell=nothing
+set fso=nothing
+'Wscript.Echo StrCurPath
+'Wscript.Echo StrCurName
+'Wscript.Echo StrExt
+'Wscript.Echo args
+else
+Wscript.Echo "没有传入文件！请把本程序放在 %homepath%\SendTo 目录下，然后通过 右键－>发送 来制作ISO，按ctrl+c复制本对话框信息。"
+end if
+批处理版：ISO制作
+@echo off
+echo 请稍候，正在调用UltraIso制作ISO映像
+"D:\xsoft\UltraISO93\UltraISO.exe" -volume "%~n1" -file “%~1” -output "%~dpn1.iso" -joliet -lowercase
+
+
+
+批处理版：ISZ制作
+@echo off
+echo 请输入密码：
+set /p x=
+echo 请稍候，正在调用UltraIso制作ISZ映像
+"D:\xsoft\UltraISO93\UltraISO.exe" -volume "%~n1"  -file “%~1” -compress 0 -password "%x%" -output "%~dpn1.isz" -joliet -lowercase

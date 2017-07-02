@@ -1,0 +1,24 @@
+# list of madvoc method action annotation
+madvocConfig.actionAnnotations=\
+jodd.madvoc.meta.Action,\
+jodd.joy.madvoc.meta.PostAction,\
+jodd.joy.madvoc.meta.JSONAction,\
+com.quickstart.core.meta.PopupAction
+
+# list of default interceptors
+madvocConfig.defaultInterceptors=com.quickstart.core.interceptor.AppInterceptorStack
+
+# unlimited uploads size
+madvocConfig.fileUploadFactory.maxFileSize=-1
+
+# empty parameters will not be ignored (default)
+madvocConfig.requestScopeInjectorConfig.ignoreEmptyRequestParams=false
+
+# empty parameters will be threaded as nulls
+madvocConfig.requestScopeInjectorConfig.treatEmptyParamsAsNull=true
+
+# create default aliases for all actions
+madvocConfig.createDefaultAliases=true
+
+# in production we can disable it
+jodd.madvoc.interceptor.EchoInterceptor.enabled=true
