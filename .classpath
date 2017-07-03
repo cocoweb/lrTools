@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="target/classes" path="grsds">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/java">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="othersrc"/>
+	<classpathentry excluding="lrTestool/olds/|com/foresee/test/demo/InnerITrans.java|com/foresee/test/demo/LoadrunnerUtil.java|com/foresee/test/demo/LrActionClass.java|com/foresee/test/api/factory/|com/foresee/test/api/model/|com/foresee/test/api/other/|com/foresee/test/demo/testng/excel/|com/foresee/test/util/none/|com/foresee/test/util/http/HttpToolkit.java|com/foresee/test/util/http/testng/HttpRequestTest.java|com/foresee/test/framework/decoration/" kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -33,7 +22,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/xlibs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jodd"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/spark"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jetbrick"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
