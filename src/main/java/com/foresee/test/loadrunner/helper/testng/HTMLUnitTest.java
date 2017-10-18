@@ -100,7 +100,7 @@ public class HTMLUnitTest {
            final HtmlPage page2 = button.click();
            //String result = page2.asXml();
            System.out.println(page2.asXml());
-           webclient.closeAllWindows();
+           //webclient.closeAllWindows();
        } catch (FailingHttpStatusCodeException e) {
            e.printStackTrace();
        } catch (MalformedURLException e) {
